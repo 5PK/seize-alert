@@ -1,2 +1,3 @@
 # SeizeAlert
-Will update later
+Will be modified and transfered to CarlaSS.
+
