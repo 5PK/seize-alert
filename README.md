@@ -11,6 +11,8 @@ In order to test this app, you will need the following
 
 - Have NPM installed https://www.npmjs.com/get-npm
 
+- Have Expo installed 'npm install -g expo-cli'
+
 - Have a mobile emulator installed. This comes default with the Android SDK when installing Android Studio if you're debugging on an Android Device.
 
 ## Installation
