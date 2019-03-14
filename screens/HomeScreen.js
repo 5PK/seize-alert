@@ -7,14 +7,27 @@ import {
   Text,
   TouchableOpacity,
   View,
+  Button
 } from 'react-native';
 import { WebBrowser } from 'expo';
+
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 import { MonoText } from '../components/StyledText';
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
-    header: null,
+    title: 'Home',
+    headerLeft:(<Button
+      icon={
+        <Icon
+          name="menu"
+          size={15}
+          color="white"
+        />
+      }
+      title=""
+    />)
   };
 
   render() {
