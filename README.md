@@ -23,15 +23,37 @@ In order to test this app, you will need the following
 1. Clone the repo
 2. Enter the project directory
 3. Run 'npm install'
-3. Run 'npm start' This will start the app. Notice the 'Run on Android device' button
 4. Start the mobile device emulation. You can do this through Android Studio's AVD manager. 
-5. Click 'Run on Android device' on the app, this will start the app on the emulation
+5. Run 'npm start' This will start the app. Notice the 'Run on Android device' button 
+6. Click 'Run on Android device' on the app, this will start the app on the emulation
 
 Alternatively, use expo on your physical android or ios device and copy the QR code to run the app.
 
 Please go here to access best practices for developing this project:
 
 https://docs.google.com/document/d/1QN-SmFeGY4_8Fe3FNw5S2ZVDFVvKmFvl1MyY-2jSXzg/edit?usp=sharing
+
+## Documentation
+
+This app uses the following libraries
+
+- react-native ( https://facebook.github.io/react-native/docs/tutorial )
+
+    This is the core of the application
+
+- react-navigation ( https://reactnavigation.org/docs/en/getting-started.html )
+
+    This is what we'll use to handle routing the pages in the app
+
+- react-native-elements ( https://react-native-training.github.io/react-native-elements/docs/overview.html )
+
+    This is what we'll use to style the application
+
+- Other Resources
+
+    This guy, his videos are based on barebones React. We're using EXPO so our system will be different, but the information is still relevant -> https://www.youtube.com/playlist?list=PLWBrqglnjNl2yaCcp0HEAWp6zBIfingZ-
+
+
 
 ## Notes
 
