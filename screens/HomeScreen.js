@@ -6,16 +6,32 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
-  View,
+  View
 } from 'react-native';
 import { WebBrowser } from 'expo';
+
+import { Button,Icon } from 'react-native-elements';
 
 import { MonoText } from '../components/StyledText';
 
 export default class HomeScreen extends React.Component {
-  static navigationOptions = {
-    header: null,
-  };
+  static navigationOptions = ({navigation}) => ({
+    title: "Home",
+    headerLeft:(
+      <Button
+        icon={
+          <Icon
+            name="menu"
+          />
+        }
+        title=""
+        onPress={() => navigation.toggleDrawer()}
+        type="clear"
+        buttonStyle={{marginLeft: 10}}
+      />)
+    
+  });
+
 
   render() {
     return (
@@ -96,6 +112,10 @@ export default class HomeScreen extends React.Component {
       'https://docs.expo.io/versions/latest/guides/up-and-running.html#can-t-see-your-changes'
     );
   };
+}
+
+function _openDrawer(){
+  this.props.navigation.openDrawer()
 }
 
 const styles = StyleSheet.create({
@@ -185,4 +205,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#2e78b7',
   },
+  Button: {
+    marginLeft:5,
+  }
 });
