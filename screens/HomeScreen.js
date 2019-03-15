@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button } from 'react-native';
 import {
   Image,
   Platform,
@@ -16,12 +17,15 @@ export default class HomeScreen extends React.Component {
   static navigationOptions = {
     header: null,
   };
+  _contactCallButton(){
+
+  }
 
   render() {
     return (
       <View style={styles.container}>
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-          <View style={styles.welcomeContainer}>
+        {/*<View style={styles.welcomeContainer}>
             <Image
               source={
                 __DEV__
@@ -50,20 +54,36 @@ export default class HomeScreen extends React.Component {
             <TouchableOpacity onPress={this._handleHelpPress} style={styles.helpLink}>
               <Text style={styles.helpLinkText}>Help, it didn’t automatically reload?</Text>
             </TouchableOpacity>
+          </View> */}
+          <View style = {styles.welcomeContainer}>
+            <Text>DashBoard</Text>
+          </View>
+          <View style={styles.welcomeContainer}>
+            <Image
+              source={
+                require('../assets/images/graph.png')
+              }
+              style={styles.welcomeImage}
+            />
+          </View>
+          <View>          
+            <Button
+              
+              onPress={this._contactCallButton}
+              title="Quick Call"
+              color="#841584"
+              accessibilityLabel="Quick Contact Call"
+          />
           </View>
         </ScrollView>
 
-        <View style={styles.tabBarInfoContainer}>
-          <Text style={styles.tabBarInfoText}>This is a tab bar. You can edit it in:</Text>
-
-          <View style={[styles.codeHighlightContainer, styles.navigationFilename]}>
-            <MonoText style={styles.codeHighlightText}>navigation/MainTabNavigator.js</MonoText>
-          </View>
-        </View>
       </View>
     );
   }
 
+  onPressLearnMore(){
+    //TODO
+  }
   _maybeRenderDevelopmentModeWarning() {
     if (__DEV__) {
       const learnMoreButton = (
@@ -115,12 +135,12 @@ const styles = StyleSheet.create({
   },
   welcomeContainer: {
     alignItems: 'center',
-    marginTop: 10,
     marginBottom: 20,
+    fontsize: 18
   },
   welcomeImage: {
-    width: 100,
-    height: 80,
+    width: 300,
+    height: 250,
     resizeMode: 'contain',
     marginTop: 3,
     marginLeft: -10,
