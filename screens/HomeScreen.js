@@ -1,5 +1,4 @@
 import React from 'react';
-import { Button } from 'react-native';
 import {
   Image,
   Platform,
@@ -152,7 +151,7 @@ const styles = StyleSheet.create({
   welcomeContainer: {
     alignItems: 'center',
     marginBottom: 20,
-    fontsize: 18
+    fontSize: 18
   },
   welcomeImage: {
     width: 300,
