@@ -6,12 +6,13 @@ import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
 import LinksScreen from '../screens/LinksScreen';
 import SettingsScreen from '../screens/SettingsScreen';
+import ContactsScreen from '../screens/ContactsScreen';
 
-const HomeStack = createStackNavigator({
+const Home = createStackNavigator({
   Home: HomeScreen,
 });
 
-HomeStack.navigationOptions = {
+Home.navigationOptions = {
   tabBarLabel: 'Home',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
@@ -25,11 +26,11 @@ HomeStack.navigationOptions = {
   ),
 };
 
-const LinksStack = createStackNavigator({
+const Links = createStackNavigator({
   Links: LinksScreen,
 });
 
-LinksStack.navigationOptions = {
+Links.navigationOptions = {
   tabBarLabel: 'Links',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
@@ -39,11 +40,11 @@ LinksStack.navigationOptions = {
   ),
 };
 
-const SettingsStack = createStackNavigator({
+const Settings = createStackNavigator({
   Settings: SettingsScreen,
 });
 
-SettingsStack.navigationOptions = {
+Settings.navigationOptions = {
   tabBarLabel: 'Settings',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
@@ -53,8 +54,23 @@ SettingsStack.navigationOptions = {
   ),
 };
 
+const Contacts = createStackNavigator({
+  Contact: ContactsScreen,
+});
+
+Settings.navigationOptions = {
+  tabBarLabel: 'Contacts',
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
+      name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'}
+    />
+  ),
+};
+
 export default createDrawerNavigator({
-  HomeStack,
-  LinksStack,
-  SettingsStack,
+  Home,
+  Links,
+  Settings,
+  Contacts,
 });
