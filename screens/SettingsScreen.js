@@ -1,6 +1,8 @@
 import React from 'react';
 import { ExpoConfigView } from '@expo/samples';
 
+import { Button,Icon } from 'react-native-elements';
+
 export default class SettingsScreen extends React.Component {
   static navigationOptions = ({navigation}) => ({
     title: "app.json",
