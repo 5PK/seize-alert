@@ -7,19 +7,31 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
-  View,
+  View
 } from 'react-native';
 import { WebBrowser } from 'expo';
+
+import { Button,Icon } from 'react-native-elements';
 
 import { MonoText } from '../components/StyledText';
 
 export default class HomeScreen extends React.Component {
-  static navigationOptions = {
-    header: null,
-  };
-  _contactCallButton(){
-
-  }
+  static navigationOptions = ({navigation}) => ({
+    title: "Home",
+    headerLeft:(
+      <Button
+        icon={
+          <Icon
+            name="menu"
+          />
+        }
+        title=""
+        onPress={() => navigation.toggleDrawer()}
+        type="clear"
+        buttonStyle={{marginLeft: 10}}
+      />)
+    
+  });
 
   render() {
     return (
@@ -118,6 +130,10 @@ export default class HomeScreen extends React.Component {
   };
 }
 
+function _openDrawer(){
+  this.props.navigation.openDrawer()
+}
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -205,4 +221,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#2e78b7',
   },
+  Button: {
+    marginLeft:5,
+  }
 });

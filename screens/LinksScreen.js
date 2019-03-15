@@ -3,9 +3,22 @@ import { ScrollView, StyleSheet } from 'react-native';
 import { ExpoLinksView } from '@expo/samples';
 
 export default class LinksScreen extends React.Component {
-  static navigationOptions = {
-    title: 'Links',
-  };
+  static navigationOptions = ({navigation}) => ({
+    title: "Links",
+    headerLeft:(
+      <Button
+        icon={
+          <Icon
+            name="menu"
+          />
+        }
+        title=""
+        onPress={() => navigation.toggleDrawer()}
+        type="clear"
+        buttonStyle={{marginLeft: 10}}
+      />)
+    
+  });
 
   render() {
     return (
