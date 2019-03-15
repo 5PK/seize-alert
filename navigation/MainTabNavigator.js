@@ -6,7 +6,7 @@ import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
 import LinksScreen from '../screens/LinksScreen';
 import SettingsScreen from '../screens/SettingsScreen';
-import ContactsScreen from '../screens/ContactsScreen';
+import ContactsListScreen from '../screens/ContactsListScreen';
 
 const Home = createStackNavigator({
   Home: HomeScreen,
@@ -55,7 +55,7 @@ Settings.navigationOptions = {
 };
 
 const Contacts = createStackNavigator({
-  Contact: ContactsScreen,
+  Contact: ContactsListScreen,
 });
 
 Settings.navigationOptions = {

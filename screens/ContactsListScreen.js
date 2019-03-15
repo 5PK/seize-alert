@@ -1,18 +1,29 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {
-  Image,
   Platform,
   ScrollView,
   StyleSheet,
   Text,
-  TouchableOpacity,
-  View
+  View,
 } from 'react-native';
 import { WebBrowser } from 'expo';
 
-import { Button,Icon } from 'react-native-elements';
+import { Button, Icon, ListItem } from 'react-native-elements';
 
-export default class ContactsScreen extends React.Component {
+const list = [
+  {
+    name: 'Amy Farha',
+    avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
+    subtitle: 'Mom'
+  },
+  {
+    name: 'Chris Jackson',
+    avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
+    subtitle: 'Doctor'
+  }
+];
+
+export default class ContactsListScreen extends React.Component {
     static navigationOptions = ({navigation}) => ({
       title: "Contacts",
       headerLeft:(
@@ -33,59 +44,19 @@ export default class ContactsScreen extends React.Component {
     render() {
       return (
         <View style={styles.container}>
-          <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-          {/*<View style={styles.welcomeContainer}>
-              <Image
-                source={
-                  __DEV__
-                    ? require('../assets/images/robot-dev.png')
-                    : require('../assets/images/robot-prod.png')
-                }
-                style={styles.welcomeImage}
-              />
-            </View>
-  
-            <View style={styles.getStartedContainer}>
-              {this._maybeRenderDevelopmentModeWarning()}
-  
-              <Text style={styles.getStartedText}>Get started by opening</Text>
-  
-              <View style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
-                <MonoText style={styles.codeHighlightText}>screens/HomeScreen.js</MonoText>
-              </View>
-  
-              <Text style={styles.getStartedText}>
-                Change this text and your app will automatically reload!.
-              </Text>
-            </View>
-  
-            <View style={styles.helpContainer}>
-              <TouchableOpacity onPress={this._handleHelpPress} style={styles.helpLink}>
-                <Text style={styles.helpLinkText}>Help, it didn’t automatically reload?</Text>
-              </TouchableOpacity>
-            </View> */}
-            <View style = {styles.welcomeContainer}>
-              <Text>DashBoard</Text>
-            </View>
-            <View style={styles.welcomeContainer}>
-              <Image
-                source={
-                  require('../assets/images/graph.png')
-                }
-                style={styles.welcomeImage}
-              />
-            </View>
-            <View>          
-              <Button
-                
-                onPress={this._contactCallButton}
-                title="Quick Call"
-                color="#841584"
-                accessibilityLabel="Quick Contact Call"
-            />
-            </View>
-          </ScrollView>
-  
+         
+            <View>
+            {
+              list.map((l, i) => (
+                <ListItem
+                  key={i}
+                  leftAvatar={{ source: { uri: l.avatar_url } }}
+                  title={l.name}
+                  subtitle={l.subtitle}
+                />
+              ))
+            }
+</View>
         </View>
       );
     }
