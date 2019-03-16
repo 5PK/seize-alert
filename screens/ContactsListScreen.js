@@ -56,7 +56,7 @@ export default class ContactsListScreen extends React.Component {
                 />
               ))
             }
-</View>
+            </View>
         </View>
       );
     }

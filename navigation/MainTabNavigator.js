@@ -7,6 +7,7 @@ import HomeScreen from '../screens/HomeScreen';
 import LinksScreen from '../screens/LinksScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import ContactsListScreen from '../screens/ContactsListScreen';
+import ContactProfileScreen from '../screens/ContactProfileScreen';
 
 const Home = createStackNavigator({
   Home: HomeScreen,
@@ -68,9 +69,24 @@ Settings.navigationOptions = {
   ),
 };
 
+const ContactProfile = createStackNavigator({
+  ContactProfile: ContactProfileScreen,
+});
+
+Settings.navigationOptions = {
+  tabBarLabel: 'ContactProfile',
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
+      name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'}
+    />
+  ),
+};  
+ 
 export default createDrawerNavigator({
   Home,
   Links,
   Settings,
   Contacts,
+  ContactProfile  
 });
