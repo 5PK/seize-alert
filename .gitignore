@@ -1,6 +1,6 @@
 # Default
 node_modules/**/*
-.expo/*
+Client/.expo/*
 npm-debug.*
 *.jks
 *.p12
