@@ -32,6 +32,11 @@ class LoginScreen extends React.Component {
           onPress={() => this.props.navigation.navigate('Register')}
           title='Register'
         />
+        <Button
+          buttonStyle={{ marginTop: 10 }}
+          onPress={() => this.props.navigation.navigate('ResetPassword')}
+          title='Reset Password'
+        />
       </ScrollView>
     )
   }
@@ -58,10 +63,31 @@ class RegistrationScreen extends React.Component {
   }
 }
 
+class ResetPasswordScreen extends React.Component {
+  render () {
+    return (
+      <ScrollView style={{padding: 20}}>
+      <Text 
+          style={{fontSize: 27}}>
+          Reset Password
+      </Text>
+      <TextInput placeholder='Email' title='Email' />
+      <TextInput placeholder='Password' title='Password' />
+      <View style={{margin:7}} />
+      <Button 
+          onPress={() => this.props.navigation.navigate('Login')}
+          title="ResetPassword"
+      />
+  </ScrollView>
+    )
+  }
+}
+
 const LandingStack = createStackNavigator(
   {
     Login: LoginScreen,
     Register: RegistrationScreen,
+    ResetPassword: ResetPasswordScreen,
     AppEntry: AppEntry
   },
   {
