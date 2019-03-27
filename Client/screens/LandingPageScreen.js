@@ -1,5 +1,5 @@
 import React from 'react'
-import { ScrollView, Text, TextInput, View, StyleSheet, Image } from 'react-native'
+import { ScrollView, Text, TextInput, View, StyleSheet, Image, Link } from 'react-native'
 
 import { Button } from 'react-native-elements'
 import { createStackNavigator, createAppContainer } from 'react-navigation'
@@ -43,7 +43,8 @@ class LoginScreen extends React.Component {
         <Button
           buttonStyle={{ marginTop: 10, width: 200 }}
           onPress={() => this.props.navigation.navigate('ResetPassword')}
-          title='Reset Password'
+          title='I forgot my password!'
+          type="clear"
         />
       </View>
     )
