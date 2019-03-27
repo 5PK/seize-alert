@@ -60,7 +60,7 @@ const Contacts = createStackNavigator({
   ContactProfile: ContactProfileScreen,
 });
 
-Settings.navigationOptions = {
+Contacts.navigationOptions = {
   tabBarLabel: 'Contacts',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
@@ -74,7 +74,7 @@ const ContactProfile = createStackNavigator({
   ContactProfile: ContactProfileScreen,
 });
 
-Settings.navigationOptions = {
+ContactProfile.navigationOptions = {
   tabBarLabel: 'ContactProfile',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
