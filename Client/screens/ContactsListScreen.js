@@ -40,8 +40,13 @@ export default class ContactsListScreen extends React.Component {
         />)
       
     });
+
+    alertItemName = (item) => {
+      alert(item)
+   }
   
     render() {
+      const {navigate} = this.props.navigation;
       return (
         <View style={styles.container}>
          
@@ -53,10 +58,15 @@ export default class ContactsListScreen extends React.Component {
                   leftAvatar={{ source: { uri: l.avatar_url } }}
                   title={l.name}
                   subtitle={l.subtitle}
+                  onPress = {() => navigate('ContactProfile', {name: 'Jane'})}
                 />
               ))
             }
             </View>
+            <Button
+              title="Go to Jane's profile"
+              onPress={() => navigate('ContactProfile', {name: 'Jane'})}
+            />
         </View>
       );
     }

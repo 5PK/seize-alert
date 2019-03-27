@@ -57,6 +57,7 @@ Settings.navigationOptions = {
 
 const Contacts = createStackNavigator({
   Contact: ContactsListScreen,
+  ContactProfile: ContactProfileScreen,
 });
 
 Settings.navigationOptions = {
