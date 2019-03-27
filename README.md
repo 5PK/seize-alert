@@ -24,7 +24,7 @@ In order to test this app, you will need the following
 2. Enter the project directory
 3. Run 'npm install'
 4. Start the mobile device emulation. You can do this through Android Studio's AVD manager. 
-5. Run 'npm start' This will start the app. Notice the 'Run on Android device' button
+5. Run 'npm start' This will start the app. Notice the 'Run on Android device' button. (Make sure to navigate to the Clients folder before running this command)
 6. Click 'Run on Android device' on the app, this will start the app on the emulation
 
 Alternatively, use expo on your physical android or ios device and copy the QR code to run the app.
