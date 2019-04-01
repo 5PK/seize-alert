@@ -13,10 +13,13 @@
   "dependencies": {
     "@expo/samples": "2.1.1",
     "expo": "^32.0.0",
+    "mathjs": "^5.8.0",
     "react": "16.5.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz",
     "react-native-elements": "^1.1.0",
-    "react-navigation": "^3.4.0"
+    "react-native-svg-charts": "^5.2.0",
+    "react-navigation": "^3.4.0",
+    "victory-native": "^32.0.1"
   },
   "devDependencies": {
     "babel-preset-expo": "^5.0.0",
