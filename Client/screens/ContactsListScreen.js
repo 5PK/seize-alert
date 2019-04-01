@@ -57,16 +57,13 @@ export default class ContactsListScreen extends React.Component {
                   key={i}
                   leftAvatar={{ source: { uri: l.avatar_url } }}
                   title={l.name}
-                  subtitle={l.subtitle}
-                  onPress = {() => navigate('ContactProfile', {name: 'Jane'})}
+                  subtitle={l.subtitle}q
+                  onPress = {() => navigate('ContactProfile', {name: l.name , uri: l.avatar_url})}
                 />
               ))
             }
             </View>
-            <Button
-              title="Go to Jane's profile"
-              onPress={() => navigate('ContactProfile', {name: 'Jane'})}
-            />
+
         </View>
       );
     }

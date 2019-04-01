@@ -13,24 +13,6 @@ import { WebBrowser } from 'expo';
 import { Button,Icon,Avatar } from 'react-native-elements';
 
 /* import Icon from 'react-native-vector-icons/MaterialIcons'; */
-
-const list = [
-  {
-    name: 'Amy Farha',
-    avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
-    subtitle: 'Mom',
-    phone_number: "888-999-1111",
-    email: "Amy@Example.com"
-  },
-  {
-    name: 'Chris Jackson',
-    avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
-    subtitle: 'Doctor',
-    phone_number: "666-777-8888",
-    email: "Chris@Example.com"
-  }
-];
-
 export default class ContactProfileScreen extends React.Component {
     static navigationOptions = ({navigation}) => ({
       title: "ContactProfile",
@@ -50,64 +32,23 @@ export default class ContactProfileScreen extends React.Component {
     });
   
     render() {
+      const {navigate} = this.props.navigation;
       return (
-/*         <Card title="CARD WITH DIVIDER">
-  {
-    users.map((u, i) => {
-      return (
-        <View key={i} style={styles.user}>
-          <Image
-            style={styles.image}
-            resizeMode="cover"
-            source={{ uri: u.avatar }}
-          />
-          <Text style={styles.name}>{u.name}</Text>
-        </View>
-      );
-    })
-  }
-</Card>
 
-// implemented without image without header, using ListItem component
- <Card containerStyle={{padding: 0}} >
-  {
-    users.map((u, i) => {
-      return (
-        <ListItem
-          key={i}
-          roundAvatar
-          title={u.name}
-          avatar={{uri:u.avatar}}
-        />
-      );
-    })
-  }
-</Card>
-
-
-// implemented with Text and Button as children
-<Card
-  title='HELLO WORLD'
-  image={require('../images/pic2.jpg')}>
-  <Text style={{marginBottom: 10}}>
-    The idea with React Native Elements is more about component structure than actual design.
-  </Text>
-  <Button
-    icon={<Icon name='code' color='#ffffff' />}
-    backgroundColor='#03A9F4'
-    buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0}}
-    title='VIEW NOW' />
-</Card> */
         <View style={styles.avatarSize}>
           <Avatar
             size = 'large'
             rounded
             source={{
-            uri:'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg'
+            uri: this.props.navigation.state.params.uri
             }}
             containerStyle={{ alignSelf: "center", marginVertical:50}}            
           />
-          <Text style={{alignSelf:"center"}}>{list[0].name}</Text>
+          <Text style={{alignSelf:"center"}}>{ this.props.navigation.state.params.name }</Text>
+          <Button
+              title="Go Back"
+              onPress={ () => this.props.navigation.goBack() }
+            />
         </View>
       );
     }

@@ -88,6 +88,5 @@ export default createDrawerNavigator({
   Home,
   Links,
   Settings,
-  Contacts,
-  ContactProfile  
+  Contacts
 });
