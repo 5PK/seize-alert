@@ -1,3 +1,7 @@
+import 'dotenv/config';
+import express from 'express';
+import models, { sequelize } from './models';
+
 /*
 var mysql = require('mysql')
 var connection = mysql.createConnection({
@@ -6,47 +10,54 @@ var connection = mysql.createConnection({
   password : 's3kreee7',
   database : 'my_db'
 });
-
-connection.connect()
-
-connection.query('SELECT 1 + 1 AS solution', function (err, rows, fields) {
-  if (err) throw err
-
-  console.log('The solution is: ', rows[0].solution)
-})
 */
-
-
-//connection.end()
-
-
-/*
-import 'dotenv/config';
-
-import express from 'express';
 
 const app = express();
 
+// On server restart, re-intialize database
+const eraseDatabaseOnSync = true;
 
-app.get('/', (req, res) => {
-  return res.send('Received a GET HTTP method');
+sequelize.sync({ force: eraseDatabaseOnSync }).then(async () => {
+  if (eraseDatabaseOnSync) {
+    createUsersWithContacts();
+  }
+
+  app.listen(process.env.PORT, () =>
+    console.log(`Example app listening on port ${process.env.PORT}!`),
+  );
 });
 
-app.post('/', (req, res) => {
-  return res.send('Received a POST HTTP method');
-});
+const createUsersWithContacts = async () => {
+  await models.User.create(
+    {
+      username: 'chungus',
+      contacts: [
+        {
+          name: 'chungolinus',
+        },
+      ],
+    },
+    {
+      include: [models.Contact],
+    },
+  );  
 
-app.put('/', (req, res) => {
-  return res.send('Received a PUT HTTP method');
-});
+  await models.User.create(
+    {
+      username: 'chungo',
+      contacts: [
+        {
+          name: 'chungolina',
+        },
+        {
+          name: 'chungolima',
+        },
+      ],
+    },
+    {
+      include: [models.Contact],
+    },
+  );
 
-app.delete('/', (req, res) => {
-  return res.send('Received a DELETE HTTP method');
-});
 
-app.listen(process.env.PORT, () =>
-  console.log(`Example app listening on port ${process.env.PORT}!`),
-);
-*/
-
-console.log('Hello Node.js project.');
+};

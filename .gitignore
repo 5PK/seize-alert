@@ -11,6 +11,7 @@ npm-debug.*
 *.key
 *.mobileprovision
 .vs/*
+Server/.env
 
 # Xcode
 !**/*.xcodeproj
