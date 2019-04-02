@@ -1,6 +1,5 @@
-/* class SeizureDetection{
-
-    var listObjects = [[-0.8,-0.02,0.49  ],
+/* 
+var listObject = [[-0.8,-0.02,0.49  ],
     [-0.8,0,0.46      ],
     [-0.8,-0.01,0.5   ],
     [-0.81,0,0.47     ],
@@ -57134,12 +57133,4 @@
     [0.32,-0.38,0.82  ],
     [0.3,-0.4,0.8     ]];
 
-    calculateVector2( arrayValue ):
-        vectorArray = []
-        arrayValue = arrayValue[-5:]
-        for val in arrayValue:
-            tempArray = array([val[X], val[Y], val[Z]])
-            vectorArray.append(norm(tempArray))
-    
-        return vectorArray
-} */
+    console.log(listObject[10]); */
