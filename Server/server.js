@@ -9,7 +9,6 @@ import routes from './routes';
 
 const app = express();
 
-
 app.use(async (req, res, next) => {
     req.context = {
         models,
