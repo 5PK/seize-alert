@@ -9,8 +9,6 @@ import routes from './routes';
 
 const app = express();
 
-//app.use(cors());
-
 
 app.use(async (req, res, next) => {
     req.context = {
@@ -23,7 +21,6 @@ app.use(async (req, res, next) => {
 app.use('/session', routes.session);
 app.use('/users', routes.user);
 app.use('/contacts', routes.contact);
-
 
 const eraseDatabaseOnSync = true;
 
