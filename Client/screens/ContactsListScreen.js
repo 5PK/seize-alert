@@ -31,13 +31,15 @@ export default class ContactsListScreen extends React.Component {
     super(props);
     this.state = { isLoading: true };
   }
-
+  
+  /*
   componentDidMount() {
     var test = this.getContactList();
     console.log(test);
   }
+  */
   getContactList() {
-    return fetch('http://24.141.34.69:6969/contacts/',
+    return fetch('http://192.168.0.12:3030/contacts/',
       {
         method: 'GET', headers:
         {
@@ -67,6 +69,7 @@ export default class ContactsListScreen extends React.Component {
   }
   render() {
 
+    /*
     if (this.state.isLoading) {
       return (
         <View style={{ flex: 1, padding: 20 }}>
@@ -74,11 +77,16 @@ export default class ContactsListScreen extends React.Component {
         </View>
       )
     }
+    */
+
+    const fucker = this.getContactList();
 
     return (
+
+      
       <View style={{ flex: 1, paddingTop: 20 }}>
         <FlatList
-          data={this.state.dataSource}
+          data={fucker}
           renderItem={({ item }) => <Text>{item.name}</Text>}
           keyExtractor={({ id }, index) => id}
         />
