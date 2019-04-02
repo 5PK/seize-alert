@@ -1,9 +1,9 @@
 import Sequelize from 'sequelize';
 
 const sequelize = new Sequelize(
-  'seize',
-  'root',
-  'th3d4rkt0w3r',
+  process.env.DATABASE,
+  process.env.DATABASE_USER,
+  process.env.DATABASE_PASSWORD,
   {
     dialect: 'mysql',
   },
