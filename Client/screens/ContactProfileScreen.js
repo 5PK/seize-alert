@@ -46,6 +46,10 @@ export default class ContactProfileScreen extends React.Component {
           />
           <Text style={{alignSelf:"center"}}>{ this.props.navigation.state.params.name }</Text>
           <Button
+              title="Make quick call contact"
+              onPress={ () => this.props.navigation.goBack() }
+            />
+          <Button
               title="Go Back"
               onPress={ () => this.props.navigation.goBack() }
             />
@@ -54,6 +58,9 @@ export default class ContactProfileScreen extends React.Component {
     }
     onPressLearnMore(){
       //TODO
+    }
+    makeQuickCallContact(){
+      
     }
     _maybeRenderDevelopmentModeWarning() {
       if (__DEV__) {
@@ -183,6 +190,7 @@ export default class ContactProfileScreen extends React.Component {
     },
     Button: {
       marginLeft:5,
+      marginBottom:50   
     }
   });
   

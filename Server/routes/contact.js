@@ -1,9 +1,11 @@
 import uuidv4 from 'uuid/v4';
 import { Router } from 'express';
 
+
 const router = Router();
 
 router.get('/', async (req, res) => {
+  console.log('Get Request made');
   const contacts = await req.context.models.Contact.findAll();
   return res.send(contacts);
 });
