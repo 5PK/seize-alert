@@ -1,63 +1,72 @@
 import 'dotenv/config';
+//import cors from 'cors';
 import express from 'express';
+
+
 import models, { sequelize } from './models';
 
-/*
-var mysql = require('mysql')
-var connection = mysql.createConnection({
-  host     : 'localhost',
-  user     : 'dbuser',
-  password : 's3kreee7',
-  database : 'my_db'
-});
-*/
+import routes from './routes';
 
 const app = express();
 
-// On server restart, re-intialize database
+//app.use(cors());
+
+
+app.use(async (req, res, next) => {
+    req.context = {
+        models,
+        me: await models.User.findByLogin('rwieruch'),
+    };
+    next();
+});
+
+app.use('/session', routes.session);
+app.use('/users', routes.user);
+app.use('/contacts', routes.contact);
+
+
 const eraseDatabaseOnSync = true;
 
 sequelize.sync({ force: eraseDatabaseOnSync }).then(async () => {
-  if (eraseDatabaseOnSync) {
-    createUsersWithContacts();
-  }
+    if (eraseDatabaseOnSync) {
+        createUsersWithContacts();
+    }
 
-  app.listen(process.env.PORT, () =>
-    console.log(`Example app listening on port ${process.env.PORT}!`),
-  );
+    app.listen(process.env.PORT, () =>
+        console.log(`Example app listening on port ${process.env.PORT}!`),
+    );
 });
 
+
 const createUsersWithContacts = async () => {
-  await models.User.create(
-    {
-      username: 'chungus',
-      contacts: [
+    await models.User.create(
         {
-          name: 'chungolinus',
-        },
-      ],
-    },
-    {
-      include: [models.Contact],
-    },
-  );  
-
-  await models.User.create(
-    {
-      username: 'chungo',
-      contacts: [
-        {
-          name: 'chungolina',
+            username: 'ktran',
+            contacts: [
+                {
+                    name: 'Chungus',
+                },
+            ],
         },
         {
-          name: 'chungolima',
+            include: [models.Contact],
         },
-      ],
-    },
-    {
-      include: [models.Contact],
-    },
-  );
+    );
 
-
+    await models.User.create(
+        {
+            username: 'Chungloid',
+            contacts: [
+                {
+                    name: 'Chungobungo',
+                },
+                {
+                    name: 'Chingobingo',
+                },
+            ],
+        },
+        {
+            include: [models.Contact],
+        },
+    );
 };
