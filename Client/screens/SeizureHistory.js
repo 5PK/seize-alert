@@ -3,7 +3,7 @@ import { StyleSheet, View, ScrollView } from 'react-native';
 import { Table, TableWrapper, Row } from 'react-native-table-component';
  
 // This will be converted to the history page a little later.
-export default class ExampleOne extends React.Component {
+export default class SeizureHistory extends React.Component {
     static navigationOptions = ({navigation}) => ({
         title: "History",
         headerLeft:(
