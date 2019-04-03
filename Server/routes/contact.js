@@ -18,8 +18,10 @@ router.get('/:contactId', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
+  console.log('_________________________');
+  console.log(req.body.name);
   const contact = await req.context.models.Contact.create({
-    text: req.body.text,
+    name: req.body.name,
     userId: req.context.me.id,
   });
 
