@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import getEnvVars from '../env.js'
 import {
   Platform,
   StyleSheet,
@@ -20,7 +21,7 @@ export default class ContactsListScreen extends React.Component {
 
 
   componentDidMount() {
-    return fetch('http://192.168.0.10:3030/contacts')
+    return fetch(getEnvVars.apiUrl + '/contacts')
       .then((response) => response.json())
       .then((responseJson) => {
 
