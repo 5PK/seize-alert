@@ -8,7 +8,7 @@ import LinksScreen from '../screens/LinksScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import ContactsListScreen from '../screens/ContactsListScreen';
 import ContactProfileScreen from '../screens/ContactProfileScreen';
-import ExampleOne from '../screens/ExampleOne';
+import SeizureHistoryScreen from '../screens/SeizureHistory';
 
 const Home = createStackNavigator({
   Home: HomeScreen,
@@ -86,7 +86,7 @@ ContactProfile.navigationOptions = {
 };  
 
 const History = createStackNavigator({
-  History: ExampleOne,
+  History: SeizureHistoryScreen,
 });
 
 History.navigationOptions = {
