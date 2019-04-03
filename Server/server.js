@@ -2,6 +2,8 @@ import 'dotenv/config';
 //import cors from 'cors';
 import express from 'express';
 
+import bodyParser from 'body-parser';
+
 
 import models, { sequelize } from './models';
 
@@ -9,6 +11,8 @@ import routes from './routes';
 
 const app = express();
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(async (req, res, next) => {
     req.context = {
@@ -38,7 +42,7 @@ sequelize.sync({ force: eraseDatabaseOnSync }).then(async () => {
 const createUsersWithContacts = async () => {
     await models.User.create(
         {
-            username: 'ktran',
+            email: 'ktran',
             contacts: [
                 {
                     name: 'Chungus',
@@ -52,7 +56,7 @@ const createUsersWithContacts = async () => {
 
     await models.User.create(
         {
-            username: 'Chungloid',
+            email: 'Chungloid',
             contacts: [
                 {
                     name: 'Chungobungo',

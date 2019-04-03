@@ -8,7 +8,10 @@ import LinksScreen from '../screens/LinksScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import ContactsListScreen from '../screens/ContactsListScreen';
 import ContactProfileScreen from '../screens/ContactProfileScreen';
+
 import ContactProfileCreateScreen from '../screens/ContactProfileCreateScreen';
+import SeizureHistoryScreen from '../screens/SeizureHistory';
+
 
 const Home = createStackNavigator({
   Home: HomeScreen,
@@ -85,10 +88,25 @@ ContactProfile.navigationOptions = {
     />
   ),
 };  
+
+const History = createStackNavigator({
+  History: SeizureHistoryScreen,
+});
+
+History.navigationOptions = {
+  tabBarLabel: 'Example',
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
+      name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'}
+    />
+  ),
+};
  
 export default createDrawerNavigator({
   Home,
   Links,
   Settings,
-  Contacts
+  Contacts,
+  History
 });
