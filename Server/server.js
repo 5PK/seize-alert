@@ -45,12 +45,12 @@ const createUsersWithContacts = async () => {
             email: 'ktran',
             contacts: [
                 {
-                    name: 'Chungus',
+                    name: 'Luke',
                     avatarUrl: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
-                    nickName: this.state.nick_name,
-                    phoneNumber: this.state.phone_number,
-                    isQuickContact: this.state.isQuickContact,
-                    email: this.state.email
+                    nickName: 'The T-SQL lover',
+                    phoneNumber: '905 - 405 - 9920',
+                    isQuickContact: 1,
+                    email: 'luke@thompson.ca'
                 },
             ],
         },
@@ -64,20 +64,20 @@ const createUsersWithContacts = async () => {
             email: 'Chungloid',
             contacts: [
                 {
-                    name: 'Chungobungo',
-                    avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
-                    nickName: this.state.nick_name,
-                    phoneNumber: this.state.phone_number,
-                    isQuickContact: this.state.isQuickContact,
-                    email: this.state.email
+                    name: 'Carla',
+                    avatarUrl: 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
+                    nickName: 'The anime character',
+                    phoneNumber: '905 - 405 - 9920',
+                    isQuickContact: 1,
+                    email: 'Carla@sison.ca'
                 },
                 {
-                    name: 'Chingobingo',
-                    avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
-                    nickName: this.state.nick_name,
-                    phoneNumber: this.state.phone_number,
-                    isQuickContact: this.state.isQuickContact,
-                    email: this.state.email
+                    name: 'Riley',
+                    avatarUrl: 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
+                    nickName: 'The rogue class',
+                    phoneNumber: '905 - 405 - 9920',
+                    isQuickContact: 1,
+                    email: 'Riley@handcox.ca'
                 },
             ],
         },

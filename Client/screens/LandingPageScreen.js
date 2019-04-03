@@ -1,5 +1,5 @@
 import React from 'react'
-import { ScrollView, Text, TextInput, View, StyleSheet, Image, Link, KeyboardAvoidingView, Alert } from 'react-native'
+import { ScrollView, Text, TextInput, View, StyleSheet, Image, Link, KeyboardAvoidingView } from 'react-native'
 import getEnvVars from '../env.js'
 
 import { Button } from 'react-native-elements'
@@ -25,7 +25,7 @@ class LoginScreen extends React.Component {
   render() {
     return (
 
-      <View style=
+      <KeyboardAvoidingView style=
 
         {{
           padding: 20, flex: 1,
