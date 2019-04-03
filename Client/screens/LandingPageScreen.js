@@ -5,6 +5,10 @@ import { Button } from 'react-native-elements'
 import { createStackNavigator, createAppContainer } from 'react-navigation'
 import AppNavigator from '../navigation/AppNavigator'
 
+import AnimatedLoader from 'react-native-animated-loader';
+
+import Alert from '../components/landingLoader'
+
 class AppEntry extends AppNavigator {
   static navigationOptions = {
     header: null
@@ -17,24 +21,28 @@ class LoginScreen extends React.Component {
     header: null
   }
 
-  render () {
+  render() {
     return (
       <View style=
-      
-      {{ padding: 20 , flex: 1,
-        
-        alignItems: 'center'}} >
 
-        <Image style = {{ marginTop:50}} source={require('../assets/images/loading.gif')} />
-        <Text style={{ fontSize: 30, marginBottom:10  }}>SeizeAlert.io</Text>
-        <TextInput placeholder='Username' style={{ marginBottom:10, textAlign: 'left', alignSelf: 'stretch', marginLeft:90}} />
-        <TextInput placeholder='Password' style={{ textAlign: 'left'  , alignSelf: 'stretch', marginLeft:90}} />
-        <View style={{ margin: 7 }} />
-        <Button 
+        {{
+          padding: 20, flex: 1,
+          flexDirection: 'column',
+          alignItems: 'center'
+        }} >
+       <View  style={{width: 400, height: 250}} >
+        <Alert />
+       </View>
+        
+        <Text style={{ fontSize: 30, marginBottom: 15 }}>SeizeAlert.io</Text>
+        <TextInput placeholder='Username' style={{ marginBottom: 10, textAlign: 'left', alignSelf: 'stretch', marginLeft: 90 }} />
+        <TextInput placeholder='Password' style={{ textAlign: 'left', alignSelf: 'stretch', marginLeft: 90,marginBottom: 15, }} />
+
+        <Button
           onPress={() => this.props.navigation.navigate('AppEntry')}
           title='Login'
           buttonStyle={{ margin: 7, width: 200 }}
-          />
+        />
         <Button
           buttonStyle={{ marginTop: 10, width: 200 }}
           onPress={() => this.props.navigation.navigate('Register')}
@@ -52,42 +60,42 @@ class LoginScreen extends React.Component {
 }
 
 class RegistrationScreen extends React.Component {
-  render () {
+  render() {
     return (
-      <ScrollView style={{padding: 20}}>
-      <Text 
-          style={{fontSize: 27, textAlign: "center"}}>
+      <ScrollView style={{ padding: 20 }}>
+        <Text
+          style={{ fontSize: 27, textAlign: "center" }}>
           Registration
       </Text>
-      <TextInput placeholder='Username' title='Username'/>
-      <TextInput placeholder='Email' title='Email' />
-      <TextInput placeholder='Password' title='Password' />
-      <View style={{margin:20}} />
-      <Button 
+        <TextInput placeholder='Username' title='Username' />
+        <TextInput placeholder='Email' title='Email' />
+        <TextInput placeholder='Password' title='Password' />
+        <View style={{ margin: 20 }} />
+        <Button
           onPress={() => this.props.navigation.navigate('Login')}
           title="Register"
-      />
-  </ScrollView>
+        />
+      </ScrollView>
     )
   }
 }
 
 class ResetPasswordScreen extends React.Component {
-  render () {
+  render() {
     return (
-      <ScrollView style={{padding: 20}}>
-      <Text 
-          style={{fontSize: 27}}>
+      <ScrollView style={{ padding: 20 }}>
+        <Text
+          style={{ fontSize: 27 }}>
           Reset Password
       </Text>
-      <TextInput placeholder='Email' title='Email' />
-      <TextInput placeholder='Password' title='Password' />
-      <View style={{margin:7}} />
-      <Button 
+        <TextInput placeholder='Email' title='Email' />
+        <TextInput placeholder='Password' title='Password' />
+        <View style={{ margin: 7 }} />
+        <Button
           onPress={() => this.props.navigation.navigate('Login')}
           title="ResetPassword"
-      />
-  </ScrollView>
+        />
+      </ScrollView>
     )
   }
 }
@@ -107,7 +115,7 @@ const LandingStack = createStackNavigator(
 const LandinPageContainer = createAppContainer(LandingStack)
 
 export default class LandingPage extends React.Component {
-  render () {
+  render() {
     return <LandinPageContainer />
   }
 }
@@ -118,7 +126,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
-  
+
   contentContainer: {
     paddingTop: 30,
   },
