@@ -10,6 +10,7 @@ import {
 
 import { Button, Icon, ListItem } from 'react-native-elements';
 
+
 export default class ContactsListScreen extends React.Component {
 
   constructor(props) {
@@ -34,8 +35,6 @@ export default class ContactsListScreen extends React.Component {
       });
 
   }
-
-
 
   static navigationOptions = ({ navigation }) => ({
     title: "Contacts",
