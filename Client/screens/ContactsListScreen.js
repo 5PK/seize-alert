@@ -10,7 +10,6 @@ import {
 
 import { Button, Icon, ListItem } from 'react-native-elements';
 
-
 export default class ContactsListScreen extends React.Component {
 
   constructor(props) {
@@ -20,7 +19,7 @@ export default class ContactsListScreen extends React.Component {
 
 
   componentDidMount() {
-    return fetch('http://192.168.0.10:3030/contacts')
+    return fetch('http://10.128.53.21:3030/contacts')
       .then((response) => response.json())
       .then((responseJson) => {
 
@@ -35,6 +34,8 @@ export default class ContactsListScreen extends React.Component {
       });
 
   }
+
+
 
   static navigationOptions = ({ navigation }) => ({
     title: "Contacts",
@@ -78,7 +79,14 @@ export default class ContactsListScreen extends React.Component {
               <ListItem
                 key={i}
                 title={l.name}
-                onPress={() => navigate('ContactProfile', { name: l.name, uri: l.avatar_url })}
+                onPress={() => navigate('ContactProfile', { 
+                                  name: l.name, 
+                                  avatarUrl: l.avatarUrl,
+                                  nickName: l.nickName,
+                                  phoneNumber: l.phoneNumber,
+                                  email: l.phoneNumber,
+                                  isQuickContact: l.isQuickContact
+                                 })}
               />
             ))
           }
