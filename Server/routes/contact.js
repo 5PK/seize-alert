@@ -22,6 +22,11 @@ router.post('/', async (req, res) => {
   console.log(req.body.name);
   const contact = await req.context.models.Contact.create({
     name: req.body.name,
+    phoneNumber: req.body.phoneNumber,
+    isQuickContact: req.body.isQuickContact,
+    email: req.body.email,
+    avatarUrl: req.body.avatarUrl,
+    nickName: req.body.nickName,
     userId: req.context.me.id,
   });
 
