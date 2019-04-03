@@ -19,6 +19,7 @@
     "react-native-animated-loader": "0.0.7",
     "react-native-elements": "^1.1.0",
     "react-native-svg-charts": "^5.2.0",
+    "react-native-table-component": "^1.2.0",
     "react-navigation": "^3.4.0",
     "victory-native": "^32.0.1"
   },
