@@ -49,7 +49,12 @@ export default class ContactProfileScreen extends React.Component {
               title="Go Back"
               onPress={ () => this.props.navigation.goBack() }
             />
+          <Button
+              title="Make Quick Call Contact"
+              onPress={ () => this.props.navigation.goBack() }
+            />
         </View>
+        
       );
     }
     onPressLearnMore(){

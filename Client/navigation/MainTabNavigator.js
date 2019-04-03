@@ -8,6 +8,7 @@ import LinksScreen from '../screens/LinksScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import ContactsListScreen from '../screens/ContactsListScreen';
 import ContactProfileScreen from '../screens/ContactProfileScreen';
+import ContactProfileCreateScreen from '../screens/ContactProfileCreateScreen';
 
 const Home = createStackNavigator({
   Home: HomeScreen,
@@ -58,6 +59,7 @@ Settings.navigationOptions = {
 const Contacts = createStackNavigator({
   Contact: ContactsListScreen,
   ContactProfile: ContactProfileScreen,
+  ContactProfileCreate: ContactProfileCreateScreen
 });
 
 Contacts.navigationOptions = {

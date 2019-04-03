@@ -10,18 +10,6 @@ import { WebBrowser } from 'expo';
 
 import { Button, Icon, ListItem } from 'react-native-elements';
 
-const list = [
-  {
-    name: 'Amy Farha',
-    avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
-    subtitle: 'Mom'
-  },
-  {
-    name: 'Chris Jackson',
-    avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
-    subtitle: 'Doctor'
-  }
-];
 
 export default class ContactsListScreen extends React.Component {
     static navigationOptions = ({navigation}) => ({
@@ -47,12 +35,23 @@ export default class ContactsListScreen extends React.Component {
   
     render() {
       const {navigate} = this.props.navigation;
+      const contactList = [{
+        name: 'Amy Farha',
+        avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
+        subtitle: 'Mom'
+      },
+      {
+        name: 'Chris Jackson',
+        avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
+        subtitle: 'Doctor'
+      }
+    ];
       return (
         <View style={styles.container}>
          
             <View>
             {
-              list.map((l, i) => (
+              contactList.map((l, i) => (
                 <ListItem
                   key={i}
                   leftAvatar={{ source: { uri: l.avatar_url } }}
@@ -63,7 +62,10 @@ export default class ContactsListScreen extends React.Component {
               ))
             }
             </View>
-
+            <Button
+              title="Create Contact"
+              onPress={ () => navigate('ContactProfileCreate') }
+            />
         </View>
       );
     }
