@@ -5,6 +5,10 @@ import { Button } from 'react-native-elements'
 import { createStackNavigator, createAppContainer } from 'react-navigation'
 import AppNavigator from '../navigation/AppNavigator'
 
+import AnimatedLoader from 'react-native-animated-loader';
+
+import Alert from '../components/landingLoader'
+
 class AppEntry extends AppNavigator {
   static navigationOptions = {
     header: null
@@ -19,19 +23,21 @@ class LoginScreen extends React.Component {
 
   render() {
     return (
-      <KeyboardAvoidingView style=
+
+      <View style=
 
         {{
           padding: 20, flex: 1,
-
+          flexDirection: 'column',
           alignItems: 'center'
         }} >
-
-        <Image style={{ marginTop: 50 }} source={require('../assets/images/loading.gif')} />
-        <Text style={{ fontSize: 30, marginBottom: 10 }}>SeizeAlert.io</Text>
+       <View  style={{width: 400, height: 250}} >
+        <Alert />
+       </View>
+        
+        <Text style={{ fontSize: 30, marginBottom: 15 }}>SeizeAlert.io</Text>
         <TextInput placeholder='Username' style={{ marginBottom: 10, textAlign: 'left', alignSelf: 'stretch', marginLeft: 90 }} />
-        <TextInput placeholder='Password' style={{ textAlign: 'left', alignSelf: 'stretch', marginLeft: 90 }} />
-        <View style={{ margin: 7 }} />
+        <TextInput placeholder='Password' style={{ textAlign: 'left', alignSelf: 'stretch', marginLeft: 90,marginBottom: 15, }} />
         <Button
           onPress={() => this.props.navigation.navigate('AppEntry')}
           title='Login'
@@ -54,6 +60,7 @@ class LoginScreen extends React.Component {
 }
 
 class RegistrationScreen extends React.Component {
+
 
   state = {
     email: '',
@@ -119,6 +126,7 @@ class RegistrationScreen extends React.Component {
     }
 
   }
+
 
   render() {
     return (
@@ -199,4 +207,76 @@ export default class LandingPage extends React.Component {
     return <LandinPageContainer />
   }
 }
+
+
+/*
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+  },
+
+  contentContainer: {
+    paddingTop: 30,
+  },
+  welcomeContainer: {
+    alignItems: 'center',
+    marginBottom: 20,
+    fontSize: 18
+  },
+  welcomeImage: {
+    width: 300,
+    height: 250,
+    resizeMode: 'contain',
+    marginTop: 3,
+    marginLeft: -10,
+  },
+  codeHighlightText: {
+    color: 'rgba(96,100,109, 0.8)',
+  },
+  codeHighlightContainer: {
+    backgroundColor: 'rgba(0,0,0,0.05)',
+    borderRadius: 3,
+    paddingHorizontal: 4,
+  },
+  getStartedText: {
+    fontSize: 17,
+    color: 'rgba(96,100,109, 1)',
+    lineHeight: 24,
+    textAlign: 'center',
+  },
+  tabBarInfoContainer: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    ...Platform.select({
+      ios: {
+        shadowColor: 'black',
+        shadowOffset: { height: -3 },
+        shadowOpacity: 0.1,
+        shadowRadius: 3,
+      },
+      android: {
+        elevation: 20,
+      },
+    }),
+    alignItems: 'center',
+    backgroundColor: '#fbfbfb',
+    paddingVertical: 20,
+  },
+  tabBarInfoText: {
+    fontSize: 17,
+    color: 'rgba(96,100,109, 1)',
+    textAlign: 'center',
+  },
+  navigationFilename: {
+    marginTop: 5,
+  },
+  Button: {
+    marginLeft:5,
+  }
+});
+*/
+
 
