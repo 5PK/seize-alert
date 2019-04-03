@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import getEnvVars from '../env.js'
 import {
   Platform,
   StyleSheet,
@@ -19,7 +20,7 @@ export default class ContactsListScreen extends React.Component {
 
 
   componentDidMount() {
-    return fetch('http://10.128.53.21:3030/contacts')
+    fetch( getEnvVars.apiUrl +  '/contacts' )
       .then((response) => response.json())
       .then((responseJson) => {
 
@@ -34,8 +35,6 @@ export default class ContactsListScreen extends React.Component {
       });
 
   }
-
-
 
   static navigationOptions = ({ navigation }) => ({
     title: "Contacts",
@@ -58,7 +57,7 @@ export default class ContactsListScreen extends React.Component {
     alert(item)
   }
   render() {
-
+    const { navigate } = this.props.navigation;
 
     if (this.state.isLoading) {
       return (
@@ -67,9 +66,7 @@ export default class ContactsListScreen extends React.Component {
         </View>
       )
     }
-
-
-    const { navigate } = this.props.navigation;
+    
     return (
       <View style={styles.container}>
 
