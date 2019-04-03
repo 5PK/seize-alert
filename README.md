@@ -66,7 +66,5 @@ The benefits of using React Native over Native Android
 - Industry Standard for rapid development
 
 
-
-
-
-
+## Setting up Env.js
+Refer to this comment: https://github.com/CarlaSS1/SeizeAlert/pull/42#issuecomment-479645604
