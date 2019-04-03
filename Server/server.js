@@ -46,6 +46,11 @@ const createUsersWithContacts = async () => {
             contacts: [
                 {
                     name: 'Chungus',
+                    avatarUrl: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
+                    nickName: this.state.nick_name,
+                    phoneNumber: this.state.phone_number,
+                    isQuickContact: this.state.isQuickContact,
+                    email: this.state.email
                 },
             ],
         },
@@ -60,9 +65,19 @@ const createUsersWithContacts = async () => {
             contacts: [
                 {
                     name: 'Chungobungo',
+                    avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
+                    nickName: this.state.nick_name,
+                    phoneNumber: this.state.phone_number,
+                    isQuickContact: this.state.isQuickContact,
+                    email: this.state.email
                 },
                 {
                     name: 'Chingobingo',
+                    avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
+                    nickName: this.state.nick_name,
+                    phoneNumber: this.state.phone_number,
+                    isQuickContact: this.state.isQuickContact,
+                    email: this.state.email
                 },
             ],
         },
