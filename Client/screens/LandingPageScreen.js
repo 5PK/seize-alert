@@ -1,5 +1,6 @@
 import React from 'react'
 import { ScrollView, Text, TextInput, View, StyleSheet, Image, Link, KeyboardAvoidingView, Alert } from 'react-native'
+import getEnvVars from '../env.js'
 
 import { Button } from 'react-native-elements'
 import { createStackNavigator, createAppContainer } from 'react-navigation'
@@ -69,10 +70,6 @@ class RegistrationScreen extends React.Component {
   }
 
 
-
-
-
-
   register = (emailInput, passInput) => {
 
     validatePassword = (password) => {
@@ -87,17 +84,14 @@ class RegistrationScreen extends React.Component {
     }
     if (validateEmail(emailInput) && validatePassword(passInput)) {
 
-      Alert.alert(emailInput);
-      Alert.alert(passInput);
-
-      fetch('http://192.168.2.162:3030/users', {
+      fetch(getEnvVars.apiUrl + '/users', {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          email: 'test',
-          password: 'test',
+          email: emailInput,
+          password: passInput,
          })
       }).then((response) => {
         console.log('response:', response.status);
