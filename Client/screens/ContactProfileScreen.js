@@ -15,7 +15,7 @@ import { Button,Icon,Avatar } from 'react-native-elements';
 /* import Icon from 'react-native-vector-icons/MaterialIcons'; */
 export default class ContactProfileScreen extends React.Component {
     static navigationOptions = ({navigation}) => ({
-      title: "ContactProfile",
+      title: navigation.state.params.name,
       headerLeft:(
         <Button
           icon={
@@ -33,6 +33,12 @@ export default class ContactProfileScreen extends React.Component {
   
     render() {
       const {navigate} = this.props.navigation;
+      
+      const isQuickContact = 'Not Quick Call Contact';
+
+      if( this.props.navigation.state.params.isQuickContact === 1 ){
+        isQuickContact = 'Current Quick Call Contact';
+      }
       return (
 
         <View style={styles.avatarSize}>
@@ -40,15 +46,15 @@ export default class ContactProfileScreen extends React.Component {
             size = 'large'
             rounded
             source={{
-            uri: this.props.navigation.state.params.uri
+            uri: this.props.navigation.state.params.avatarUrl
             }}
             containerStyle={{ alignSelf: "center", marginVertical:50}}            
           />
           <Text style={{alignSelf:"center"}}>{ this.props.navigation.state.params.name }</Text>
-          <Button
-              title="Make quick call contact"
-              onPress={ () => this.props.navigation.goBack() }
-            />
+          <Text style={{alignSelf:"center"}}>{ this.props.navigation.state.params.nickName }</Text>
+          <Text style={{alignSelf:"center"}}>{ this.props.navigation.state.params.phoneNumber }</Text>
+          <Text style={{alignSelf:"center"}}>{ this.props.navigation.state.params.email }</Text>      
+          <Text style={{alignSelf:"center"}}>{ isQuickContact }</Text>     
           <Button
               title="Go Back"
               onPress={ () => this.props.navigation.goBack() }

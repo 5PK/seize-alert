@@ -10,18 +10,27 @@ import {
   Text,
   TouchableOpacity,
   View,
-  TextInput
+  TextInput,
 } from 'react-native';
 import { WebBrowser } from 'expo';
 
-import { Button,Icon,Avatar } from 'react-native-elements';
+import { Button,Icon,Avatar,ButtonGroup } from 'react-native-elements';
 
 /* import Icon from 'react-native-vector-icons/MaterialIcons'; */
 export default class ContactProfileCreateScreen extends React.Component {
 
       constructor(props) {
       super(props);
-      this.state = { name: '', image_url: '', nick_name: ''};
+      this.state = { 
+                      name: '', 
+                      avatarUrl: '', 
+                      nickName: '', 
+                      email: '', 
+                      phoneNumber: '', 
+                      isQuickContact: false,
+                      selectedIndex: 0
+                    };
+      this.updateIndex = this.updateIndex.bind(this)
       } 
 
     static navigationOptions = ({navigation}) => ({
@@ -43,6 +52,9 @@ export default class ContactProfileCreateScreen extends React.Component {
   
     render() {
       const {navigate} = this.props.navigation;
+      const buttons = ['No','Yes'];
+      const { selectedIndex } = this.state.selectedIndex;
+    
       return (
         <View style={styles.avatarSize}>
           <TextInput 
@@ -54,19 +66,39 @@ export default class ContactProfileCreateScreen extends React.Component {
           <TextInput 
               placeholder='ImageURL' 
               style={{ textAlign: 'left'  , alignSelf: 'stretch', marginLeft:90}} 
-              onChangeText={(image_url) => this.setState({image_url})}
-              value={this.state.image_url}
+              onChangeText={(avatarUrl) => this.setState({avatarUrl})}
+              value={this.state.avatarUrl}
           />
           <TextInput 
               placeholder='Nickname' 
               style={{ textAlign: 'left'  , alignSelf: 'stretch', marginLeft:90}} 
-              onChangeText={(nick_name) => this.setState({nick_name})}
-              value={this.state.nick_name}
+              onChangeText={(nickName) => this.setState({nickName})}
+              value={this.state.nickName}
           />
+          <TextInput 
+              placeholder='Email' 
+              style={{ textAlign: 'left'  , alignSelf: 'stretch', marginLeft:90}} 
+              onChangeText={(email) => this.setState({email})}
+              value={this.state.email}
+          />   
+          <TextInput 
+              placeholder='Phone Number' 
+              style={{ textAlign: 'left'  , alignSelf: 'stretch', marginLeft:90}} 
+              onChangeText={(phoneNumber) => this.setState({phoneNumber})}
+              value={this.state.phoneNumber}
+          />           
+          <ButtonGroup
+              onPress={this.updateIndex}
+              selectedIndex={selectedIndex}
+              buttons={buttons}
+              containerStyle={{height: 100}}
+          />                  
           <Button
               title="Create Contact"
 
+
               onPress={() => this.createContact()}
+
 
             />
           
@@ -79,6 +111,7 @@ export default class ContactProfileCreateScreen extends React.Component {
         
       );
     }
+
     createContact(){
       
       fetch(getEnvVars.apiUrl + '/contacts', {
@@ -148,7 +181,35 @@ export default class ContactProfileCreateScreen extends React.Component {
       );
     };
   }
-  
+     function createContact(state){
+      
+      fetch( getEnvVars.apiUrl +  '/contacts', {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          
+          name: state.name,
+          userId: 1,
+          avatarUrl: state.avatarUrl, 
+          nickName: state.nickName, 
+          email: state.email, 
+          phoneNumber: state.phoneNumber, 
+          isQuickContact: state.isQuickContact
+         })
+      }).then((response) => {
+        console.log('response:', response.status);
+
+        if(response.status == 200){
+          Alert.alert("Contact Created Successfully!");
+        }else{
+          Alert.alert("There's been an error, please try again.");
+        }
+
+
+      });
+    }
   function _openDrawer(){
     this.props.navigation.openDrawer()
   }

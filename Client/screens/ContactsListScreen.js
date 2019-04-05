@@ -12,7 +12,6 @@ import {
 
 import { Button, Icon, ListItem } from 'react-native-elements';
 
-
 export default class ContactsListScreen extends React.Component {
 
   constructor(props) {
@@ -40,7 +39,9 @@ export default class ContactsListScreen extends React.Component {
 
 
   componentDidMount() {
+
     fetch(getEnvVars.apiUrl + '/contacts')
+
       .then((response) => response.json())
       .then((responseJson) => {
 
@@ -76,8 +77,9 @@ export default class ContactsListScreen extends React.Component {
   alertItemName = (item) => {
     alert(item)
   }
-  render() {
 
+  render() {
+    const { navigate } = this.props.navigation;
 
     if (this.state.isLoading) {
       return (
@@ -120,9 +122,9 @@ export default class ContactsListScreen extends React.Component {
           onPress={() => this.props.navigation.navigate('ContactProfileCreate')}
         />
       </ScrollView>
+
     );
   }
-
 }
 
 function _openDrawer() {
