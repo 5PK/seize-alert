@@ -1,6 +1,8 @@
 import React from 'react';
+import getEnvVars from '../env.js'
 
 import {
+  Alert,
   Image,
   Platform,
   ScrollView,
@@ -93,7 +95,7 @@ export default class ContactProfileCreateScreen extends React.Component {
           />                  
           <Button
               title="Create Contact"
-              onPress={() => createContact()}
+              onPress={() => createContact(this.state)}
             />
           
           <Button
@@ -105,33 +107,7 @@ export default class ContactProfileCreateScreen extends React.Component {
         
       );
     }
-    createContact(){
-      
-      fetch('http://10.128.53.21:3030/contacts', {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: this.state.name, 
-          avatarUrl: this.state.avatarUrl, 
-          nickName: this.state.nickName, 
-          email: this.state.email, 
-          phoneNumber: this.state.phoneNumber, 
-          isQuickContact: this.state.isQuickContact
-         })
-      }).then((response) => {
-        console.log('response:', response.status);
 
-        if(response.status == 200){
-          Alert.alert("Contact Created Successfully!");
-        }else{
-          Alert.alert("There's been an error, please try again.");
-        }
-
-
-      });
-    }
     updateIndex (selectedIndex) {
       this.setState({selectedIndex})
     }
@@ -172,7 +148,35 @@ export default class ContactProfileCreateScreen extends React.Component {
       );
     };
   }
-  
+     function createContact(state){
+      
+      fetch( getEnvVars.apiUrl +  '/contacts', {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          
+          name: state.name,
+          userId: 1,
+          avatarUrl: state.avatarUrl, 
+          nickName: state.nickName, 
+          email: state.email, 
+          phoneNumber: state.phoneNumber, 
+          isQuickContact: state.isQuickContact
+         })
+      }).then((response) => {
+        console.log('response:', response.status);
+
+        if(response.status == 200){
+          Alert.alert("Contact Created Successfully!");
+        }else{
+          Alert.alert("There's been an error, please try again.");
+        }
+
+
+      });
+    }
   function _openDrawer(){
     this.props.navigation.openDrawer()
   }
