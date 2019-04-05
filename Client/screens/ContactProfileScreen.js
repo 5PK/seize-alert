@@ -15,7 +15,7 @@ import { Button,Icon,Avatar } from 'react-native-elements';
 /* import Icon from 'react-native-vector-icons/MaterialIcons'; */
 export default class ContactProfileScreen extends React.Component {
     static navigationOptions = ({navigation}) => ({
-      title: "ContactProfile",
+      title: this.props.navigation.state.params.name,
       headerLeft:(
         <Button
           icon={
