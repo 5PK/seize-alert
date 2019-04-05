@@ -77,7 +77,7 @@ const createUsersWithContacts = async () => {
                     nickName: 'The rogue class',
                     phoneNumber: '905 - 405 - 9920',
                     isQuickContact: 1,
-                    email: 'Riley@handcox.ca'
+                    email: 'Riley@hancox.ca'
                 },
             ],
         },

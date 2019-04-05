@@ -8,11 +8,11 @@ import {
   Text,
   TouchableOpacity,
   View,
-  TextInput
+  TextInput,
 } from 'react-native';
 import { WebBrowser } from 'expo';
 
-import { Button,Icon,Avatar } from 'react-native-elements';
+import { Button,Icon,Avatar,ButtonGroup } from 'react-native-elements';
 
 /* import Icon from 'react-native-vector-icons/MaterialIcons'; */
 export default class ContactProfileCreateScreen extends React.Component {
