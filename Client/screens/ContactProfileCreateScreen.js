@@ -95,7 +95,11 @@ export default class ContactProfileCreateScreen extends React.Component {
           />                  
           <Button
               title="Create Contact"
-              onPress={() => createContact(this.state)}
+
+
+              onPress={() => this.createContact()}
+
+
             />
           
           <Button
@@ -108,9 +112,38 @@ export default class ContactProfileCreateScreen extends React.Component {
       );
     }
 
+    createContact(){
+      
+      fetch(getEnvVars.apiUrl + '/contacts', {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: this.state.name, 
+          avatarUrl: this.state.avatarUrl, 
+          nickName: this.state.nickName, 
+          email: this.state.email, 
+          phoneNumber: this.state.phoneNumber, 
+          isQuickContact: this.state.isQuickContact,
+          userId: 1
+         })
+      }).then((response) => {
+        console.log('response:', response.status);
+
+        if(response.status == 200){
+          Alert.alert("Contact Created Successfully!");
+        }else{
+          Alert.alert("There's been an error, please try again.");
+        }
+
+
+      });
+    }
     updateIndex (selectedIndex) {
       this.setState({selectedIndex})
     }
+
 
     onPressLearnMore(){
       //TODO

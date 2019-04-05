@@ -5,9 +5,10 @@ import {
   StyleSheet,
   Text,
   View,
-  ActivityIndicator
+  ActivityIndicator,
+  ScrollView,
+  RefreshControl
 } from 'react-native';
-
 
 import { Button, Icon, ListItem } from 'react-native-elements';
 
@@ -15,12 +16,32 @@ export default class ContactsListScreen extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = { isLoading: true };
+    this.state = { isLoading: true, refreshing: false, };
+  }
+
+  _onRefresh = () => {
+    this.setState({ refreshing: true });
+    fetch(getEnvVars.apiUrl + '/contacts')
+      .then((response) => response.json())
+      .then((responseJson) => {
+
+        this.setState({
+          refreshing: false,
+          dataSource: responseJson,
+        });
+
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }
 
 
+
   componentDidMount() {
-    fetch( getEnvVars.apiUrl +  '/contacts' )
+
+    fetch(getEnvVars.apiUrl + '/contacts')
+
       .then((response) => response.json())
       .then((responseJson) => {
 
@@ -67,9 +88,16 @@ export default class ContactsListScreen extends React.Component {
         </View>
       )
     }
-    
+
     return (
-      <View style={styles.container}>
+      <ScrollView style={styles.container}
+        refreshControl={
+          <RefreshControl
+            refreshing={this.state.refreshing}
+            onRefresh={this._onRefresh}
+          />
+        }
+      >
 
         <View>
           {
@@ -77,23 +105,24 @@ export default class ContactsListScreen extends React.Component {
               <ListItem
                 key={i}
                 title={l.name}
-                onPress={() => navigate('ContactProfile', { 
-                                  name: l.name, 
-                                  avatarUrl: l.avatarUrl,
-                                  nickName: l.nickName,
-                                  phoneNumber: l.phoneNumber,
-                                  email: l.email,
-                                  isQuickContact: l.isQuickContact
-                                 })}
+                onPress={() => navigate('ContactProfile', {
+                  name: l.name,
+                  avatarUrl: l.avatarUrl,
+                  nickName: l.nickName,
+                  phoneNumber: l.phoneNumber,
+                  email: l.email,
+                  isQuickContact: l.isQuickContact
+                })}
               />
             ))
           }
         </View>
-      <Button
-        title="Create Contact"
-        onPress={() => this.props.navigation.navigate('ContactProfileCreate')}
-      />  
-      </View>
+        <Button
+          title="Create Contact"
+          onPress={() => this.props.navigation.navigate('ContactProfileCreate')}
+        />
+      </ScrollView>
+
     );
   }
 }
