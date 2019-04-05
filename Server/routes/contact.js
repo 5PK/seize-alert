@@ -27,7 +27,7 @@ router.post('/', async (req, res) => {
     email: req.body.email,
     avatarUrl: req.body.avatarUrl,
     nickName: req.body.nickName,
-    userId: req.context.me.id,
+    userId: req.body.userId,
   });
 
   return res.send(contact);
