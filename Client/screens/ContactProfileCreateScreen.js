@@ -105,8 +105,8 @@ export default class ContactProfileCreateScreen extends React.Component {
         
       );
     }
-    createContact(){
-      
+
+    createContact(){      
       fetch('http://10.128.53.21:3030/contacts', {
         method: "POST",
         headers: {
@@ -128,10 +128,9 @@ export default class ContactProfileCreateScreen extends React.Component {
         }else{
           Alert.alert("There's been an error, please try again.");
         }
-
-
       });
     }
+
     updateIndex (selectedIndex) {
       this.setState({selectedIndex})
     }

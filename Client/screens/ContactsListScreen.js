@@ -56,7 +56,6 @@ export default class ContactsListScreen extends React.Component {
   alertItemName = (item) => {
     alert(item)
   }
-
   render() {
     const { navigate } = this.props.navigation;
 
@@ -89,13 +88,11 @@ export default class ContactsListScreen extends React.Component {
             ))
           }
         </View>
-      <Button
-        title="Create Contact"
-        onPress={() => this.props.navigation.navigate('ContactProfileCreate')}
-      />  
+
       </View>
     );
   }
+
 }
 
 function _openDrawer() {

@@ -12,10 +12,9 @@ import { WebBrowser } from 'expo';
 
 import { Button,Icon,Avatar } from 'react-native-elements';
 
-/* import Icon from 'react-native-vector-icons/MaterialIcons'; */
 export default class ContactProfileScreen extends React.Component {
     static navigationOptions = ({navigation}) => ({
-      title: this.props.navigation.state.params.name,
+      title: navigation.state.params.name,      
       headerLeft:(
         <Button
           icon={
@@ -27,7 +26,19 @@ export default class ContactProfileScreen extends React.Component {
           onPress={() => navigation.toggleDrawer()}
           type="clear"
           buttonStyle={{marginLeft: 10}}
-        />)
+        />)/* , */
+/*         headerRight:(
+          <Button
+          icon={
+            <Icon
+              name="back-arrow"
+            />
+          }
+          title=""
+          onPress={ () => this.props.navigation.goBack() }
+          type="clear"
+          buttonStyle={{marginLeft: 10}}
+          />) */
       
     });
   
