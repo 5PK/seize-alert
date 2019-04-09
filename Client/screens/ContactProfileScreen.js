@@ -14,11 +14,7 @@ import { Button,Icon,Avatar } from 'react-native-elements';
 
 export default class ContactProfileScreen extends React.Component {
     static navigationOptions = ({navigation}) => ({
-<<<<<<< HEAD
-      title: navigation.state.params.name,      
-=======
       title: navigation.state.params.name,
->>>>>>> bf9914dc4ac88cf5d379b810f172ceb540aad004
       headerLeft:(
         <Button
           icon={
@@ -82,44 +78,6 @@ export default class ContactProfileScreen extends React.Component {
         
       );
     }
-    onPressLearnMore(){
-      //TODO
-    }
-    makeQuickCallContact(){
-      
-    }
-    _maybeRenderDevelopmentModeWarning() {
-      if (__DEV__) {
-        const learnMoreButton = (
-          <Text onPress={this._handleLearnMorePress} style={styles.helpLinkText}>
-            Learn more
-          </Text>
-        );
-  
-        return (
-          <Text style={styles.developmentModeText}>
-            Development mode is enabled, your app will be slower but you can use useful development
-            tools. {learnMoreButton}
-          </Text>
-        );
-      } else {
-        return (
-          <Text style={styles.developmentModeText}>
-            You are not in development mode, your app will run at full speed.
-          </Text>
-        );
-      }
-    }
-  
-    _handleLearnMorePress = () => {
-      WebBrowser.openBrowserAsync('https://docs.expo.io/versions/latest/guides/development-mode');
-    };
-  
-    _handleHelpPress = () => {
-      WebBrowser.openBrowserAsync(
-        'https://docs.expo.io/versions/latest/guides/up-and-running.html#can-t-see-your-changes'
-      );
-    };
   }
   
   function _openDrawer(){
