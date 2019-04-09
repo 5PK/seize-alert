@@ -57214,6 +57214,7 @@ export default class SeizureDetectionTrue {
         //console.log("HR:{0:3d},  varianceRightArm:{1:5.3f},  varianceRightAnkle:{2:5.3f}, vector:{3:5.3f}, vector:{4:5.3f}".format(sensorData[CHEST][HR][-1], varianceRightArm, varianceRightAnkle, vectorRightArm, vectorRightAnkle))
         
         if(varianceRightArm >= .001 && varianceRightAnkle >= .001 && vectorRightArm >= .8 && vectorRightAnkle >=.8 ){
+            
             return true;
         }else{
             

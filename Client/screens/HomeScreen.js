@@ -8,6 +8,9 @@ import {
   TouchableOpacity,
   View
 } from 'react-native';
+
+import RNImmediatePhoneCall from 'react-native-immediate-phone-call';
+
 import { WebBrowser } from 'expo';
 
 import { Button, Icon } from 'react-native-elements';
@@ -117,7 +120,6 @@ function _openDrawer() {
 }
 
 
-
 function RunSeizureDetect() {
 
     const seizureDetectionTrue = new SeizureDetectionTrue();
@@ -127,6 +129,7 @@ function RunSeizureDetect() {
     var result = seizureDetectionTrue.determine();
   
     if(result){
+      RNImmediatePhoneCall.immediatePhoneCall('9053794729');
   
       alert('Seizure Detected!');
   
