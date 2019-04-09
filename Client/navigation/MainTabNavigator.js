@@ -4,12 +4,11 @@ import { createStackNavigator, createDrawerNavigator } from 'react-navigation';
 
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
-import LinksScreen from '../screens/LinksScreen';
-import SettingsScreen from '../screens/SettingsScreen';
 import ContactsListScreen from '../screens/ContactsListScreen';
 import ContactProfileScreen from '../screens/ContactProfileScreen';
 
 import ContactProfileCreateScreen from '../screens/ContactProfileCreateScreen';
+import ContactProfileUpdateScreen from '../screens/ContactProfileUpdateScreen';
 import SeizureHistoryScreen from '../screens/SeizureHistory';
 
 
@@ -31,38 +30,11 @@ Home.navigationOptions = {
   ),
 };
 
-const Links = createStackNavigator({
-  Links: LinksScreen,
-});
-
-Links.navigationOptions = {
-  tabBarLabel: 'Links',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-link' : 'md-link'}
-    />
-  ),
-};
-
-const Settings = createStackNavigator({
-  Settings: SettingsScreen,
-});
-
-Settings.navigationOptions = {
-  tabBarLabel: 'Settings',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'}
-    />
-  ),
-};
-
 const Contacts = createStackNavigator({
   Contact: ContactsListScreen,
   ContactProfile: ContactProfileScreen,
-  ContactProfileCreate: ContactProfileCreateScreen
+  ContactProfileCreate: ContactProfileCreateScreen,
+  ContactProfileUpdate: ContactProfileUpdateScreen
 });
 
 Contacts.navigationOptions = {
@@ -73,6 +45,7 @@ Contacts.navigationOptions = {
       name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'}
     />
   ),
+
 };
 
 const ContactProfile = createStackNavigator({
@@ -105,8 +78,6 @@ History.navigationOptions = {
  
 export default createDrawerNavigator({
   Home,
-  Links,
-  Settings,
   Contacts,
   History
 });
