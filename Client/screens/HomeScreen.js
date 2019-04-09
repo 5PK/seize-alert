@@ -6,10 +6,11 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
-  View
+  View,
+  NativeModules
 } from 'react-native';
 
-import RNImmediatePhoneCall from 'react-native-immediate-phone-call';
+import call from 'react-native-phone-call'
 
 import { WebBrowser } from 'expo';
 
@@ -20,6 +21,8 @@ import { MonoText } from '../components/StyledText';
 import SeizureDetectionTrue from '../SeizureEngine/SeizureDetectionTrue.js';
 
 import SeizureDetectionFalse from '../SeizureEngine/SeizureDetectionFalse.js';
+
+import SendSMS from 'react-native-sms'
 
 export default class HomeScreen extends React.Component {
 
@@ -127,14 +130,21 @@ function RunSeizureDetect() {
     const seizureDetectionFalse = new SeizureDetectionFalse();
 
     var result = seizureDetectionTrue.determine();
-  
+
+
     if(result){
-      RNImmediatePhoneCall.immediatePhoneCall('9053794729');
-  
+
+      const args = {
+      number: '9053794729', // String value with the number to call
+      prompt: false // Optional boolean property. Determines if the user should be prompt prior to the call 
+    }
+
+    call(args).catch(console.error)
+
       alert('Seizure Detected!');
   
     }
-  
+    
     return result;
 }
 
