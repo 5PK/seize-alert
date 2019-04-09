@@ -77,7 +77,6 @@ export default class ContactsListScreen extends React.Component {
   alertItemName = (item) => {
     alert(item)
   }
-
   render() {
     const { navigate } = this.props.navigation;
 
@@ -125,6 +124,7 @@ export default class ContactsListScreen extends React.Component {
 
     );
   }
+
 }
 
 function _openDrawer() {

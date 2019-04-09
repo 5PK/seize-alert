@@ -12,7 +12,6 @@ import { WebBrowser } from 'expo';
 
 import { Button,Icon,Avatar } from 'react-native-elements';
 
-/* import Icon from 'react-native-vector-icons/MaterialIcons'; */
 export default class ContactProfileScreen extends React.Component {
     static navigationOptions = ({navigation}) => ({
       title: navigation.state.params.name,
@@ -27,7 +26,19 @@ export default class ContactProfileScreen extends React.Component {
           onPress={() => navigation.toggleDrawer()}
           type="clear"
           buttonStyle={{marginLeft: 10}}
-        />)
+        />)/* , */
+/*         headerRight:(
+          <Button
+          icon={
+            <Icon
+              name="back-arrow"
+            />
+          }
+          title=""
+          onPress={ () => this.props.navigation.goBack() }
+          type="clear"
+          buttonStyle={{marginLeft: 10}}
+          />) */
       
     });
   
@@ -67,44 +78,6 @@ export default class ContactProfileScreen extends React.Component {
         
       );
     }
-    onPressLearnMore(){
-      //TODO
-    }
-    makeQuickCallContact(){
-      
-    }
-    _maybeRenderDevelopmentModeWarning() {
-      if (__DEV__) {
-        const learnMoreButton = (
-          <Text onPress={this._handleLearnMorePress} style={styles.helpLinkText}>
-            Learn more
-          </Text>
-        );
-  
-        return (
-          <Text style={styles.developmentModeText}>
-            Development mode is enabled, your app will be slower but you can use useful development
-            tools. {learnMoreButton}
-          </Text>
-        );
-      } else {
-        return (
-          <Text style={styles.developmentModeText}>
-            You are not in development mode, your app will run at full speed.
-          </Text>
-        );
-      }
-    }
-  
-    _handleLearnMorePress = () => {
-      WebBrowser.openBrowserAsync('https://docs.expo.io/versions/latest/guides/development-mode');
-    };
-  
-    _handleHelpPress = () => {
-      WebBrowser.openBrowserAsync(
-        'https://docs.expo.io/versions/latest/guides/up-and-running.html#can-t-see-your-changes'
-      );
-    };
   }
   
   function _openDrawer(){

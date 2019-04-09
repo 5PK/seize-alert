@@ -10,14 +10,19 @@ import {
 } from 'react-native';
 import { WebBrowser } from 'expo';
 
-import { Button,Icon } from 'react-native-elements';
+import { Button, Icon } from 'react-native-elements';
 
 import { MonoText } from '../components/StyledText';
 
+import SeizureDetectionTrue from '../SeizureEngine/SeizureDetectionTrue.js';
+
+import SeizureDetectionFalse from '../SeizureEngine/SeizureDetectionFalse.js';
+
 export default class HomeScreen extends React.Component {
-  static navigationOptions = ({navigation}) => ({
+
+  static navigationOptions = ({ navigation }) => ({
     title: "Home",
-    headerLeft:(
+    headerLeft: (
       <Button
         icon={
           <Icon
@@ -27,46 +32,16 @@ export default class HomeScreen extends React.Component {
         title=""
         onPress={() => navigation.toggleDrawer()}
         type="clear"
-        buttonStyle={{marginLeft: 10}}
+        buttonStyle={{ marginLeft: 10 }}
       />)
-    
   });
+
 
   render() {
     return (
       <View style={styles.container}>
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-        {/*<View style={styles.welcomeContainer}>
-            <Image
-              source={
-                __DEV__
-                  ? require('../assets/images/robot-dev.png')
-                  : require('../assets/images/robot-prod.png')
-              }
-              style={styles.welcomeImage}
-            />
-          </View>
-
-          <View style={styles.getStartedContainer}>
-            {this._maybeRenderDevelopmentModeWarning()}
-
-            <Text style={styles.getStartedText}>Get started by opening</Text>
-
-            <View style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
-              <MonoText style={styles.codeHighlightText}>screens/HomeScreen.js</MonoText>
-            </View>
-
-            <Text style={styles.getStartedText}>
-              Change this text and your app will automatically reload!.
-            </Text>
-          </View>
-
-          <View style={styles.helpContainer}>
-            <TouchableOpacity onPress={this._handleHelpPress} style={styles.helpLink}>
-              <Text style={styles.helpLinkText}>Help, it didn’t automatically reload?</Text>
-            </TouchableOpacity>
-          </View> */}
-          <View style = {styles.welcomeContainer}>
+          <View style={styles.welcomeContainer}>
             <Text>DashBoard</Text>
           </View>
           <View style={styles.welcomeContainer}>
@@ -77,22 +52,30 @@ export default class HomeScreen extends React.Component {
               style={styles.welcomeImage}
             />
           </View>
-          <View>          
+          <View>
             <Button
-              
+
               onPress={this._contactCallButton}
               title="Quick Call"
               color="#841584"
               accessibilityLabel="Quick Contact Call"
-          />
+            />
+            <Button
+
+                onPress={() => RunSeizureDetect()}
+                title="Seizure Example"
+                color="#841584"
+                accessibilityLabel="Seizure Example"
+/>            
           </View>
         </ScrollView>
 
       </View>
     );
+
   }
 
-  onPressLearnMore(){
+  onPressLearnMore() {
     //TODO
   }
   _maybeRenderDevelopmentModeWarning() {
@@ -129,8 +112,31 @@ export default class HomeScreen extends React.Component {
   };
 }
 
-function _openDrawer(){
+function _openDrawer() {
   this.props.navigation.openDrawer()
+}
+
+
+
+function RunSeizureDetect() {
+
+    const seizureDetectionTrue = new SeizureDetectionTrue();
+
+    const seizureDetectionFalse = new SeizureDetectionFalse();
+
+    var result = seizureDetectionTrue.determine();
+  
+    if(result){
+  
+      alert('Seizure Detected!');
+  
+    }
+  
+    return result;
+}
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 const styles = StyleSheet.create({
@@ -221,6 +227,6 @@ const styles = StyleSheet.create({
     color: '#2e78b7',
   },
   Button: {
-    marginLeft:5,
+    marginLeft: 5,
   }
 });
