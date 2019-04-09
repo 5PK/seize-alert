@@ -36,8 +36,6 @@ export default class ContactsListScreen extends React.Component {
       });
   }
 
-
-
   componentDidMount() {
 
     fetch(getEnvVars.apiUrl + '/contacts')
@@ -70,7 +68,19 @@ export default class ContactsListScreen extends React.Component {
         onPress={() => navigation.toggleDrawer()}
         type="clear"
         buttonStyle={{ marginLeft: 10 }}
-      />)
+      />),
+      headerRight: (
+        <Button
+          icon={
+            <Icon
+              name="person-add"
+            />
+          }
+          title=""
+          onPress={() => navigation.navigate('ContactProfileCreate')}
+          type="clear"
+          buttonStyle={{ marginRight: 10 }}
+        />)
 
   });
 
@@ -100,9 +110,10 @@ export default class ContactsListScreen extends React.Component {
 
         <View>
           {
-            this.state.dataSource.map((l, i) => (
+            this.state.dataSource.map((l, i) => (           
               <ListItem
                 key={i}
+                leftAvatar={{source: {uri: l.avatarUrl}}}
                 title={l.name}
                 onPress={() => navigate('ContactProfile', {
                   name: l.name,
@@ -110,16 +121,17 @@ export default class ContactsListScreen extends React.Component {
                   nickName: l.nickName,
                   phoneNumber: l.phoneNumber,
                   email: l.email,
-                  isQuickContact: l.isQuickContact
+                  isQuickContact: l.isQuickContact,
+                  contactId: l.id
                 })}
               />
             ))
           }
         </View>
-        <Button
+{/*         <Button
           title="Create Contact"
           onPress={() => this.props.navigation.navigate('ContactProfileCreate')}
-        />
+        /> */}
       </ScrollView>
 
     );

@@ -26,28 +26,37 @@ export default class ContactProfileScreen extends React.Component {
           onPress={() => navigation.toggleDrawer()}
           type="clear"
           buttonStyle={{marginLeft: 10}}
-        />)/* , */
-/*         headerRight:(
+        />),
+      headerRight:(
           <Button
           icon={
             <Icon
-              name="back-arrow"
+              name="edit"
             />
           }
           title=""
-          onPress={ () => this.props.navigation.goBack() }
+          onPress={() => navigation.navigate('ContactProfileUpdate', {
+            name: navigation.state.params.name,
+            avatarUrl: navigation.state.params.avatarUrl,
+            nickName: navigation.state.params.nickName,
+            phoneNumber: navigation.state.params.phoneNumber,
+            email: navigation.state.params.email,
+            isQuickContact: navigation.state.params.isQuickContact,
+            contactId: navigation.state.params.contactId
+          })}
           type="clear"
           buttonStyle={{marginLeft: 10}}
-          />) */
+          />          
+          ) 
       
     });
   
     render() {
       const {navigate} = this.props.navigation;
       
-      const isQuickContact = 'Not Quick Call Contact';
+      var isQuickContact = 'Not Quick Call Contact';
 
-      if( this.props.navigation.state.params.isQuickContact === 1 ){
+      if( this.props.navigation.state.params.isQuickContact === true ){
         isQuickContact = 'Current Quick Call Contact';
       }
       return (
@@ -61,15 +70,11 @@ export default class ContactProfileScreen extends React.Component {
             }}
             containerStyle={{ alignSelf: "center", marginVertical:50}}            
           />
-          <Text style={{alignSelf:"center"}}>{ this.props.navigation.state.params.name }</Text>
-          <Text style={{alignSelf:"center"}}>{ this.props.navigation.state.params.nickName }</Text>
-          <Text style={{alignSelf:"center"}}>{ this.props.navigation.state.params.phoneNumber }</Text>
-          <Text style={{alignSelf:"center"}}>{ this.props.navigation.state.params.email }</Text>      
+          <Text style={{alignSelf:"center"}}>Name: { this.props.navigation.state.params.name }</Text>
+          <Text style={{alignSelf:"center"}}>NickName: { this.props.navigation.state.params.nickName }</Text>
+          <Text style={{alignSelf:"center"}}>Phone Number: { this.props.navigation.state.params.phoneNumber }</Text>
+          <Text style={{alignSelf:"center"}}>Email: { this.props.navigation.state.params.email }</Text>      
           <Text style={{alignSelf:"center"}}>{ isQuickContact }</Text>     
-          <Button
-              title="Go Back"
-              onPress={ () => this.props.navigation.goBack() }
-            />
           <Button
               title="Make Quick Call Contact"
               onPress={ () => this.props.navigation.goBack() }
