@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, ScrollView,Button,Icon } from 'react-native';
+import { StyleSheet, View, ScrollView} from 'react-native';
+import { Button, Icon } from 'react-native-elements';
+
 import { Table, TableWrapper, Row } from 'react-native-table-component';
  
 // This will be converted to the history page a little later.

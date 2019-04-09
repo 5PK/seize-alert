@@ -14,7 +14,11 @@ import { Button,Icon,Avatar } from 'react-native-elements';
 
 export default class ContactProfileScreen extends React.Component {
     static navigationOptions = ({navigation}) => ({
+<<<<<<< HEAD
       title: navigation.state.params.name,      
+=======
+      title: navigation.state.params.name,
+>>>>>>> bf9914dc4ac88cf5d379b810f172ceb540aad004
       headerLeft:(
         <Button
           icon={
