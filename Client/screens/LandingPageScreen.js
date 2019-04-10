@@ -61,7 +61,9 @@ class LoginScreen extends React.Component {
 }
 
 class RegistrationScreen extends React.Component {
-
+  static navigationOptions = {
+    title: "Registration",
+  }
 
   state = {
     email: '',
@@ -126,7 +128,8 @@ class RegistrationScreen extends React.Component {
     return (
 
       <ScrollView style={{ padding: 20 }} >
-        <Text style={{ fontSize: 27, textAlign: "center", paddingBottom: 10 }}>Registration</Text>
+        <Text style={{ fontSize: 27, textAlign: "center", paddingBottom: 10 }}>Welcome to SeizeAlert.io!</Text>
+
         <TextInput
           style={{ marginBottom: 10, textAlign: 'left', alignSelf: 'stretch' }}
           autoCapitalize="none"

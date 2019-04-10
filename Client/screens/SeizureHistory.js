@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, ScrollView} from 'react-native';
+import { StyleSheet, View, ScrollView, Dimensions} from 'react-native';
 import { Button, Icon } from 'react-native-elements';
 
 import { Table, TableWrapper, Row } from 'react-native-table-component';
+
+const windowwidth = Dimensions.get('window').width
  
 // This will be converted to the history page a little later.
 export default class SeizureHistory extends React.Component {
@@ -22,11 +24,14 @@ export default class SeizureHistory extends React.Component {
           />)
       });
 
+    
     constructor(props) {
         super(props);
         this.state = {
           tableHead: ['Date Occured', 'Arm Variance', 'Ankle Variance'],
-          widthArr: [95, 95, 95]
+
+          widthArr: [windowwidth/3, windowwidth/3, windowwidth/3]
+
         }
       }
      
@@ -71,7 +76,7 @@ export default class SeizureHistory extends React.Component {
     }
      
     const styles = StyleSheet.create({
-      container: { flex: 1, padding: 16, paddingTop: 30, backgroundColor: '#fff' },
+      container: { flex: 1,  backgroundColor: '#fff' },
       header: { height: 50, backgroundColor: '#537791' },
       text: { textAlign: 'center', fontWeight: '100' },
       dataWrapper: { marginTop: -1 },

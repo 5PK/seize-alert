@@ -9,20 +9,25 @@ import {
   Text,
   TouchableOpacity,
   View,
-  NativeModules
+
+  NativeModules,
+  PanResponder,
+  Easing
 } from 'react-native';
+
 
 import call from 'react-native-phone-call'
 
-import { WebBrowser } from 'expo';
 
 import { Button, Icon } from 'react-native-elements';
-
-import { MonoText } from '../components/StyledText';
 
 import SeizureDetectionTrue from '../SeizureEngine/SeizureDetectionTrue.js';
 
 import SeizureDetectionFalse from '../SeizureEngine/SeizureDetectionFalse.js';
+
+import { AnimatedCircularProgress } from 'react-native-circular-progress';
+
+
 
 export default class HomeScreen extends React.Component {
 
@@ -32,15 +37,17 @@ export default class HomeScreen extends React.Component {
 
       .then((response) => response.json())
       .then((responseJson) => {
-        Alert.alert(JSON.stringify(responseJson[0]));
+
+
         this.setState({
           isLoading: false,
-          dataSource: responseJson[0]                  
-        });         
+          dataSource: responseJson[0]
+        });
       })
       .catch((error) => {
         console.error(error);
-      }); 
+      });
+
   }
 
   static navigationOptions = ({ navigation }) => ({
@@ -59,203 +66,158 @@ export default class HomeScreen extends React.Component {
       />)
   });
 
-  render() {
-    return (
-      
-      <View style={styles.container}>
-        <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-          <View style={styles.welcomeContainer}>
-            <Text>DashBoard</Text>
-          </View>
-          <View style={styles.welcomeContainer}>
-            <Image
-              source={
-                require('../assets/images/graph.png')
-              }
-              style={styles.welcomeImage}
-            />
-          </View>
-          <View>
-            <Button
 
-              onPress={this._contactCallButton}
-              title="Quick Call"
-              color="#841584"
-              accessibilityLabel="Quick Contact Call"
-            />
-            <Button
+  getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min)) + min; //The maximum is exclusive and the minimum is inclusive
+  }
 
-                onPress={() => RunSeizureDetect(this.state.dataSource)}
-                title="Seizure Example"
-                color="#841584"
-                accessibilityLabel="Seizure Example"
-/>            
-          </View>
-        </ScrollView>
+  wait() {
+    console.log('waited');
+  }
 
-      </View>
-    );
+
+  isEven(n) {
+    return n % 2 == 0;
+  }
+
+
+
+
+  animateCircle() {
+    this.refs.footCircle.animate(this.getRandomInt(50, 80));
+    this.refs.handCircle.animate(this.getRandomInt(50, 80));
+
 
   }
 
-  onPressLearnMore() {
-    //TODO
-  }
-  _maybeRenderDevelopmentModeWarning() {
-    if (__DEV__) {
-      const learnMoreButton = (
-        <Text onPress={this._handleLearnMorePress} style={styles.helpLinkText}>
-          Learn more
-        </Text>
-      );
-
-      return (
-        <Text style={styles.developmentModeText}>
-          Development mode is enabled, your app will be slower but you can use useful development
-          tools. {learnMoreButton}
-        </Text>
-      );
-    } else {
-      return (
-        <Text style={styles.developmentModeText}>
-          You are not in development mode, your app will run at full speed.
-        </Text>
-      );
-    }
+  reanimateCircle() {
+    this.refs.handCircle.animate(this.getRandomInt(25, 50));
+    this.refs.footCircle.animate(this.getRandomInt(25, 50));
   }
 
-  _handleLearnMorePress = () => {
-    WebBrowser.openBrowserAsync('https://docs.expo.io/versions/latest/guides/development-mode');
-  };
+  RunSeizureDetect(dataSource) {
 
-  _handleHelpPress = () => {
-    WebBrowser.openBrowserAsync(
-      'https://docs.expo.io/versions/latest/guides/up-and-running.html#can-t-see-your-changes'
-    );
-  };
 
-}
-
-function _openDrawer() {
-  this.props.navigation.openDrawer()
-}
-
-function RunSeizureDetect(dataSource) {
 
     const seizureDetectionTrue = new SeizureDetectionTrue();
 
-    const seizureDetectionFalse = new SeizureDetectionFalse();
+
+    this.animateCircle();
+
 
     var result = seizureDetectionTrue.determine();
 
-    if(result){
+
+    if (result) {
 
       const args = {
-      number: dataSource.phoneNumber,
-      //number: '9058069257',// String value with the number to call
-      prompt: false // Optional boolean property. Determines if the user should be prompt prior to the call 
-    }
-  
-    call(args).catch(console.error)
+        number: dataSource.phoneNumber,
+        //number: '9058069257',// String value with the number to call
+        prompt: false // Optional boolean property. Determines if the user should be prompt prior to the call 
+      }
+
+      call(args).catch(console.error)
 
       alert('Seizure Detected!');
+
     }
 
     return result;
-}
 
-function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-  developmentModeText: {
-    marginBottom: 20,
-    color: 'rgba(0,0,0,0.4)',
-    fontSize: 14,
-    lineHeight: 19,
-    textAlign: 'center',
-  },
-  contentContainer: {
-    paddingTop: 30,
-  },
-  welcomeContainer: {
-    alignItems: 'center',
-    marginBottom: 20,
-    fontSize: 18
-  },
-  welcomeImage: {
-    width: 300,
-    height: 250,
-    resizeMode: 'contain',
-    marginTop: 3,
-    marginLeft: -10,
-  },
-  getStartedContainer: {
-    alignItems: 'center',
-    marginHorizontal: 50,
-  },
-  homeScreenFilename: {
-    marginVertical: 7,
-  },
-  codeHighlightText: {
-    color: 'rgba(96,100,109, 0.8)',
-  },
-  codeHighlightContainer: {
-    backgroundColor: 'rgba(0,0,0,0.05)',
-    borderRadius: 3,
-    paddingHorizontal: 4,
-  },
-  getStartedText: {
-    fontSize: 17,
-    color: 'rgba(96,100,109, 1)',
-    lineHeight: 24,
-    textAlign: 'center',
-  },
-  tabBarInfoContainer: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    ...Platform.select({
-      ios: {
-        shadowColor: 'black',
-        shadowOffset: { height: -3 },
-        shadowOpacity: 0.1,
-        shadowRadius: 3,
-      },
-      android: {
-        elevation: 20,
-      },
-    }),
-    alignItems: 'center',
-    backgroundColor: '#fbfbfb',
-    paddingVertical: 20,
-  },
-  tabBarInfoText: {
-    fontSize: 17,
-    color: 'rgba(96,100,109, 1)',
-    textAlign: 'center',
-  },
-  navigationFilename: {
-    marginTop: 5,
-  },
-  helpContainer: {
-    marginTop: 15,
-    alignItems: 'center',
-  },
-  helpLink: {
-    paddingVertical: 15,
-  },
-  helpLinkText: {
-    fontSize: 14,
-    color: '#2e78b7',
-  },
-  Button: {
-    marginLeft: 5,
+
   }
+  render() {
+
+
+    return (
+
+      <View style={containerStyle.container} >
+        <View style={{ flexDirection: "row", marginTop: 50, marginBottom: 50 }}>
+          <View style={{ flex: 1 }} >
+            <Icon name='md-hand' type='ionicon' />
+            <AnimatedCircularProgress
+              style={{ alignSelf: "center", marginTop: 10 }}
+              size={150}
+              width={3}
+              fill={0}
+              tintColor="#00e0ff"
+
+              ref="handCircle"
+              backgroundColor="#3d5875"
+
+            >
+              
+            </AnimatedCircularProgress>
+          </View>
+          <View style={{ flex: 1 }} >
+            <Icon name='foot' type='foundation' />
+            <AnimatedCircularProgress
+              style={{ alignSelf: "center", marginTop: 10 }}
+              size={150}
+              width={3}
+              fill={0}
+              tintColor="#00e0ff"
+              prefill={0}
+              ref="footCircle"
+              backgroundColor="#3d5875"
+              onAnimationComplete={() => this.reanimateCircle()}
+            />
+
+          </View>
+        </View>
+
+        <Button
+          onPress={this._contactCallButton}
+          title="Quick Call"
+          color="#841584"
+          accessibilityLabel="Quick Contact Call"
+          buttonStyle={itemStyle.quickCallBtn}
+        />
+
+        <View style={containerStyle.bottom}>
+          <Button
+            onPress={() => this.RunSeizureDetect(this.state.dataSource)}
+            title="Seizure Demo"
+            color="#841584"
+            accessibilityLabel="Seizure Demo"
+            type="outline"
+          />
+        </View>
+
+      </View>
+    );
+  }
+}
+
+
+const itemStyle = StyleSheet.create({
+  quickCallBtn: {
+    height: 65,
+    width: 200,
+    alignSelf: 'center',
+    marginTop: 30,
+    backgroundColor: 'red'
+  }
+
 });
+
+const containerStyle = StyleSheet.create({
+  container: {
+    padding: 8,
+    backgroundColor: "#ffffff",
+    flex: 1,
+  },
+  rowContainer: {
+    flexDirection: 'row'
+  },
+  bottom: {
+    flex: 1,
+    justifyContent: 'flex-end',
+  }
+
+
+});
+

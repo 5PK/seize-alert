@@ -10,6 +10,22 @@ router.get('/', async (req, res) => {
   return res.send(contacts);
 });
 
+router.get('/quickCallContact', async (req, res) => {
+
+  console.log("_____ getting quick call contact ______")
+
+  const contact = await req.context.models.Contact.findAll({
+    where: {
+      isQuickContact: true
+    }
+  });
+
+  console.log(contact)
+
+  return res.send(contact);
+});
+
+
 router.get('/:contactId', async (req, res) => {
   const contact = await req.context.models.Contact.findById(
     req.params.contactId,
@@ -17,8 +33,10 @@ router.get('/:contactId', async (req, res) => {
   return res.send(contact);
 });
 
+
+
 router.post('/', async (req, res) => {
-  console.log('_________________________');
+  console.log('_______POST_______');
   console.log(req.body.name);
   const contact = await req.context.models.Contact.create({
     name: req.body.name,
@@ -32,6 +50,37 @@ router.post('/', async (req, res) => {
 
   return res.send(contact);
 });
+
+router.put('/:contactId', async (req, res) => {
+  console.log('_________PUT________');
+  console.log(req.body.name);
+
+  console.log(req.body);
+
+  if(req.body.isQuickContact){
+    const updateFalse = await req.context.models.Contact.update(
+      {
+      isQuickContact: false,
+      },
+      {where: { isQuickContact: true }}
+    );
+  }
+
+  const contact = await req.context.models.Contact.update(
+    {
+    name: req.body.name,
+    phoneNumber: req.body.phoneNumber,
+    isQuickContact: req.body.isQuickContact,
+    email: req.body.email,
+    avatarUrl: req.body.avatarUrl,
+    nickName: req.body.nickName
+    },
+    {where: { id: req.params.contactId }}
+  );
+
+  return res.send(contact);
+});
+
 
 router.delete('/:contactId', async (req, res) => {
   const result = await req.context.models.Contact.destroy({
