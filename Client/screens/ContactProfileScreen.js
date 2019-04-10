@@ -8,9 +8,11 @@ import {
   Text,
   TouchableOpacity,
   View,
+
   Alert,
   ImageBackground,
   Dimensions
+
 } from 'react-native';
 import { WebBrowser } from 'expo';
 
@@ -109,6 +111,7 @@ export default class ContactProfileScreen extends React.Component {
       </View>
 
     );
+
   }
 
   goBack() {

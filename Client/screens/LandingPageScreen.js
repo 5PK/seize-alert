@@ -129,6 +129,7 @@ class RegistrationScreen extends React.Component {
 
       <ScrollView style={{ padding: 20 }} >
         <Text style={{ fontSize: 27, textAlign: "center", paddingBottom: 10 }}>Welcome to SeizeAlert.io!</Text>
+
         <TextInput
           style={{ marginBottom: 10, textAlign: 'left', alignSelf: 'stretch' }}
           autoCapitalize="none"

@@ -29,7 +29,9 @@ export default class SeizureHistory extends React.Component {
         super(props);
         this.state = {
           tableHead: ['Date Occured', 'Arm Variance', 'Ankle Variance'],
+
           widthArr: [windowwidth/3, windowwidth/3, windowwidth/3]
+
         }
       }
      

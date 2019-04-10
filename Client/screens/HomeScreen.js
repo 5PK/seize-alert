@@ -9,10 +9,12 @@ import {
   Text,
   TouchableOpacity,
   View,
+
   NativeModules,
   PanResponder,
   Easing
 } from 'react-native';
+
 
 import call from 'react-native-phone-call'
 
@@ -36,6 +38,7 @@ export default class HomeScreen extends React.Component {
       .then((response) => response.json())
       .then((responseJson) => {
 
+
         this.setState({
           isLoading: false,
           dataSource: responseJson[0]
@@ -44,6 +47,7 @@ export default class HomeScreen extends React.Component {
       .catch((error) => {
         console.error(error);
       });
+
   }
 
   static navigationOptions = ({ navigation }) => ({
@@ -62,6 +66,7 @@ export default class HomeScreen extends React.Component {
       />)
   });
 
+
   getRandomInt(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
@@ -72,9 +77,11 @@ export default class HomeScreen extends React.Component {
     console.log('waited');
   }
 
+
   isEven(n) {
     return n % 2 == 0;
   }
+
 
 
 
@@ -93,12 +100,15 @@ export default class HomeScreen extends React.Component {
   RunSeizureDetect(dataSource) {
 
 
+
     const seizureDetectionTrue = new SeizureDetectionTrue();
+
 
     this.animateCircle();
 
 
     var result = seizureDetectionTrue.determine();
+
 
     if (result) {
 
@@ -113,6 +123,7 @@ export default class HomeScreen extends React.Component {
       alert('Seizure Detected!');
 
     }
+
     return result;
 
 
