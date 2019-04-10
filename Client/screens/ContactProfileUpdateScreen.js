@@ -16,25 +16,22 @@ import { WebBrowser } from 'expo';
 
 import { Button,Icon,Avatar,ButtonGroup } from 'react-native-elements';
 
-/* import Icon from 'react-native-vector-icons/MaterialIcons'; */
-export default class ContactProfileCreateScreen extends React.Component {
+export default class ContactProfileUpdateScreen extends React.Component {
 
       constructor(props) {
       super(props);
       this.state = { 
-                      name: '', 
-                      avatarUrl: 'https://picsum.photos/200/300/?random', 
-                      nickName: '', 
-                      email: '', 
-                      phoneNumber: '', 
-                      isQuickContact: false,
-                      selectedIndex: 0
+                      name: this.props.navigation.state.params.name, 
+                      avatarUrl: this.props.navigation.state.params.avatarUrl, 
+                      nickName: this.props.navigation.state.params.nickName, 
+                      email: this.props.navigation.state.params.email, 
+                      phoneNumber: this.props.navigation.state.params.phoneNumber, 
+                      isQuickContact: this.props.navigation.state.params.isQuickContact
                     };
-      this.updateIndex = this.updateIndex.bind(this)
       } 
 
     static navigationOptions = ({navigation}) => ({
-      title: "Contact Create",
+      title: "Contact Profile Update",
       headerLeft:(
         <Button
           icon={
@@ -46,14 +43,12 @@ export default class ContactProfileCreateScreen extends React.Component {
           onPress={() => navigation.toggleDrawer()}
           type="clear"
           buttonStyle={{marginLeft: 10}}
-        />)
-      
+        />)      
     });
   
     render() {
       const {navigate} = this.props.navigation;
       const buttons = ['No','Yes'];
-      const { selectedIndex } = this.state.selectedIndex;
     
       return (
         <View style={styles.avatarSize}>
@@ -94,14 +89,18 @@ export default class ContactProfileCreateScreen extends React.Component {
           />      
           <Text style={{alignSelf:"flex-start",fontSize:20}}>Make Quick Contact: </Text>     
           <ButtonGroup
-              onPress={this.updateIndex}
-              selectedIndex={selectedIndex}
+              onPress={ () => this.updateQuickContact() }
               buttons={buttons}
-              containerStyle={{height: 75}}
+              containerStyle={{height: 100}}
           />                  
           <Button
-              title="Create Contact"
-              onPress={() => this.createContact()}
+              title="Update Contact"
+              onPress={() => this.updateContact()}
+            />
+          
+          <Button
+              title="Go Back"
+              onPress={ () => this.props.navigation.goBack() }
             />
 
         </View>
@@ -111,11 +110,11 @@ export default class ContactProfileCreateScreen extends React.Component {
     goBack(){
       this.props.navigation.goBack();
     }
-    createContact(){      
-      fetch(
-        getEnvVars.apiUrl + '/contacts', 
-        {
-        method: "POST",
+    updateContact(){
+      fetch( 
+      getEnvVars.apiUrl + '/contacts/'+ this.props.navigation.state.params.contactId, 
+      {
+        method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
@@ -125,22 +124,27 @@ export default class ContactProfileCreateScreen extends React.Component {
           nickName: this.state.nickName, 
           email: this.state.email, 
           phoneNumber: this.state.phoneNumber, 
-          isQuickContact: this.state.isQuickContact,
-          contactId: 1
+          isQuickContact: this.state.isQuickContact
          })
       }).then((response) => {
         console.log('response:', response.status);
 
         if(response.status == 200){
-          Alert.alert("Contact Created Successfully!");
+          Alert.alert("Contact Updated Successfully!");
           this.goBack();
         }else{
           Alert.alert("There's been an error, please try again.");
         }
       });
     }
-    updateIndex (selectedIndex) {
-      this.setState({selectedIndex})
+
+    updateQuickContact () {
+      if(this.state.isQuickContact){
+        this.state.isQuickContact = false;
+      }
+      else{
+        this.state.isQuickContact = true;
+      }
     }
   }
 
