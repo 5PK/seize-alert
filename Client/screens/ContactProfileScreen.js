@@ -1,4 +1,5 @@
 import React from 'react';
+import getEnvVars from '../env.js'
 import {
   Image,
   Platform,
@@ -6,7 +7,8 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
-  View
+  View,
+  Alert
 } from 'react-native';
 import { WebBrowser } from 'expo';
 
@@ -70,7 +72,7 @@ export default class ContactProfileScreen extends React.Component {
             }}
             containerStyle={{ alignSelf: "center", marginVertical:50}}            
           />
-          <Text style={{alignSelf:"center"}}>Name: { this.props.navigation.state.params.name }</Text>
+          <Text style={{alignSelf:"center",fontSize:20}}>Name: { this.props.navigation.state.params.name }</Text>
           <Text style={{alignSelf:"center"}}>NickName: { this.props.navigation.state.params.nickName }</Text>
           <Text style={{alignSelf:"center"}}>Phone Number: { this.props.navigation.state.params.phoneNumber }</Text>
           <Text style={{alignSelf:"center"}}>Email: { this.props.navigation.state.params.email }</Text>      
@@ -79,10 +81,46 @@ export default class ContactProfileScreen extends React.Component {
               title="Make Quick Call Contact"
               onPress={ () => this.props.navigation.goBack() }
             />
+          <Button
+              icon={
+                <Icon
+                  name="delete"
+                />
+              }
+              title=""
+              onPress={() => this.deleteContact()}
+              type="clear"
+              buttonStyle={{marginLeft: 10}}
+          />            
         </View>
         
       );
     }
+
+    goBack(){
+      this.props.navigation.goBack();
+    }
+
+    deleteContact(){      
+      fetch(
+        getEnvVars.apiUrl + '/contacts/' + this.props.navigation.state.params.contactId, 
+        {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        }        
+      }).then((response) => {
+        console.log('response:', response.status);
+
+        if(response.status == 200){
+          Alert.alert("Contact Deleted Successfully!");
+          this.goBack();
+        }else{
+          Alert.alert("There's been an error, please try again.");
+        }
+      });
+    }
+    
   }
   
   function _openDrawer(){
