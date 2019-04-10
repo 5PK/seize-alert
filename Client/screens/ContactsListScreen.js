@@ -52,7 +52,6 @@ export default class ContactsListScreen extends React.Component {
       .catch((error) => {
         console.error(error);
       });
-      
   }
 
   static navigationOptions = ({ navigation }) => ({

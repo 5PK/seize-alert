@@ -1,13 +1,19 @@
 import React from 'react';
+import getEnvVars from '../env.js'
 import {
+  Alert,
   Image,
   Platform,
   ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
-  View
+  View,
+  NativeModules
 } from 'react-native';
+
+import call from 'react-native-phone-call'
+
 import { WebBrowser } from 'expo';
 
 import { Button, Icon } from 'react-native-elements';
@@ -19,6 +25,23 @@ import SeizureDetectionTrue from '../SeizureEngine/SeizureDetectionTrue.js';
 import SeizureDetectionFalse from '../SeizureEngine/SeizureDetectionFalse.js';
 
 export default class HomeScreen extends React.Component {
+
+  componentDidMount() {
+
+    fetch(getEnvVars.apiUrl + '/contacts/quickCallContact')
+
+      .then((response) => response.json())
+      .then((responseJson) => {
+        Alert.alert(JSON.stringify(responseJson[0]));
+        this.setState({
+          isLoading: false,
+          dataSource: responseJson[0]                  
+        });         
+      })
+      .catch((error) => {
+        console.error(error);
+      }); 
+  }
 
   static navigationOptions = ({ navigation }) => ({
     title: "Home",
@@ -36,9 +59,9 @@ export default class HomeScreen extends React.Component {
       />)
   });
 
-
   render() {
     return (
+      
       <View style={styles.container}>
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
           <View style={styles.welcomeContainer}>
@@ -62,7 +85,7 @@ export default class HomeScreen extends React.Component {
             />
             <Button
 
-                onPress={() => RunSeizureDetect()}
+                onPress={() => RunSeizureDetect(this.state.dataSource)}
                 title="Seizure Example"
                 color="#841584"
                 accessibilityLabel="Seizure Example"
@@ -110,28 +133,34 @@ export default class HomeScreen extends React.Component {
       'https://docs.expo.io/versions/latest/guides/up-and-running.html#can-t-see-your-changes'
     );
   };
+
 }
 
 function _openDrawer() {
   this.props.navigation.openDrawer()
 }
 
-
-
-function RunSeizureDetect() {
+function RunSeizureDetect(dataSource) {
 
     const seizureDetectionTrue = new SeizureDetectionTrue();
 
     const seizureDetectionFalse = new SeizureDetectionFalse();
 
     var result = seizureDetectionTrue.determine();
-  
+
     if(result){
-  
-      alert('Seizure Detected!');
-  
+
+      const args = {
+      number: dataSource.phoneNumber,
+      //number: '9058069257',// String value with the number to call
+      prompt: false // Optional boolean property. Determines if the user should be prompt prior to the call 
     }
   
+    call(args).catch(console.error)
+
+      alert('Seizure Detected!');
+    }
+
     return result;
 }
 
