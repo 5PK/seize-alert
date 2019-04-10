@@ -124,35 +124,35 @@ class RegistrationScreen extends React.Component {
 
   render() {
     return (
-      <ScrollView style={{ padding: 20 }}>
-        <Text
-          style={{ fontSize: 27, textAlign: "center" }}>
-          Registration
-      </Text>
+
+      <ScrollView style={{ padding: 20 }} >
+        <Text style={{ fontSize: 27, textAlign: "center", paddingBottom: 10 }}>Registration</Text>
         <TextInput
+          style={{ marginBottom: 10, textAlign: 'left', alignSelf: 'stretch' }}
           autoCapitalize="none"
           onSubmitEditing={() => this.passwordInput.focus()}
           autoCorrect={false}
           keyboardType='email-address'
           returnKeyType="next"
           placeholder='Email'
-          placeholderTextColor='rgba(225,225,225,0.7)'
+          placeholderTextColor='rgba(0,0,0,0.4)'
           ref={(el) => { this.email = el; }}
           onChangeText={this.handleEmailChange}
           value={this.state.email}
         />
-
+        <View style={{ marginTop: 10, marginBottom: 10 }}/>
         <TextInput
+          style={{ textAlign: 'left', alignSelf: 'stretch', marginBottom: 15 }}
           returnKeyType="go"
           ref={(input) => this.passwordInput = input}
           placeholder='Password'
-          placeholderTextColor='rgba(225,225,225,0.7)'
+          placeholderTextColor='rgba(0,0,0,0.4)'
           secureTextEntry
           ref={(el) => { this.password = el; }}
           onChangeText={this.handlePasswordChange}
           value={this.state.password}
         />
-        <View style={{ margin: 20 }} />
+        <View style={{ margin: 15 }} />
         <Button
           onPress={() => this.register(this.state.email, this.state.password)}
           title="Register"
@@ -201,76 +201,3 @@ export default class LandingPage extends React.Component {
     return <LandinPageContainer />
   }
 }
-
-
-/*
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-
-  contentContainer: {
-    paddingTop: 30,
-  },
-  welcomeContainer: {
-    alignItems: 'center',
-    marginBottom: 20,
-    fontSize: 18
-  },
-  welcomeImage: {
-    width: 300,
-    height: 250,
-    resizeMode: 'contain',
-    marginTop: 3,
-    marginLeft: -10,
-  },
-  codeHighlightText: {
-    color: 'rgba(96,100,109, 0.8)',
-  },
-  codeHighlightContainer: {
-    backgroundColor: 'rgba(0,0,0,0.05)',
-    borderRadius: 3,
-    paddingHorizontal: 4,
-  },
-  getStartedText: {
-    fontSize: 17,
-    color: 'rgba(96,100,109, 1)',
-    lineHeight: 24,
-    textAlign: 'center',
-  },
-  tabBarInfoContainer: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    ...Platform.select({
-      ios: {
-        shadowColor: 'black',
-        shadowOffset: { height: -3 },
-        shadowOpacity: 0.1,
-        shadowRadius: 3,
-      },
-      android: {
-        elevation: 20,
-      },
-    }),
-    alignItems: 'center',
-    backgroundColor: '#fbfbfb',
-    paddingVertical: 20,
-  },
-  tabBarInfoText: {
-    fontSize: 17,
-    color: 'rgba(96,100,109, 1)',
-    textAlign: 'center',
-  },
-  navigationFilename: {
-    marginTop: 5,
-  },
-  Button: {
-    marginLeft:5,
-  }
-});
-*/
-
-
