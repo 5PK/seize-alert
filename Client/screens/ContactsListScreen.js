@@ -52,7 +52,6 @@ export default class ContactsListScreen extends React.Component {
       .catch((error) => {
         console.error(error);
       });
-
   }
 
   static navigationOptions = ({ navigation }) => ({
@@ -87,6 +86,7 @@ export default class ContactsListScreen extends React.Component {
   alertItemName = (item) => {
     alert(item)
   }
+
   render() {
     const { navigate } = this.props.navigation;
 
@@ -124,14 +124,11 @@ export default class ContactsListScreen extends React.Component {
                   isQuickContact: l.isQuickContact,
                   contactId: l.id
                 })}
-              />
-            ))
+              />           
+              ))
           }
         </View>
-{/*         <Button
-          title="Create Contact"
-          onPress={() => this.props.navigation.navigate('ContactProfileCreate')}
-        /> */}
+
       </ScrollView>
 
     );

@@ -1,6 +1,6 @@
 import React from 'react';
-import { Platform } from 'react-native';
-import { createStackNavigator, createDrawerNavigator } from 'react-navigation';
+import { Platform, View, Text, ScrollView, Image } from 'react-native';
+import { createStackNavigator, createDrawerNavigator, DrawerItems, SafeAreaView } from 'react-navigation';
 
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
@@ -18,16 +18,7 @@ const Home = createStackNavigator({
 
 Home.navigationOptions = {
   tabBarLabel: 'Home',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={
-        Platform.OS === 'ios'
-          ? `ios-information-circle${focused ? '' : '-outline'}`
-          : 'md-information-circle'
-      }
-    />
-  ),
+ 
 };
 
 const Contacts = createStackNavigator({
@@ -39,12 +30,7 @@ const Contacts = createStackNavigator({
 
 Contacts.navigationOptions = {
   tabBarLabel: 'Contacts',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'}
-    />
-  ),
+ 
 
 };
 
@@ -54,13 +40,8 @@ const ContactProfile = createStackNavigator({
 
 ContactProfile.navigationOptions = {
   tabBarLabel: 'ContactProfile',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'}
-    />
-  ),
-};  
+ 
+};
 
 const History = createStackNavigator({
   History: SeizureHistoryScreen,
@@ -68,16 +49,27 @@ const History = createStackNavigator({
 
 History.navigationOptions = {
   tabBarLabel: 'Example',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'}
-    />
-  ),
+
 };
- 
+
 export default createDrawerNavigator({
   Home,
   Contacts,
   History
-});
+}, {
+    contentComponent: (props) => (
+      <SafeAreaView >
+        <View style={{ height: 220, alignItems: 'center', justifyContent: 'center' }}>
+          <Image
+            style={{ width: 180, height: 180,marginTop:40 }}
+            source={require('../assets/images/alerts.png')}
+          />
+          <Text style={{ fontSize: 32 }}>Seize Alert</Text>
+        </View>
+        <ScrollView style={{ marginTop:40}}>
+          <DrawerItems {...props} />
+        </ScrollView>
+      </SafeAreaView>
+    )
+
+  });

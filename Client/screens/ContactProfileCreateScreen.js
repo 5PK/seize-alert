@@ -23,7 +23,7 @@ export default class ContactProfileCreateScreen extends React.Component {
       super(props);
       this.state = { 
                       name: '', 
-                      avatarUrl: '', 
+                      avatarUrl: 'https://picsum.photos/200/300/?random', 
                       nickName: '', 
                       email: '', 
                       phoneNumber: '', 
@@ -34,7 +34,7 @@ export default class ContactProfileCreateScreen extends React.Component {
       } 
 
     static navigationOptions = ({navigation}) => ({
-      title: "Contact Profile Create",
+      title: "Contact Create",
       headerLeft:(
         <Button
           icon={
@@ -57,57 +57,60 @@ export default class ContactProfileCreateScreen extends React.Component {
     
       return (
         <View style={styles.avatarSize}>
-          <TextInput 
+          <Text style={{alignSelf:"flex-start",fontSize:20}}>Name: </Text>
+          <TextInput
               placeholder='Full Name' 
-              style={{ marginBottom:10, textAlign: 'left', alignSelf: 'stretch', marginLeft:90}} 
+              style={{ marginBottom:10, textAlign: 'left', alignSelf: 'stretch', marginLeft:5}} 
               onChangeText={(name) => this.setState({name})}
               value={this.state.name}
           />
+          <Text style={{alignSelf:"flex-start",fontSize:20}}>Image Url: </Text>
           <TextInput 
-              placeholder='ImageURL' 
-              style={{ textAlign: 'left'  , alignSelf: 'stretch', marginLeft:90}} 
+              placeholder='Image URL' 
+              style={{ marginBottom:10,textAlign: 'left'  , alignSelf: 'stretch', marginLeft:5}} 
               onChangeText={(avatarUrl) => this.setState({avatarUrl})}
               value={this.state.avatarUrl}
           />
+          <Text style={{alignSelf:"flex-start",fontSize:20}}>Nick Name: </Text>
           <TextInput 
               placeholder='Nickname' 
-              style={{ textAlign: 'left'  , alignSelf: 'stretch', marginLeft:90}} 
+              style={{ marginBottom:10,textAlign: 'left'  , alignSelf: 'stretch', marginLeft:5}} 
               onChangeText={(nickName) => this.setState({nickName})}
               value={this.state.nickName}
           />
+          <Text style={{alignSelf:"flex-start",fontSize:20}}>Email: </Text>
           <TextInput 
               placeholder='Email' 
-              style={{ textAlign: 'left'  , alignSelf: 'stretch', marginLeft:90}} 
+              style={{ marginBottom:10,textAlign: 'left'  , alignSelf: 'stretch', marginLeft:5}} 
               onChangeText={(email) => this.setState({email})}
               value={this.state.email}
           />   
+          <Text style={{alignSelf:"flex-start",fontSize:20}}>Phone Number: </Text>
           <TextInput 
               placeholder='Phone Number' 
-              style={{ textAlign: 'left'  , alignSelf: 'stretch', marginLeft:90}} 
+              style={{ marginBottom:10,textAlign: 'left'  , alignSelf: 'stretch', marginLeft:5}} 
               onChangeText={(phoneNumber) => this.setState({phoneNumber})}
               value={this.state.phoneNumber}
-          />           
+          />      
+          <Text style={{alignSelf:"flex-start",fontSize:20}}>Make Quick Contact: </Text>     
           <ButtonGroup
               onPress={this.updateIndex}
               selectedIndex={selectedIndex}
               buttons={buttons}
-              containerStyle={{height: 100}}
+              containerStyle={{height: 75}}
           />                  
           <Button
               title="Create Contact"
               onPress={() => this.createContact()}
-            />
-          
-          <Button
-              title="Go Back"
-              onPress={ () => this.props.navigation.goBack() }
             />
 
         </View>
         
       );
     }
-
+    goBack(){
+      this.props.navigation.goBack();
+    }
     createContact(){      
       fetch(
         getEnvVars.apiUrl + '/contacts', 
@@ -130,6 +133,7 @@ export default class ContactProfileCreateScreen extends React.Component {
 
         if(response.status == 200){
           Alert.alert("Contact Created Successfully!");
+          this.goBack();
         }else{
           Alert.alert("There's been an error, please try again.");
         }
@@ -154,13 +158,13 @@ export default class ContactProfileCreateScreen extends React.Component {
       color: 'rgba(0,0,0,0.4)',
       fontSize: 14,
       lineHeight: 19,
-      textAlign: 'center',
+      textAlign: 'left',
     },
     contentContainer: {
       paddingTop: 30,
     },
     welcomeContainer: {
-      alignItems: 'center',
+      alignItems: 'flex-start',
       marginBottom: 20,
       fontSize: 18
     },
@@ -172,7 +176,7 @@ export default class ContactProfileCreateScreen extends React.Component {
       marginLeft: -10,
     },
     getStartedContainer: {
-      alignItems: 'center',
+      alignItems: 'flex-start',
       marginHorizontal: 50,
     },
     homeScreenFilename: {
@@ -190,7 +194,7 @@ export default class ContactProfileCreateScreen extends React.Component {
       fontSize: 17,
       color: 'rgba(96,100,109, 1)',
       lineHeight: 24,
-      textAlign: 'center',
+      textAlign: 'left',
     },
     tabBarInfoContainer: {
       position: 'absolute',
@@ -208,21 +212,21 @@ export default class ContactProfileCreateScreen extends React.Component {
           elevation: 20,
         },
       }),
-      alignItems: 'center',
+      alignItems: 'flex-start',
       backgroundColor: '#fbfbfb',
       paddingVertical: 20,
     },
     tabBarInfoText: {
       fontSize: 17,
       color: 'rgba(96,100,109, 1)',
-      textAlign: 'center',
+      textAlign: 'left',
     },
     navigationFilename: {
       marginTop: 5,
     },
     helpContainer: {
       marginTop: 15,
-      alignItems: 'center',
+      alignItems: 'flex-start',
     },
     helpLink: {
       paddingVertical: 15,
@@ -230,7 +234,7 @@ export default class ContactProfileCreateScreen extends React.Component {
     avatarSize: {
       fontSize: 14,
       color: '#2e78b7',
-      textAlign: "center"
+      textAlign: "left"
     },
     Button: {
       marginLeft:5,
