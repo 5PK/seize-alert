@@ -6,7 +6,16 @@ const router = Router();
 
 router.get('/', async (req, res) => {
   console.log('Get Request made');
-  const alerts = await req.context.models.Alert.findAll();
+  const alerts = await req.context.models.Alert.findAll({order:[[ 'createdAt', 'DESC' ]]});
+  return res.send(alerts);
+});
+
+router.get('/lastAlert', async (req, res) => {
+  console.log('Get Request made');
+  const alerts = await req.context.models.Alert.findAll({
+    limit:1,
+    order:[[ 'createdAt', 'DESC' ]]
+  });
   return res.send(alerts);
 });
 
@@ -15,7 +24,7 @@ router.post('/', async (req, res) => {
   console.log('_________________________');
   console.log(req.body.name);
   const alert = await req.context.models.Alert.create({
-    date: req.body.date,
+    dateOccured: req.body.dateOccured,
     armVariance: req.body.armVariance,
     ankleVariance: req.body.ankleVariance,
   });

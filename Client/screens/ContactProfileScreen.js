@@ -65,50 +65,32 @@ export default class ContactProfileScreen extends React.Component {
     var isQuickContact = 'Not Quick Call Contact';
 
     if (this.props.navigation.state.params.isQuickContact === true) {
-      isQuickContact = 'Current Quick Call Contact';
+      isQuickContact = 'Current Primary Contact';
     }
     return (
 
-      <View style={containerStyle.container} >
-        <View>
-          
-            <ImageBackground source={require('../assets/images/download.jpeg')} style={{  width: windowwidth, height: 250 }}>
-              <Button
-                style={{ width: 50, alignSelf: 'flex-end' }}
-                icon={
-                  <Icon
-                    name="delete"
-                    color='red'
-                  />
-                }
-                title=""
-                onPress={() => this.deleteContact()}
-                type="clear"
-                buttonStyle={{ marginLeft: 10 }}
-              />
-              <Avatar
-                size='large'
-                rounded
-                source={{
-                  uri: this.props.navigation.state.params.avatarUrl
-                }}
-                containerStyle={{ alignSelf: "center", marginVertical: 50 }}
-              />
-            </ImageBackground>
-          
-          <Text style={{ alignSelf: "center", fontSize: 30 }}>{this.props.navigation.state.params.name}</Text>
-          <Text style={{ alignSelf: "center" }}>{this.props.navigation.state.params.nickName}</Text>
-          <Text style={{ alignSelf: "center" }}>Phone Number: {this.props.navigation.state.params.phoneNumber}</Text>
-          <Text style={{ alignSelf: "center" }}>{this.props.navigation.state.params.email}</Text>
-          <Text style={{ alignSelf: "center" }}>{isQuickContact}</Text>
-        </View>
-        <View style={containerStyle.bottom}>
-          <Button
-            title="Make Quick Call Contact"
-            onPress={() => this.props.navigation.goBack()}
-          />
+      <View style={styles.container}>
+        <View style={styles.header}></View>
+        <Image style={styles.avatar} source={{ uri: this.props.navigation.state.params.avatarUrl }} />
+        <View style={styles.body}>
+          <View style={styles.bodyContent}>
+            <Text style={styles.name}>{this.props.navigation.state.params.name}</Text>
+            <Text style={styles.info}>{this.props.navigation.state.params.nickName}</Text>
+            <Text style={styles.info}>{this.props.navigation.state.params.phoneNumber}</Text>
+            <Text style={styles.info}>{this.props.navigation.state.params.email}</Text>
+            <Text style={styles.description}>{isQuickContact}</Text>
+
+            <TouchableOpacity style={styles.buttonContainer} onPress={() => this.props.navigation.goBack()}>
+              <Text>Make Primary Contact</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.deleteButtonContainer} onPress={() => this.deleteContact()}>
+              <Text>Delete Contact</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
+
+     
 
     );
 
@@ -145,30 +127,77 @@ function _openDrawer() {
 }
 
 const styles = StyleSheet.create({
-  container: {
+  header:{
+    backgroundColor: "steelblue",
+    height:200,
+  },
+  avatar: {
+    width: 130,
+    height: 130,
+    borderRadius: 63,
+    borderWidth: 4,
+    borderColor: "white",
+    marginBottom:10,
+    alignSelf:'center',
+    position: 'absolute',
+    marginTop:130
+  },
+  name:{
+    fontSize:22,
+    color:"#FFFFFF",
+    fontWeight:'600',
+  },
+  body:{
+    marginTop:40,
+  },
+  bodyContent: {
     flex: 1,
-    backgroundColor: '#fff',
+    alignItems: 'center',
+    padding:30,
   },
-
-  contentContainer: {
-    paddingTop: 30,
+  name:{
+    fontSize:28,
+    color: "#696969",
+    fontWeight: "600"
   },
-
-  avatarSize: {
-    fontSize: 14,
-    color: '#2e78b7',
-    textAlign: "center",
-    height: 300
+  info:{
+    fontSize:16,
+    color: "#00BFFF",
+    marginTop:10
   },
-  Button: {
-    marginLeft: 5,
-    marginBottom: 50
-  }
+  description:{
+    fontSize:16,
+    color: "#696969",
+    marginTop:10,
+    textAlign: 'center'
+  },
+  buttonContainer: {
+    marginTop:10,
+    height:45,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom:20,
+    width:250,
+    borderRadius:30,
+    backgroundColor: "#00BFFF",
+  },
+  deleteButtonContainer: {
+    marginTop:10,
+    height:45,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom:20,
+    width:250,
+    borderRadius:30,
+    backgroundColor: "red",
+  },
 });
 
 const containerStyle = StyleSheet.create({
   container: {
-    
+
     backgroundColor: "#ffffff",
     flex: 1,
   },

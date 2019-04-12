@@ -7,12 +7,13 @@ import {
   ScrollView,
   StyleSheet,
   Text,
-  TouchableOpacity,
+  RefreshControl,
   View,
-
+  TouchableHighlight,
   NativeModules,
   PanResponder,
-  Easing
+  Easing,
+  ActivityIndicator
 } from 'react-native';
 
 
@@ -25,28 +26,85 @@ import SeizureDetectionTrue from '../SeizureEngine/SeizureDetectionTrue.js';
 
 import SeizureDetectionFalse from '../SeizureEngine/SeizureDetectionFalse.js';
 
-import { AnimatedCircularProgress } from 'react-native-circular-progress';
-
-
+import ChartView from 'react-native-highcharts';
 
 export default class HomeScreen extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { isLoading: true, refreshing: false };
+  }
 
-  componentDidMount() {
-
+  _onRefresh = () => {
+    this.setState({ refreshing: true });
     fetch(getEnvVars.apiUrl + '/contacts/quickCallContact')
-
       .then((response) => response.json())
       .then((responseJson) => {
 
+        fetch(getEnvVars.apiUrl + '/alerts/lastAlert')
+          .then((response) => response.json())
+          .then((responseJson) => {
+
+            var lastAlert = new Date(responseJson[0].createdAt);
+            const today = new Date();
+            const oneDay = 24 * 60 * 60 * 1000;
+            var firstDate = new Date(lastAlert.getFullYear(), lastAlert.getMonth(), lastAlert.getDate());
+            var secondDate = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+            var daySinceLastSeizure = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime()) / (oneDay)));
+
+            this.setState({
+              daySinceLastSeizure: daySinceLastSeizure,
+              refreshing: false
+            });
+          })
+          .catch((error) => {
+            console.error(error);
+          });
 
         this.setState({
-          isLoading: false,
-          dataSource: responseJson[0]
+          qcContact: responseJson[0],
+
         });
       })
       .catch((error) => {
         console.error(error);
       });
+  }
+
+  componentDidMount() {
+
+    fetch(getEnvVars.apiUrl + '/contacts/quickCallContact')
+      .then((response) => response.json())
+      .then((responseJson) => {
+
+        fetch(getEnvVars.apiUrl + '/alerts/lastAlert')
+          .then((response) => response.json())
+          .then((responseJson) => {
+
+            var lastAlert = new Date(responseJson[0].createdAt);
+            const today = new Date();
+            const oneDay = 24 * 60 * 60 * 1000;
+            var firstDate = new Date(2018, lastAlert.getMonth(), lastAlert.getDate());
+            var secondDate = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+            var daySinceLastSeizure = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime()) / (oneDay)));
+
+            this.setState({
+              daySinceLastSeizure: daySinceLastSeizure,
+              isLoading: false
+            });
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+
+        this.setState({
+          qcContact: responseJson[0],
+
+        });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+
 
   }
 
@@ -66,59 +124,43 @@ export default class HomeScreen extends React.Component {
       />)
   });
 
-
-  getRandomInt(min, max) {
+  getRandomIntInclusive(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min)) + min; //The maximum is exclusive and the minimum is inclusive
+    return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive 
   }
 
-  wait() {
-    console.log('waited');
-  }
-
-
-  isEven(n) {
-    return n % 2 == 0;
-  }
-
-
-
-
-  animateCircle() {
-    this.refs.footCircle.animate(this.getRandomInt(50, 80));
-    this.refs.handCircle.animate(this.getRandomInt(50, 80));
-
-
-  }
-
-  reanimateCircle() {
-    this.refs.handCircle.animate(this.getRandomInt(25, 50));
-    this.refs.footCircle.animate(this.getRandomInt(25, 50));
-  }
-
-  RunSeizureDetect(dataSource) {
-
-
+  RunSeizureDetect(qcContact) {
 
     const seizureDetectionTrue = new SeizureDetectionTrue();
 
-
-    this.animateCircle();
-
-
     var result = seizureDetectionTrue.determine();
-
 
     if (result) {
 
       const args = {
-        number: dataSource.phoneNumber,
+        number: qcContact.phoneNumber,
         //number: '9058069257',// String value with the number to call
         prompt: false // Optional boolean property. Determines if the user should be prompt prior to the call 
       }
 
       call(args).catch(console.error)
+
+      fetch(
+        getEnvVars.apiUrl + '/alerts',
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            dateOccured: new Date(),
+            armVariance: Math.random() * 0.5 + 0.25,
+            ankleVariance: Math.random() * 0.5 + 0.25,
+          })
+        }).then((response) => {
+          console.log('response:', response.status);
+        });
 
       alert('Seizure Detected!');
 
@@ -126,80 +168,245 @@ export default class HomeScreen extends React.Component {
 
     return result;
 
-
-
   }
+
   render() {
+    if (this.state.isLoading) {
+      return (
+        <View style={{ flex: 1, padding: 20 }}>
+          <ActivityIndicator />
+        </View>
+      )
+    }
+
+    var Highcharts = 'Highcharts';
+    var armConf = {
+      chart: {
+        type: 'line',
+        animation: true, // don't animate in old IE
+        marginRight: 0,
+        events: {
+          load: function () {
+
+            // set up the updating of the chart each second
+            var series = this.series[0];
+            var series2 = this.series[1];
+            setInterval(function () {
+              var x = (new Date()).getTime(), // current time
+                y = Math.random() * 0.5 + 0.25;
+              y2 = Math.random() * 0.5 + 0.25;
+              series.addPoint([x, y], true, true);
+              series2.addPoint([x, y2], true, true);
+            }, 100);
+          }
+        }
+      },
+      title: {
+        text: 'Arm Acceleration'
+      },
+      xAxis: {
+        type: 'datetime',
+        tickPixelInterval: 100
+      },
+      yAxis: {
+        title: {
+          text: 'Acceleration'
+        },
+        plotLines: [{
+          value: 0,
+          width: 0.1,
+          color: '#808080'
+        }]
+      },
+      legend: {
+        enabled: true
+      },
+      exporting: {
+        enabled: false
+      },
+      series: [{
+        name: 'Right Wrist',
+        data: (function () {
+          // generate an array of random data
+          var data = [],
+            time = (new Date()).getTime(),
+            i;
+
+          for (i = 0; i <= 100; i++) {
+            data.push({
+              x: time + i * 100,
+              y: Math.random() * 0.5 + 0.25
+            });
+          }
+          return data;
+        }())
+      },
+      {
+        name: 'Left Wrist',
+        data: (function () {
+          // generate an array of random data
+          var data = [],
+            time = (new Date()).getTime(),
+            i;
+
+          for (i = 0; i <= 100; i++) {
+            data.push({
+              x: time + i * 100,
+              y: Math.random() * 0.5 + 0.25
+            });
+          }
+          return data;
+        }())
+      }
+      ]
+    };
+
+    var legConf = {
+      chart: {
+        type: 'line',
+        animation: true, // don't animate in old IE
+        marginRight: 0,
+        events: {
+          load: function () {
+
+            // set up the updating of the chart each second
+            var series = this.series[0];
+            var series2 = this.series[1];
+            setInterval(function () {
+              var x = (new Date()).getTime(), // current time
+                y = Math.random() * 0.5 + 0.25;
+              y2 = Math.random() * 0.5 + 0.25;
+              series.addPoint([x, y], true, true);
+              series2.addPoint([x, y2], true, true);
+            }, 100);
+          }
+        }
+      },
+      title: {
+        text: 'Leg Acceleration'
+      },
+      xAxis: {
+        type: 'datetime',
+        tickPixelInterval: 100
+      },
+      yAxis: {
+        title: {
+          text: 'Acceleration'
+        },
+        plotLines: [{
+          value: 0,
+          width: 0.1,
+          color: '#808080'
+        }]
+      },
+      legend: {
+        enabled: true
+      },
+      exporting: {
+        enabled: false
+      },
+      series: [{
+        name: 'Right Ankle',
+        data: (function () {
+          // generate an array of random data
+          var data = [],
+            time = (new Date()).getTime(),
+            i;
+
+          for (i = 0; i <= 100; i++) {
+            data.push({
+              x: time + i * 100,
+              y: Math.random() * 0.5 + 0.25
+            });
+          }
+          return data;
+        }())
+      },
+      {
+        name: 'Right Ankle',
+        data: (function () {
+          // generate an array of random data
+          var data = [],
+            time = (new Date()).getTime(),
+            i;
+
+          for (i = 0; i <= 100; i++) {
+            data.push({
+              x: time + i * 100,
+              y: Math.random() * 0.5 + 0.25
+            });
+          }
+          return data;
+        }())
+      }
+      ]
+    };
+
+    const options = {
+      global: {
+        useUTC: false
+      },
+      lang: {
+        decimalPoint: ',',
+        thousandsSep: '.'
+      }
+    };
+
 
 
     return (
 
-      <View style={containerStyle.container} >
-        <View style={{ flexDirection: "row", marginTop: 50, marginBottom: 50 }}>
-          <View style={{ flex: 1 }} >
-            <Icon name='md-hand' type='ionicon' />
-            <AnimatedCircularProgress
-              style={{ alignSelf: "center", marginTop: 10 }}
-              size={150}
-              width={3}
-              fill={0}
-              tintColor="#00e0ff"
-
-              ref="handCircle"
-              backgroundColor="#3d5875"
-
-            >
-              
-            </AnimatedCircularProgress>
-          </View>
-          <View style={{ flex: 1 }} >
-            <Icon name='foot' type='foundation' />
-            <AnimatedCircularProgress
-              style={{ alignSelf: "center", marginTop: 10 }}
-              size={150}
-              width={3}
-              fill={0}
-              tintColor="#00e0ff"
-              prefill={0}
-              ref="footCircle"
-              backgroundColor="#3d5875"
-              onAnimationComplete={() => this.reanimateCircle()}
-            />
-
-          </View>
-        </View>
-
-        <Button
-          onPress={this._contactCallButton}
-          title="Quick Call"
-          color="#841584"
-          accessibilityLabel="Quick Contact Call"
-          buttonStyle={itemStyle.quickCallBtn}
-        />
-
-        <View style={containerStyle.bottom}>
-          <Button
-            onPress={() => this.RunSeizureDetect(this.state.dataSource)}
-            title="Seizure Demo"
-            color="#841584"
-            accessibilityLabel="Seizure Demo"
-            type="outline"
+      <ScrollView style={{ flex: 1 }}
+        contentContainerStyle={{ flex: 1 }}
+        refreshControl={
+          <RefreshControl
+            refreshing={this.state.refreshing}
+            onRefresh={this._onRefresh}
           />
-        </View>
+        }
+      >
 
-      </View>
+        <View style={containerStyle.container} >
+          <ScrollView style={{ height: 300 }}>
+            <ChartView style={{ height: 200 }} config={armConf} options={options}></ChartView>
+            <ChartView style={{ height: 200 }} config={legConf} options={options}></ChartView>
+          </ScrollView>
+
+          <View style={itemStyle.daysSince} >
+
+
+
+            <Text style={{ alignSelf: 'center' }} >Days since last seizure:</Text>
+
+
+            <Text style={{ alignSelf: 'center', marginTop: 15, fontSize: 30 }} >{this.state.daySinceLastSeizure}</Text>
+          </View>
+
+          <View style={containerStyle.bottom}>
+            <Button
+              onPress={() => this.RunSeizureDetect(this.state.qcContact)}
+              title="Seizure Demo"
+              color="#841584"
+              accessibilityLabel="Seizure Demo"
+              type="outline"
+            />
+          </View>
+
+        </View>
+      </ScrollView>
     );
   }
 }
 
-
 const itemStyle = StyleSheet.create({
-  quickCallBtn: {
-    height: 65,
+  daysSince: {
+    height: 75,
     width: 200,
     alignSelf: 'center',
     marginTop: 30,
-    backgroundColor: 'red'
+    borderRadius: 4,
+    borderWidth: 1,
+    borderColor: '#d6d7da',
   }
 
 });
