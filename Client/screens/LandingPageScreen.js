@@ -1,5 +1,5 @@
 import React from 'react'
-import { ScrollView, Text, TextInput, View, StyleSheet, Image, Link, KeyboardAvoidingView } from 'react-native'
+import { ScrollView, Text, TextInput, View, StyleSheet, Image, Link, KeyboardAvoidingView, Dimensions } from 'react-native'
 import getEnvVars from '../env.js'
 
 import { Button } from 'react-native-elements'
@@ -9,6 +9,8 @@ import AppNavigator from '../navigation/AppNavigator'
 import AnimatedLoader from 'react-native-animated-loader';
 
 import Alert from '../components/landingLoader'
+
+const windowwidth = Dimensions.get('window').width
 
 class AppEntry extends AppNavigator {
   static navigationOptions = {
@@ -25,36 +27,37 @@ class LoginScreen extends React.Component {
   render() {
     return (
 
-      <KeyboardAvoidingView style=
-
+      <KeyboardAvoidingView 
+        style=
         {{
           padding: 20, flex: 1,
           flexDirection: 'column',
           alignItems: 'center'
         }} >
-       <View  style={{width: 400, height: 250}} >
-        <Alert />
-       </View>
-        
-        <Text style={{ fontSize: 30, marginBottom: 15 }}>SeizeAlert.io</Text>
-        <TextInput placeholder='Username' style={{ marginBottom: 10, textAlign: 'left', alignSelf: 'stretch', marginLeft: 90 }} />
-        <TextInput placeholder='Password' style={{ textAlign: 'left', alignSelf: 'stretch', marginLeft: 90,marginBottom: 15, }} />
-        <Button
-          onPress={() => this.props.navigation.navigate('AppEntry')}
-          title='Login'
-          buttonStyle={{ margin: 7, width: 200 }}
-        />
-        <Button
-          buttonStyle={{ marginTop: 10, width: 200 }}
-          onPress={() => this.props.navigation.navigate('Register')}
-          title='Register'
-        />
-        <Button
-          buttonStyle={{ marginTop: 10, width: 200 }}
-          onPress={() => this.props.navigation.navigate('ResetPassword')}
-          title='I forgot my password!'
-          type="clear"
-        />
+        <View style={{ width: 400, height: 250 }} >
+          <Alert />
+        </View>
+        <View style={{ flex: 1, justifyContent: 'center' }} >
+          <Text style={{ fontSize: 30, marginBottom: 15, alignSelf: 'center' }}>SeizeAlert.io</Text>
+          <TextInput placeholder='Username' style={{ width:  200, textAlign: 'left', alignSelf: 'flex-start',  borderBottomWidth: 1, borderBottomColor: 'grey', marginBottom: 10 }} />
+          <TextInput placeholder='Password' style={{ width:  200, textAlign: 'left', alignSelf: 'flex-start',  borderBottomWidth: 1, borderBottomColor: 'grey', marginBottom: 15, }} />
+          <Button
+            onPress={() => this.props.navigation.navigate('AppEntry')}
+            title='Login'
+            buttonStyle={{ marginTop: 7, width: { windowwidth }/3 }}
+          />
+          <Button
+            buttonStyle={{ marginTop: 10, width: { windowwidth }/3 }}
+            onPress={() => this.props.navigation.navigate('Register')}
+            title='Register'
+          />
+          <Button
+            buttonStyle={{ marginTop: 10, width: { windowwidth }/2.5 }}
+            onPress={() => this.props.navigation.navigate('ResetPassword')}
+            title='I forgot my password!'
+            type="clear"
+          />
+        </View>
       </KeyboardAvoidingView>
     )
   }
@@ -89,7 +92,7 @@ class RegistrationScreen extends React.Component {
     validateEmail = (email) => {
       var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       return re.test(email)
-      
+
     }
     if (validateEmail(emailInput) && validatePassword(passInput)) {
 
@@ -101,13 +104,13 @@ class RegistrationScreen extends React.Component {
         body: JSON.stringify({
           email: emailInput,
           password: passInput,
-         })
+        })
       }).then((response) => {
         console.log('response:', response.status);
 
-        if(response.status == 200){
+        if (response.status == 200) {
           Alert.alert("You've been registered successfully, please login!");
-        }else{
+        } else {
           Alert.alert("There's been an error, please try again");
         }
 
@@ -127,11 +130,11 @@ class RegistrationScreen extends React.Component {
   render() {
     return (
 
-      <ScrollView style={{ padding: 20 }} >
-        <Text style={{ fontSize: 27, textAlign: "center", paddingBottom: 10 }}>Welcome to SeizeAlert.io!</Text>
+      <View style={{ flex: 1, justifyContent: 'center' }}  >
+        <Text style={{ fontSize: 27, textAlign: "center", marginBottom: 100 }}>Welcome to SeizeAlert.io!</Text>
 
         <TextInput
-          style={{ marginBottom: 10, textAlign: 'left', alignSelf: 'stretch' }}
+          style={{ marginBottom: 10, textAlign: 'left', alignSelf: 'center',  borderBottomWidth: 1, borderBottomColor: 'grey',width:  200 }}
           autoCapitalize="none"
           onSubmitEditing={() => this.passwordInput.focus()}
           autoCorrect={false}
@@ -143,9 +146,9 @@ class RegistrationScreen extends React.Component {
           onChangeText={this.handleEmailChange}
           value={this.state.email}
         />
-        <View style={{ marginTop: 10, marginBottom: 10 }}/>
+        <View style={{ marginTop: 10, marginBottom: 10 }} />
         <TextInput
-          style={{ textAlign: 'left', alignSelf: 'stretch', marginBottom: 15 }}
+          style={{ textAlign: 'left', alignSelf: 'center', marginBottom: 15,  borderBottomWidth: 1, borderBottomColor: 'grey',width:  200 }}
           returnKeyType="go"
           ref={(input) => this.passwordInput = input}
           placeholder='Password'
@@ -159,8 +162,9 @@ class RegistrationScreen extends React.Component {
         <Button
           onPress={() => this.register(this.state.email, this.state.password)}
           title="Register"
+          buttonStyle={{width:  200, alignSelf: 'center'}}
         />
-      </ScrollView>
+      </View>
     )
   }
 }
