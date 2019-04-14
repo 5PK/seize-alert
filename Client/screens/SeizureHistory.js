@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, ScrollView, Dimensions, ActivityIndicator } from 'react-native';
+import { StyleSheet, View, ScrollView, Dimensions, ActivityIndicator,RefreshControl } from 'react-native';
 import { Button, Icon } from 'react-native-elements';
 import getEnvVars from '../env.js'
 import { Table, TableWrapper, Row } from 'react-native-table-component';
@@ -24,9 +24,20 @@ export default class SeizureHistory extends React.Component {
       />)
   });
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      tableHead: ['Date Occured', 'Arm Variance', 'Ankle Variance'],
+      widthArr: [windowwidth / 3, windowwidth / 3, windowwidth / 3],
+      isLoading: true,
+      refreshing: false,
+
+    }
+  }
+
   _onRefresh = () => {
     this.setState({ refreshing: true });
-    fetch(getEnvVars.apiUrl + '/contacts')
+    fetch(getEnvVars.apiUrl + '/alerts')
       .then((response) => response.json())
       .then((responseJson) => {
 
@@ -42,16 +53,7 @@ export default class SeizureHistory extends React.Component {
   }
 
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      tableHead: ['Date Occured', 'Arm Variance', 'Ankle Variance'],
-      widthArr: [windowwidth / 3, windowwidth / 3, windowwidth / 3],
-      isLoading: true,
-      refreshing: false,
 
-    }
-  }
 
   componentDidMount() {
 
@@ -91,7 +93,13 @@ export default class SeizureHistory extends React.Component {
     }
 
     return (
-      <View style={styles.container}>
+      <ScrollView style={styles.container}
+      refreshControl={
+        <RefreshControl
+          refreshing={this.state.refreshing}
+          onRefresh={this._onRefresh}
+        />
+      }>
         <ScrollView horizontal={true}>
           <View>
             <Table borderStyle={{ borderColor: '#C1C0B9' }}>
@@ -114,7 +122,7 @@ export default class SeizureHistory extends React.Component {
             </ScrollView>
           </View>
         </ScrollView>
-      </View>
+      </ScrollView>
     )
   }
 }
