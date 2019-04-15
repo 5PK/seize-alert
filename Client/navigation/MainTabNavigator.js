@@ -13,12 +13,16 @@ import SeizureHistoryScreen from '../screens/SeizureHistory';
 
 
 const Home = createStackNavigator({
-  Home: HomeScreen,
-});
+  Home: HomeScreen
+},
+  {
+    headerLayoutPreset: 'center'
+  }
+);
 
 Home.navigationOptions = {
   tabBarLabel: 'Home',
- 
+
 };
 
 const Contacts = createStackNavigator({
@@ -26,25 +30,23 @@ const Contacts = createStackNavigator({
   ContactProfile: ContactProfileScreen,
   ContactProfileCreate: ContactProfileCreateScreen,
   ContactProfileUpdate: ContactProfileUpdateScreen
-});
+},
+  {
+    headerLayoutPreset: 'center'
+  });
 
 Contacts.navigationOptions = {
   tabBarLabel: 'Contacts',
- 
+
 
 };
 
-const ContactProfile = createStackNavigator({
-  ContactProfile: ContactProfileScreen,
-});
-
-ContactProfile.navigationOptions = {
-  tabBarLabel: 'ContactProfile',
- 
-};
 
 const History = createStackNavigator({
   History: SeizureHistoryScreen,
+},
+{
+  headerLayoutPreset: 'center' 
 });
 
 History.navigationOptions = {
@@ -61,12 +63,12 @@ export default createDrawerNavigator({
       <SafeAreaView >
         <View style={{ height: 220, alignItems: 'center', justifyContent: 'center' }}>
           <Image
-            style={{ width: 180, height: 180,marginTop:40 }}
+            style={{ width: 180, height: 180, marginTop: 40 }}
             source={require('../assets/images/alerts.png')}
           />
           <Text style={{ fontSize: 32 }}>Seize Alert</Text>
         </View>
-        <ScrollView style={{ marginTop:40}}>
+        <ScrollView style={{ marginTop: 40 }}>
           <DrawerItems {...props} />
         </ScrollView>
       </SafeAreaView>

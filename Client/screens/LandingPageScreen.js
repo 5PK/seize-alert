@@ -11,6 +11,7 @@ import AnimatedLoader from 'react-native-animated-loader';
 import Alert from '../components/landingLoader'
 
 const windowwidth = Dimensions.get('window').width
+const windowheight = Dimensions.get('window').height
 
 class AppEntry extends AppNavigator {
   static navigationOptions = {
@@ -27,36 +28,42 @@ class LoginScreen extends React.Component {
   render() {
     return (
 
-      <KeyboardAvoidingView 
+      <KeyboardAvoidingView
         style=
         {{
           padding: 20, flex: 1,
           flexDirection: 'column',
           alignItems: 'center'
-        }} >
-        <View style={{ width: 400, height: 250 }} >
-          <Alert />
-        </View>
-        <View style={{ flex: 1, justifyContent: 'center' }} >
-          <Text style={{ fontSize: 30, marginBottom: 15, alignSelf: 'center' }}>SeizeAlert.io</Text>
-          <TextInput placeholder='Username' style={{ width:  200, textAlign: 'left', alignSelf: 'flex-start',  borderBottomWidth: 1, borderBottomColor: 'grey', marginBottom: 10 }} />
-          <TextInput placeholder='Password' style={{ width:  200, textAlign: 'left', alignSelf: 'flex-start',  borderBottomWidth: 1, borderBottomColor: 'grey', marginBottom: 15, }} />
-          <Button
-            onPress={() => this.props.navigation.navigate('AppEntry')}
-            title='Login'
-            buttonStyle={{ marginTop: 7, width: { windowwidth }/3 }}
-          />
-          <Button
-            buttonStyle={{ marginTop: 10, width: { windowwidth }/3 }}
-            onPress={() => this.props.navigation.navigate('Register')}
-            title='Register'
-          />
-          <Button
-            buttonStyle={{ marginTop: 10, width: { windowwidth }/2.5 }}
-            onPress={() => this.props.navigation.navigate('ResetPassword')}
-            title='I forgot my password!'
-            type="clear"
-          />
+        }}
+        behavior="padding" enabled
+      >
+        <View style={{ flex: 1, justifyContent: 'center', width: windowwidth / 2, }} >
+          <View style={{ height: windowheight/2, width: windowwidth / 2, alignSelf: 'center' }} >
+            <Alert />
+          </View>
+          <View style={{ height: windowheight/2, alignSelf: 'center' }} >
+            <Text style={{ fontSize: 30, marginBottom: 15, alignSelf: 'center' }}>SeizeAlert.io</Text>
+            <TextInput placeholder='Email' style={{ width: 200, textAlign: 'left', alignSelf: 'flex-start', borderBottomWidth: 1, borderBottomColor: 'grey', marginBottom: 10 }} />
+            <TextInput placeholder='Password' style={{ width: 200, textAlign: 'left', alignSelf: 'flex-start', borderBottomWidth: 1, borderBottomColor: 'grey', marginBottom: 15, }} />
+            <Button
+              onPress={() => this.props.navigation.navigate('AppEntry')}
+              title='Login'
+              buttonStyle={{ marginTop: 7, width: { windowwidth } / 3 }}
+            />
+            <Button
+              buttonStyle={{ marginTop: 10, width: { windowwidth } / 3 }}
+              onPress={() => this.props.navigation.navigate('Register')}
+              title='Register'
+            />
+            {/*
+            <Button
+              buttonStyle={{ marginTop: 10, width: { windowwidth } / 2.5 }}
+              onPress={() => this.props.navigation.navigate('ResetPassword')}
+              title='I forgot my password!'
+              type="clear"
+            />
+            */}
+          </View>
         </View>
       </KeyboardAvoidingView>
     )
@@ -134,7 +141,7 @@ class RegistrationScreen extends React.Component {
         <Text style={{ fontSize: 27, textAlign: "center", marginBottom: 100 }}>Welcome to SeizeAlert.io!</Text>
 
         <TextInput
-          style={{ marginBottom: 10, textAlign: 'left', alignSelf: 'center',  borderBottomWidth: 1, borderBottomColor: 'grey',width:  200 }}
+          style={{ marginBottom: 10, textAlign: 'left', alignSelf: 'center', borderBottomWidth: 1, borderBottomColor: 'grey', width: 200 }}
           autoCapitalize="none"
           onSubmitEditing={() => this.passwordInput.focus()}
           autoCorrect={false}
@@ -148,7 +155,7 @@ class RegistrationScreen extends React.Component {
         />
         <View style={{ marginTop: 10, marginBottom: 10 }} />
         <TextInput
-          style={{ textAlign: 'left', alignSelf: 'center', marginBottom: 15,  borderBottomWidth: 1, borderBottomColor: 'grey',width:  200 }}
+          style={{ textAlign: 'left', alignSelf: 'center', marginBottom: 15, borderBottomWidth: 1, borderBottomColor: 'grey', width: 200 }}
           returnKeyType="go"
           ref={(input) => this.passwordInput = input}
           placeholder='Password'
@@ -162,13 +169,14 @@ class RegistrationScreen extends React.Component {
         <Button
           onPress={() => this.register(this.state.email, this.state.password)}
           title="Register"
-          buttonStyle={{width:  200, alignSelf: 'center'}}
+          buttonStyle={{ width: 200, alignSelf: 'center' }}
         />
       </View>
     )
   }
 }
 
+/*
 class ResetPasswordScreen extends React.Component {
   render() {
     return (
@@ -188,12 +196,13 @@ class ResetPasswordScreen extends React.Component {
     )
   }
 }
+*/
 
 const LandingStack = createStackNavigator(
   {
     Login: LoginScreen,
     Register: RegistrationScreen,
-    ResetPassword: ResetPasswordScreen,
+    //ResetPassword: ResetPasswordScreen,
     AppEntry: AppEntry
   },
   {

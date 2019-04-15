@@ -8,7 +8,7 @@ import {
   ScrollView,
   StyleSheet,
   Text,
-  TouchableOpacity,
+  KeyboardAvoidingView,
   View,
   TextInput,
 } from 'react-native';
@@ -51,7 +51,7 @@ export default class ContactProfileUpdateScreen extends React.Component {
     const buttons = ['No', 'Yes'];
 
     return (
-      <View style={styles.container}>
+      <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
         <View style={styles.rowContainer}>
 
           <TextInput
@@ -112,7 +112,7 @@ export default class ContactProfileUpdateScreen extends React.Component {
           onPress={() => this.updateContact()}
         />
 
-      </View>
+      </KeyboardAvoidingView>
 
     );
   }

@@ -14,7 +14,7 @@ export default class Alert extends React.Component {
             ref={animation => {
               this.animation = animation;
             }}
-            source={require('../assets/images/alert.json')}
+            source={require('../assets/images/alert3.json')}
           />
         );
       }

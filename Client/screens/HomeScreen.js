@@ -110,6 +110,7 @@ export default class HomeScreen extends React.Component {
 
   static navigationOptions = ({ navigation }) => ({
     title: "Home",
+    headerTitleStyle: { alignSelf: 'center' },
     headerLeft: (
       <Button
         icon={

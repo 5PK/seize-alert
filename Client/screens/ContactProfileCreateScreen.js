@@ -8,7 +8,7 @@ import {
   ScrollView,
   StyleSheet,
   Text,
-  TouchableOpacity,
+  KeyboardAvoidingView,
   View,
   TextInput,
 } from 'react-native';
@@ -56,7 +56,7 @@ export default class ContactProfileCreateScreen extends React.Component {
     const { selectedIndex } = this.state.selectedIndex;
 
     return (
-      <View style={styles.container}>
+      <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
         <View style={styles.rowContainer}>
 
           <TextInput
@@ -117,7 +117,7 @@ export default class ContactProfileCreateScreen extends React.Component {
           onPress={() => this.createContact()}
         />
 
-      </View>
+      </KeyboardAvoidingView>
 
     );
   }

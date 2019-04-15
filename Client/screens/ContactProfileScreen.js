@@ -69,7 +69,7 @@ export default class ContactProfileScreen extends React.Component {
     }
     return (
 
-      <View style={styles.container}>
+      <View style={containerStyle.container}>
         <View style={styles.header}></View>
         <Image style={styles.avatar} source={{ uri: this.props.navigation.state.params.avatarUrl }} />
         <View style={styles.body}>
@@ -80,17 +80,30 @@ export default class ContactProfileScreen extends React.Component {
             <Text style={styles.info}>{this.props.navigation.state.params.email}</Text>
             <Text style={styles.description}>{isQuickContact}</Text>
 
+            {/*
             <TouchableOpacity style={styles.buttonContainer} onPress={() => this.props.navigation.goBack()}>
               <Text>Make Primary Contact</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.deleteButtonContainer} onPress={() => this.deleteContact()}>
-              <Text>Delete Contact</Text>
-            </TouchableOpacity>
+            </TouchableOpacity>\
+            */}
+
+
+
+
+
+
           </View>
         </View>
+
+        <View style={containerStyle.bottom}>
+              <Button
+                onPress={() => this.deleteContact()}
+                title='Delete Contact'
+                buttonStyle={{ margin: 10, width: 200, height: 50, backgroundColor: 'red', borderRadius: 10, alignSelf: 'center' }}
+              />
+            </View>
       </View>
 
-     
+
 
     );
 
@@ -122,14 +135,10 @@ export default class ContactProfileScreen extends React.Component {
 
 }
 
-function _openDrawer() {
-  this.props.navigation.openDrawer()
-}
-
 const styles = StyleSheet.create({
-  header:{
+  header: {
     backgroundColor: "steelblue",
-    height:200,
+    height: 200,
   },
   avatar: {
     width: 130,
@@ -137,60 +146,60 @@ const styles = StyleSheet.create({
     borderRadius: 63,
     borderWidth: 4,
     borderColor: "white",
-    marginBottom:10,
-    alignSelf:'center',
+    marginBottom: 10,
+    alignSelf: 'center',
     position: 'absolute',
-    marginTop:130
+    marginTop: 130
   },
-  name:{
-    fontSize:22,
-    color:"#FFFFFF",
-    fontWeight:'600',
+  name: {
+    fontSize: 22,
+    color: "#FFFFFF",
+    fontWeight: '600',
   },
-  body:{
-    marginTop:40,
+  body: {
+    marginTop: 40,
   },
   bodyContent: {
     flex: 1,
     alignItems: 'center',
-    padding:30,
+    padding: 30,
   },
-  name:{
-    fontSize:28,
+  name: {
+    fontSize: 28,
     color: "#696969",
     fontWeight: "600"
   },
-  info:{
-    fontSize:16,
+  info: {
+    fontSize: 16,
     color: "#00BFFF",
-    marginTop:10
+    marginTop: 10
   },
-  description:{
-    fontSize:16,
+  description: {
+    fontSize: 16,
     color: "#696969",
-    marginTop:10,
+    marginTop: 10,
     textAlign: 'center'
   },
   buttonContainer: {
-    marginTop:10,
-    height:45,
+    marginTop: 10,
+    height: 45,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom:20,
-    width:250,
-    borderRadius:30,
+    marginBottom: 20,
+    width: 250,
+    borderRadius: 30,
     backgroundColor: "#00BFFF",
   },
   deleteButtonContainer: {
-    marginTop:10,
-    height:45,
+    marginTop: 10,
+    height: 45,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom:20,
-    width:250,
-    borderRadius:30,
+    marginBottom: 20,
+    width: 250,
+    borderRadius: 30,
     backgroundColor: "red",
   },
 });

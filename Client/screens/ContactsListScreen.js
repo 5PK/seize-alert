@@ -19,6 +19,7 @@ export default class ContactsListScreen extends React.Component {
     this.state = { isLoading: true, refreshing: false, };
   }
 
+
   _onRefresh = () => {
     this.setState({ refreshing: true });
     fetch(getEnvVars.apiUrl + '/contacts')
