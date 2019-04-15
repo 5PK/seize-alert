@@ -123,17 +123,12 @@ class RegistrationScreen extends React.Component {
         } else {
           Alert.alert("There's been an error, please try again");
         }
-
-
       });
-
-
     } else if (!validateEmail(emailInput)) {
       Alert.alert('Your email is invalid');
     } else if (!validatePassword(passInput)) {
       Alert.alert('Your password was invalid, enter a 10 character password with letters and digits');
     }
-
   }
 
 
@@ -181,7 +176,7 @@ class RegistrationScreen extends React.Component {
         />        
         <View style={{ margin: 15 }} />
         <Button
-          onPress={() => this.register(this.state.email, this.state.password, this.state.healthCardId)}
+          onPress={() => this.register(this.state.email, this.state.password)}
           title="Register"
           buttonStyle={{ width: 200, alignSelf: 'center' }}
         />
