@@ -44,7 +44,7 @@ class LoginScreen extends React.Component {
           <View style={{ height: windowheight/2, alignSelf: 'center' }} >
             <Text style={{ fontSize: 30, marginBottom: 15, alignSelf: 'center' }}>SeizeAlert.io</Text>
             <TextInput placeholder='Email' style={{ width: 200, textAlign: 'left', alignSelf: 'flex-start', borderBottomWidth: 1, borderBottomColor: 'grey', marginBottom: 10 }} />
-            <TextInput placeholder='Password' style={{ width: 200, textAlign: 'left', alignSelf: 'flex-start', borderBottomWidth: 1, borderBottomColor: 'grey', marginBottom: 15, }} />
+            <TextInput placeholder='Password'secureTextEntry style={{ width: 200, textAlign: 'left', alignSelf: 'flex-start', borderBottomWidth: 1, borderBottomColor: 'grey', marginBottom: 15, }} />
             <Button
               onPress={() => this.props.navigation.navigate('AppEntry')}
               title='Login'
@@ -77,7 +77,8 @@ class RegistrationScreen extends React.Component {
 
   state = {
     email: '',
-    password: ''
+    password: '',
+    healthCardId: ''
   };
 
 
@@ -87,7 +88,9 @@ class RegistrationScreen extends React.Component {
   handlePasswordChange = (text) => {
     this.setState({ password: text })
   }
-
+  handleHealthCardIdChange = (text) => {
+    this.setState({ healthCardId: text })
+  }
 
   register = (emailInput, passInput) => {
 
@@ -172,13 +175,13 @@ class RegistrationScreen extends React.Component {
           placeholder='HealthCard#'
           placeholderTextColor='rgba(0,0,0,0.4)'
           secureTextEntry
-          ref={(el) => { this.password = el; }}
-          onChangeText={this.handlePasswordChange}
-          value={this.state.password}
+          ref={(el) => { this.healthCardId = el; }}
+          onChangeText={this.handleHealthCardIdChange}
+          value={this.state.healthCardId}
         />        
         <View style={{ margin: 15 }} />
         <Button
-          onPress={() => this.register(this.state.email, this.state.password)}
+          onPress={() => this.register(this.state.email, this.state.password, this.state.healthCardId)}
           title="Register"
           buttonStyle={{ width: 200, alignSelf: 'center' }}
         />
