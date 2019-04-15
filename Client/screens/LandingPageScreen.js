@@ -44,7 +44,7 @@ class LoginScreen extends React.Component {
           <View style={{ height: windowheight/2, alignSelf: 'center' }} >
             <Text style={{ fontSize: 30, marginBottom: 15, alignSelf: 'center' }}>SeizeAlert.io</Text>
             <TextInput placeholder='Email' style={{ width: 200, textAlign: 'left', alignSelf: 'flex-start', borderBottomWidth: 1, borderBottomColor: 'grey', marginBottom: 10 }} />
-            <TextInput placeholder='Password' style={{ width: 200, textAlign: 'left', alignSelf: 'flex-start', borderBottomWidth: 1, borderBottomColor: 'grey', marginBottom: 15, }} />
+            <TextInput placeholder='Password'secureTextEntry style={{ width: 200, textAlign: 'left', alignSelf: 'flex-start', borderBottomWidth: 1, borderBottomColor: 'grey', marginBottom: 15, }} />
             <Button
               onPress={() => this.props.navigation.navigate('AppEntry')}
               title='Login'
