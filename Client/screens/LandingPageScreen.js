@@ -165,6 +165,17 @@ class RegistrationScreen extends React.Component {
           onChangeText={this.handlePasswordChange}
           value={this.state.password}
         />
+        <TextInput
+          style={{ textAlign: 'left', alignSelf: 'center', marginBottom: 15, borderBottomWidth: 1, borderBottomColor: 'grey', width: 200 }}
+          returnKeyType="go"
+          ref={(input) => this.passwordInput = input}
+          placeholder='HealthCard#'
+          placeholderTextColor='rgba(0,0,0,0.4)'
+          secureTextEntry
+          ref={(el) => { this.password = el; }}
+          onChangeText={this.handlePasswordChange}
+          value={this.state.password}
+        />        
         <View style={{ margin: 15 }} />
         <Button
           onPress={() => this.register(this.state.email, this.state.password)}
