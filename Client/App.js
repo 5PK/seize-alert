@@ -4,17 +4,16 @@ import { AppLoading, Asset, Font, Icon } from 'expo';
 import AppNavigator from './navigation/AppNavigator';
 
 import LandingPage from './screens/LandingPageScreen';
- 
+
 
 export default class App extends React.Component {
   state = {
     isLoadingComplete: false,
-    isLoggedIn: false
   };
 
   render() {
-    if (!this.state.isLoadingComplete && !this.props.skipLoadingScreen) {
-
+    if (!this.state.isLoadingComplete) {
+/*
       return (
         <AppLoading
           startAsync={this._loadResourcesAsync}
@@ -23,18 +22,13 @@ export default class App extends React.Component {
         />
       );
     } else {
-      if (this.state.isLoggedIn) {
-        return (
-          <View style={styles.container}>
+      */
+      return (
+        <View style={styles.container}>
           {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
           <AppNavigator />
-          </View>
-        ); 
-      } else {
-        return (<LandingPage 
-          onLoginPress={() => this.setState({isLoggedIn: true})}
-          />);
-      }
+        </View>
+      );
     }
   }
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import LottieView from 'lottie-react-native';
 
-export default class Alert extends React.Component {
+export default class SeizeAlertAnim extends React.Component {
     componentDidMount() {
         this.animation.play();
 

@@ -6,7 +6,7 @@ const user = (sequelize, DataTypes) => {
     },
     password: {
       type: DataTypes.STRING,
-      unique: true,
+      unique: false,
     }
   },
   {timestamps: false,});

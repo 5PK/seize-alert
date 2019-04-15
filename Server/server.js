@@ -17,7 +17,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(async (req, res, next) => {
     req.context = {
         models,
-        me: await models.User.findByLogin('rwieruch'),
+        //me: await models.User.findByLogin('rwieruch'),
     };
     next();
 });
@@ -112,7 +112,8 @@ const createSeizureData = async() => {
 const createUsersWithContacts = async () => {
     await models.User.create(
         {
-            email: 'ktran',
+            email: 'ktran@bashx3.ca',
+            password: 'test',
             contacts: [
                 {
                     name: 'Luke',
@@ -131,7 +132,8 @@ const createUsersWithContacts = async () => {
 
     await models.User.create(
         {
-            email: 'Chungloid',
+            email: '1trankev@gmail.com',
+            password:'test',
             contacts: [
                 {
                     name: 'Carla',
