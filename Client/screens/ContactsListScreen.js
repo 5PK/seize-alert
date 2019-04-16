@@ -7,10 +7,14 @@ import {
   View,
   ActivityIndicator,
   ScrollView,
-  RefreshControl
+  RefreshControl,
+  AsyncStorage
 } from 'react-native';
 
 import { Button, Icon, ListItem } from 'react-native-elements';
+
+
+
 
 export default class ContactsListScreen extends React.Component {
 
@@ -19,41 +23,6 @@ export default class ContactsListScreen extends React.Component {
     this.state = { isLoading: true, refreshing: false, };
   }
 
-
-  _onRefresh = () => {
-    this.setState({ refreshing: true });
-    fetch(getEnvVars.apiUrl + '/contacts')
-      .then((response) => response.json())
-      .then((responseJson) => {
-
-        this.setState({
-          refreshing: false,
-          dataSource: responseJson,
-        });
-
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }
-
-  componentDidMount() {
-
-    fetch(getEnvVars.apiUrl + '/contacts')
-
-      .then((response) => response.json())
-      .then((responseJson) => {
-
-        this.setState({
-          isLoading: false,
-          dataSource: responseJson,
-        });
-
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }
 
   static navigationOptions = ({ navigation }) => ({
     title: "Contacts",
@@ -69,20 +38,81 @@ export default class ContactsListScreen extends React.Component {
         type="clear"
         buttonStyle={{ marginLeft: 10 }}
       />),
-      headerRight: (
-        <Button
-          icon={
-            <Icon
-              name="person-add"
-            />
-          }
-          title=""
-          onPress={() => navigation.navigate('ContactProfileCreate')}
-          type="clear"
-          buttonStyle={{ marginRight: 10 }}
-        />)
+    headerRight: (
+      <Button
+        icon={
+          <Icon
+            name="person-add"
+          />
+        }
+        title=""
+        onPress={() => navigation.navigate('ContactProfileCreate')}
+        type="clear"
+        buttonStyle={{ marginRight: 10 }}
+      />)
 
   });
+
+
+
+  _onRefresh = () => {
+    this.setState({ refreshing: true });
+    fetch(getEnvVars.apiUrl + '/contacts?userid=' + this.state.userid)
+      .then((response) => response.json())
+      .then((responseJson) => {
+
+        this.setState({
+          refreshing: false,
+          dataSource: responseJson,
+        });
+
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+
+  async componentDidMount() {
+
+
+
+    await this._retrieveData();
+
+    console.log('userid' + this.state.userid);
+
+    fetch(getEnvVars.apiUrl + '/contacts?userid=' + this.state.userid)
+
+      .then((response) => response.json())
+      .then((responseJson) => {
+        console.log()
+        this.setState({
+          isLoading: false,
+          dataSource: responseJson,
+        });
+
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+
+  async _retrieveData () {
+    try {
+      const value = await AsyncStorage.getItem('userid');
+      if (value !== null) {
+        // We have data!!
+        console.log(value);
+        this.setState({
+          userid: value
+        });
+
+      }
+    } catch (error) {
+      // Error retrieving data
+    }
+  };
+
+
 
   alertItemName = (item) => {
     alert(item)
@@ -111,10 +141,10 @@ export default class ContactsListScreen extends React.Component {
 
         <View>
           {
-            this.state.dataSource.map((l, i) => (           
+            this.state.dataSource.map((l, i) => (
               <ListItem
                 key={i}
-                leftAvatar={{source: {uri: l.avatarUrl}}}
+                leftAvatar={{ source: { uri: l.avatarUrl } }}
                 title={l.name}
                 onPress={() => navigate('ContactProfile', {
                   name: l.name,
@@ -125,8 +155,8 @@ export default class ContactsListScreen extends React.Component {
                   isQuickContact: l.isQuickContact,
                   contactId: l.id
                 })}
-              />           
-              ))
+              />
+            ))
           }
         </View>
 

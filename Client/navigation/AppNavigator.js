@@ -69,6 +69,7 @@ class LoginScreen extends React.Component {
               style={{ width: 200, textAlign: 'left', alignSelf: 'flex-start', borderBottomWidth: 1, borderBottomColor: 'grey', marginBottom: 15, }}
               onChangeText={(password) => this.setState({ password })}
               value={this.state.password}
+              secureTextEntry={true}
             />
             <Button
               onPress={this._signInAsync}
@@ -135,7 +136,7 @@ class LoginScreen extends React.Component {
      // test = JSON.stringify(loginResponse);
 
       console.log(JSON.parse(loginResponse)[0].id.toString());
-      AsyncStorage.setItem('userid', JSON.stringify((JSON.parse(loginResponse)[0].id.toString())));
+      AsyncStorage.setItem('userid', (JSON.parse(loginResponse)[0].id.toString()));
       this.props.navigation.navigate('App');
 
 
@@ -211,7 +212,7 @@ class RegistrationScreen extends React.Component {
   render() {
     return (
 
-      <View style={{ flex: 1, justifyContent: 'center' }}  >
+      <KeyboardAvoidingView style={{ flex: 1, justifyContent: 'center' }}   behavior="padding" enabled>
         <Text style={{ fontSize: 27, textAlign: "center", marginBottom: 100 }}>Welcome to SeizeAlert.io!</Text>
 
         <TextInput
@@ -245,7 +246,7 @@ class RegistrationScreen extends React.Component {
           title="Register"
           buttonStyle={{ width: 200, alignSelf: 'center' }}
         />
-      </View>
+      </KeyboardAvoidingView>
     )
   }
 }

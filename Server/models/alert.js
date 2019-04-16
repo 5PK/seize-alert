@@ -8,7 +8,7 @@ const alert = (sequelize, DataTypes) => {
     });
   
     Alert.associate = models => {
-        Alert.belongsTo(models.User);
+        Alert.belongsTo(models.User, { foreignKey: 'userId' });
     };
   
     return Alert;

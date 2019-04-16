@@ -32,7 +32,6 @@ const eraseDatabaseOnSync = true;
 sequelize.sync({ force: eraseDatabaseOnSync }).then(async () => {
     if (eraseDatabaseOnSync) {
         createUsersWithContacts();
-        createSeizureData();
     }
 
     app.listen(process.env.PORT, () =>
@@ -42,72 +41,7 @@ sequelize.sync({ force: eraseDatabaseOnSync }).then(async () => {
 
 
 
-const createSeizureData = async() => {
-    await models.Alert.create(
-        {
-            
-            dateOccured: new Date(),
-            armVariance: 100,
-            ankleVariance: 100
-        }
-    );
-    await models.Alert.create(
-        {
-            
-            dateOccured: new Date(),
-            armVariance: 100,
-            ankleVariance: 100
-        }
-    );
-    await models.Alert.create(
-        {
-            
-            dateOccured: new Date(),
-            armVariance: 100,
-            ankleVariance: 100
-        }
-    );
-    await models.Alert.create(
-        {
-            
-            dateOccured: new Date(),
-            armVariance: 100,
-            ankleVariance: 100
-        }
-    );
-    await models.Alert.create(
-        {
-            
-            dateOccured: new Date(),
-            armVariance: 100,
-            ankleVariance: 100
-        }
-    );
-    await models.Alert.create(
-        {
-            
-            dateOccured: new Date(),
-            armVariance: 100,
-            ankleVariance: 100
-        }
-    );
-    await models.Alert.create(
-        {
-            
-            dateOccured: new Date(),
-            armVariance: 100,
-            ankleVariance: 100
-        }
-    );
-    await models.Alert.create(
-        {
-            
-            dateOccured: new Date(),
-            armVariance: 100,
-            ankleVariance: 100
-        }
-    );
-}
+
 
 const createUsersWithContacts = async () => {
     await models.User.create(
@@ -124,6 +58,36 @@ const createUsersWithContacts = async () => {
                     email: 'luke@thompson.ca'
                 },
             ],
+            alerts:[
+                {
+            
+                    dateOccured: new Date(),
+                    armVariance: 100,
+                    ankleVariance: 100
+        
+                },
+                {
+            
+                    dateOccured: new Date(),
+                    armVariance: 100,
+                    ankleVariance: 100
+        
+                },
+                {
+            
+                    dateOccured: new Date(),
+                    armVariance: 100,
+                    ankleVariance: 100
+        
+                },        {
+            
+                    dateOccured: new Date(),
+                    armVariance: 100,
+                    ankleVariance: 100
+        
+                }
+            ]
+
         },
         {
             include: [models.Contact],
@@ -152,6 +116,36 @@ const createUsersWithContacts = async () => {
                     email: 'Riley@hancox.ca'
                 },
             ],
+            alerts:[
+                {
+            
+                    dateOccured: new Date(),
+                    armVariance: 100,
+                    ankleVariance: 100
+        
+                },
+                {
+            
+                    dateOccured: new Date(),
+                    armVariance: 100,
+                    ankleVariance: 100
+        
+                },
+                {
+            
+                    dateOccured: new Date(),
+                    armVariance: 100,
+                    ankleVariance: 100
+        
+                },        
+                {
+            
+                    dateOccured: new Date(),
+                    armVariance: 100,
+                    ankleVariance: 100
+        
+                }
+            ]
         },
         {
             include: [models.Contact],

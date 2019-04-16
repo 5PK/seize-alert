@@ -5,18 +5,26 @@ import { Router } from 'express';
 const router = Router();
 
 router.get('/', async (req, res) => {
+  console.log('----------------');
+  console.log(req.query)
   console.log('Get Request made');
-  const contacts = await req.context.models.Contact.findAll();
+  
+  const contacts = await req.context.models.Contact.findAll({
+    where: {
+      userId: req.query.userid
+    }
+  });
   return res.send(contacts);
 });
 
-router.get('/quickCallContact', async (req, res) => {
+router.get('/quickCallContact/:userid', async (req, res) => {
 
   console.log("_____ getting quick call contact ______")
 
   const contact = await req.context.models.Contact.findAll({
     where: {
-      isQuickContact: true
+      isQuickContact: true,
+      userId: req.params.userid 
     }
   });
 
@@ -25,14 +33,14 @@ router.get('/quickCallContact', async (req, res) => {
   return res.send(contact);
 });
 
-
+/*
 router.get('/:contactId', async (req, res) => {
   const contact = await req.context.models.Contact.findById(
     req.params.contactId,
   );
   return res.send(contact);
 });
-
+*/
 
 
 router.post('/', async (req, res) => {

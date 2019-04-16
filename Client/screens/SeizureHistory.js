@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, ScrollView, Dimensions, ActivityIndicator,RefreshControl } from 'react-native';
+import { StyleSheet, View, ScrollView, Dimensions, ActivityIndicator,RefreshControl, AsyncStorage } from 'react-native';
 import { Button, Icon } from 'react-native-elements';
 import getEnvVars from '../env.js'
 import { Table, TableWrapper, Row } from 'react-native-table-component';
@@ -37,7 +37,7 @@ export default class SeizureHistory extends React.Component {
 
   _onRefresh = () => {
     this.setState({ refreshing: true });
-    fetch(getEnvVars.apiUrl + '/alerts')
+    fetch(getEnvVars.apiUrl + '/alerts?userid=' + this.state.userid)
       .then((response) => response.json())
       .then((responseJson) => {
 
@@ -55,9 +55,14 @@ export default class SeizureHistory extends React.Component {
 
 
 
-  componentDidMount() {
+  async componentDidMount() {
 
-    fetch(getEnvVars.apiUrl + '/alerts')
+
+    await this._retrieveData();
+
+    console.log('userid' + this.state.userid);
+
+    fetch(getEnvVars.apiUrl + '/alerts?userid=' + this.state.userid)
 
       .then((response) => response.json())
       .then((responseJson) => {
@@ -72,6 +77,24 @@ export default class SeizureHistory extends React.Component {
         console.error(error);
       });
   }
+
+
+  async _retrieveData () {
+    try {
+      const value = await AsyncStorage.getItem('userid');
+      if (value !== null) {
+        // We have data!!
+        console.log(value);
+        this.setState({
+          userid: value
+        });
+
+      }
+    } catch (error) {
+      // Error retrieving data
+    }
+  };
+
 
   render() {
     if (this.state.isLoading) {
