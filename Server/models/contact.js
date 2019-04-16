@@ -9,7 +9,7 @@ const contact = (sequelize, DataTypes) => {
     });
   
     Contact.associate = models => {
-        Contact.belongsTo(models.User);
+        Contact.belongsTo(models.User, { foreignKey: 'userId' });
     };
   
     return Contact;

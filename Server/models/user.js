@@ -6,14 +6,17 @@ const user = (sequelize, DataTypes) => {
     },
     password: {
       type: DataTypes.STRING,
-      unique: true,
+      unique: false,
     }
   },
   {timestamps: false,});
 
   User.associate = models => {
-    User.hasMany(models.Contact, { onDelete: 'CASCADE' });
+    User.hasMany(models.Contact, { onDelete: 'CASCADE' }, { foreignKey: 'userId' });
+    User.hasMany(models.Alert, { onDelete: 'CASCADE' }, { foreignKey: 'userId' });
   };
+
+ 
 
   User.findByLogin = async login => {
     let user = await User.findOne({

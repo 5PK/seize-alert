@@ -9,7 +9,7 @@ import {
   Text,
   RefreshControl,
   View,
-  TouchableHighlight,
+  AsyncStorage,
   NativeModules,
   PanResponder,
   Easing,
@@ -34,27 +34,56 @@ export default class HomeScreen extends React.Component {
     this.state = { isLoading: true, refreshing: false };
   }
 
+  async _retrieveData() {
+    try {
+      const value = await AsyncStorage.getItem('userid');
+      if (value !== null) {
+        // We have data!!
+        console.log(value);
+        this.setState({
+          userid: value
+        });
+
+      }
+    } catch (error) {
+      // Error retrieving data
+    }
+  };
+
   _onRefresh = () => {
     this.setState({ refreshing: true });
-    fetch(getEnvVars.apiUrl + '/contacts/quickCallContact')
+    fetch(getEnvVars.apiUrl + '/contacts/quickCallContact/1')
       .then((response) => response.json())
       .then((responseJson) => {
 
-        fetch(getEnvVars.apiUrl + '/alerts/lastAlert')
-          .then((response) => response.json())
-          .then((responseJson) => {
+        fetch(getEnvVars.apiUrl + '/alerts/lastAlert/' + this.state.userid)
+          .then((response) => {
 
-            var lastAlert = new Date(responseJson[0].createdAt);
-            const today = new Date();
-            const oneDay = 24 * 60 * 60 * 1000;
-            var firstDate = new Date(lastAlert.getFullYear(), lastAlert.getMonth(), lastAlert.getDate());
-            var secondDate = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-            var daySinceLastSeizure = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime()) / (oneDay)));
+            if (response.status == 200) {
+              responseJson = response.json();
+              var lastAlert = new Date(responseJson[0].createdAt);
+              const today = new Date();
+              const oneDay = 24 * 60 * 60 * 1000;
+              var firstDate = new Date(lastAlert.getFullYear(), lastAlert.getMonth(), lastAlert.getDate());
+              var secondDate = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+              var daySinceLastSeizure = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime()) / (oneDay)));
 
-            this.setState({
-              daySinceLastSeizure: daySinceLastSeizure,
-              refreshing: false
-            });
+              this.setState({
+                daySinceLastSeizure: daySinceLastSeizure,
+                refreshing: false
+              });
+
+            }else{
+
+              this.setState({
+                daySinceLastSeizure: 0,
+                refreshing: false
+              });
+
+            }
+
+
+
           })
           .catch((error) => {
             console.error(error);
@@ -70,27 +99,37 @@ export default class HomeScreen extends React.Component {
       });
   }
 
-  componentDidMount() {
+  async componentDidMount() {
 
-    fetch(getEnvVars.apiUrl + '/contacts/quickCallContact')
+    await this._retrieveData();
+
+    fetch(getEnvVars.apiUrl + '/contacts/quickCallContact/1')
       .then((response) => response.json())
       .then((responseJson) => {
 
-        fetch(getEnvVars.apiUrl + '/alerts/lastAlert')
-          .then((response) => response.json())
-          .then((responseJson) => {
+        fetch(getEnvVars.apiUrl + '/alerts/lastAlert' + this.state.userid)
+          .then((response) => {
 
-            var lastAlert = new Date(responseJson[0].createdAt);
-            const today = new Date();
-            const oneDay = 24 * 60 * 60 * 1000;
-            var firstDate = new Date(2018, lastAlert.getMonth(), lastAlert.getDate());
-            var secondDate = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-            var daySinceLastSeizure = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime()) / (oneDay)));
+            if (response.status == 200) {
+              var lastAlert = new Date(responseJson[0].createdAt);
+              const today = new Date();
+              const oneDay = 24 * 60 * 60 * 1000;
+              var firstDate = new Date(2018, lastAlert.getMonth(), lastAlert.getDate());
+              var secondDate = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+              var daySinceLastSeizure = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime()) / (oneDay)));
+  
+              this.setState({
+                daySinceLastSeizure: daySinceLastSeizure,
+                isLoading: false
+              });
+            }else{
+              this.setState({
+                daySinceLastSeizure: 0,
+                isLoading: false
+              });
 
-            this.setState({
-              daySinceLastSeizure: daySinceLastSeizure,
-              isLoading: false
-            });
+            }
+            
           })
           .catch((error) => {
             console.error(error);
@@ -158,6 +197,7 @@ export default class HomeScreen extends React.Component {
             dateOccured: new Date(),
             armVariance: Math.random() * 0.5 + 0.25,
             ankleVariance: Math.random() * 0.5 + 0.25,
+            userId: this.state.userid,
           })
         }).then((response) => {
           console.log('response:', response.status);

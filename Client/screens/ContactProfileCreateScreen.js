@@ -3,7 +3,7 @@ import getEnvVars from '../env.js'
 
 import {
   Alert,
-  Image,
+  AsyncStorage,
   Platform,
   ScrollView,
   StyleSheet,
@@ -49,6 +49,31 @@ export default class ContactProfileCreateScreen extends React.Component {
       />)
 
   });
+
+  async componentDidMount() {
+
+    await this._retrieveData();
+
+    console.log('userid' + this.state.userid);
+
+  }
+
+  async _retrieveData () {
+    try {
+      const value = await AsyncStorage.getItem('userid');
+      if (value !== null) {
+        // We have data!!
+        console.log(value);
+        this.setState({
+          userid: value
+        });
+
+      }
+    } catch (error) {
+      // Error retrieving data
+    }
+  };
+
 
   render() {
     const { navigate } = this.props.navigation;
@@ -121,10 +146,15 @@ export default class ContactProfileCreateScreen extends React.Component {
 
     );
   }
+
   goBack() {
     this.props.navigation.goBack();
   }
-  createContact() {
+
+  async createContact() {
+
+    await this._retrieveData();
+
     fetch(
       getEnvVars.apiUrl + '/contacts',
       {
@@ -139,7 +169,7 @@ export default class ContactProfileCreateScreen extends React.Component {
           email: this.state.email,
           phoneNumber: this.state.phoneNumber,
           isQuickContact: this.state.isQuickContact,
-          contactId: 1
+          userId: this.state.userid
         })
       }).then((response) => {
         console.log('response:', response.status);
