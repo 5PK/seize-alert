@@ -48,5 +48,8 @@ The server uses a MYSQL database, and is a node, express and sequelize deploymen
 
 ## Notes
 
-### Setting up Env.js
+### Setting up Client/Env.js
 Refer to this comment: https://github.com/CarlaSS1/SeizeAlert/pull/42#issuecomment-479645604
+
+### Setting up Server/Env
+Refer to this comment: https://github.com/5PK/SeizeAlert/pull/33
