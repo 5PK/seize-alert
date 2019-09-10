@@ -23,10 +23,10 @@
       "**/*"
     ],
     "ios": {
-      "bundleIdentifier": "ca.4stack.seizealert"
+      "bundleIdentifier": "ca.fourstack.seizealert"
     },
     "android": {
-      "package": "ca.4stack.seizealert"
+      "package": "ca.fourstack.seizealert"
     }
   }
 }
