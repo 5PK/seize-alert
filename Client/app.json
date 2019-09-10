@@ -27,6 +27,9 @@
     },
     "android": {
       "package": "ca.fourstack.seizealert"
-    }
-  }
+    },
+    "entryPoint": "node_modules/expo/AppEntry.js"
+  },
+  "displayName": "SeizeAlert",
+  "name": "SeizeAlert"
 }
