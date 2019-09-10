@@ -5,11 +5,7 @@
     "ios": "react-native run-ios",
     "test": "node ./node_modules/jest/bin/jest.js --watchAll"
   },
-  "jest": {
-    "preset": "jest-expo"
-  },
   "dependencies": {
-    "expo": "^34.0.0",
     "react": "16.8.3",
     "react-dom": "16.8.3",
     "react-native": "0.59.10",
@@ -18,7 +14,6 @@
     "react-native-screens": "1.0.0-alpha.22",
     "react-native-unimodules": "~0.5.2",
     "react-native-web": "^0.11.4",
-    "@expo/samples": "2.1.1",
     "babel-plugin-transform-inline-environment-variables": "^0.4.3",
     "mathjs": "^5.8.0",
     "react-native-animated-loader": "0.0.7",
@@ -35,8 +30,6 @@
     "victory-native": "^32.0.1"
   },
   "devDependencies": {
-    "babel-preset-expo": "^5.0.0",
-    "jest-expo": "^32.0.0"
   },
   "private": true
 }
