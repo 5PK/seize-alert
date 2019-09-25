@@ -24,9 +24,6 @@ import { Button } from 'react-native-elements'
 
 import SeizeAlertAnim from '../components/landingLoader'
 
-const windowwidth = Dimensions.get('window').width
-const windowheight = Dimensions.get('window').height
-
 class LoginScreen extends React.Component {
   static navigationOptions = {
     header: null
@@ -36,7 +33,9 @@ class LoginScreen extends React.Component {
     super(props);
     this.state = {
       email: '',
-      password: ''
+      password: '',
+      windowwidth: Dimensions.get('window').width,
+      windowheight: Dimensions.get('window').height
     };
   }
 
@@ -53,10 +52,10 @@ class LoginScreen extends React.Component {
         behavior="padding" enabled
       >
         <View style={{ flex: 1, justifyContent: 'center' }} >
-          <View style={{ height: windowheight / 2, width: windowwidth / 2, alignSelf: 'center' }} >
+          <View style={{ height: this.state.windowheight , width: this.state.windowwidth , alignSelf: 'center' }} >
             <SeizeAlertAnim />
           </View>
-          <View style={{ height: windowheight / 2, alignSelf: 'center' }} >
+          <View style={{ height: this.state.windowheight , alignSelf: 'center' }} >
             <Text style={{ fontSize: 30, marginBottom: 15, alignSelf: 'center' }}>SeizeAlert.io</Text>
             <TextInput
               placeholder='Email'
@@ -74,15 +73,15 @@ class LoginScreen extends React.Component {
             <Button
               onPress={this._signInAsync}
               title='Login'
-              buttonStyle={{ marginTop: 7, width: { windowwidth } / 3 }}
+              buttonStyle={{ marginTop: 7, width: this.state.windowwidth  }}
             />
             <Button
-              buttonStyle={{ marginTop: 10, width: { windowwidth } / 3 }}
+              buttonStyle={{ marginTop: 10, width: this.state.windowwidth  }}
               onPress={() => this.props.navigation.navigate('Register')}
               title='Register'
             />
             <Button
-              buttonStyle={{ marginTop: 10, width: { windowwidth } / 2.5 }}
+              buttonStyle={{ marginTop: 10, width: this.state.windowwidth  }}
               onPress={() => this.props.navigation.navigate('ResetPassword')}
               title='I forgot my password!'
               type="clear"

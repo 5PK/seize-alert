@@ -2,14 +2,12 @@ import React from 'react';
 import { Alert, View, Text, ScrollView, Image, AsyncStorage } from 'react-native';
 import { createStackNavigator, createDrawerNavigator, DrawerItems, SafeAreaView } from 'react-navigation';
 
-import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
-import ContactsListScreen from '../screens/ContactsListScreen';
+/* import ContactsListScreen from '../screens/ContactsListScreen';
 import ContactProfileScreen from '../screens/ContactProfileScreen';
 
-
 import ContactProfileCreateScreen from '../screens/ContactProfileCreateScreen';
-import ContactProfileUpdateScreen from '../screens/ContactProfileUpdateScreen';
+import ContactProfileUpdateScreen from '../screens/ContactProfileUpdateScreen'; */
 import SeizureHistoryScreen from '../screens/SeizureHistory';
 import { Button, Icon } from 'react-native-elements';
 
@@ -27,7 +25,7 @@ Home.navigationOptions = {
 
 };
 
-const Contacts = createStackNavigator({
+/* const Contacts = createStackNavigator({
   Contact: ContactsListScreen,
   ContactProfile: ContactProfileScreen,
   ContactProfileCreate: ContactProfileCreateScreen,
@@ -41,7 +39,7 @@ Contacts.navigationOptions = {
   tabBarLabel: 'Contacts',
 
 
-};
+}; */
 
 
 const History = createStackNavigator({
@@ -61,8 +59,8 @@ History.navigationOptions = {
 
 export default createDrawerNavigator({
   Home,
-  Contacts,
-  History
+  //Contacts,
+  //History
 }, {
 
 

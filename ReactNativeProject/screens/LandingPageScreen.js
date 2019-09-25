@@ -6,8 +6,6 @@ import { Button } from 'react-native-elements'
 import { createStackNavigator, createAppContainer } from 'react-navigation'
 import AppNavigator from '../navigation/AppNavigator'
 
-import AnimatedLoader from 'react-native-animated-loader';
-
 import Alert from '../components/landingLoader'
 
 const windowwidth = Dimensions.get('window').width
@@ -55,14 +53,6 @@ class LoginScreen extends React.Component {
               onPress={() => this.props.navigation.navigate('Register')}
               title='Register'
             />
-            {/*
-            <Button
-              buttonStyle={{ marginTop: 10, width: { windowwidth } / 2.5 }}
-              onPress={() => this.props.navigation.navigate('ResetPassword')}
-              title='I forgot my password!'
-              type="clear"
-            />
-            */}
           </View>
         </View>
       </KeyboardAvoidingView>

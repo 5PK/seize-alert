@@ -180,7 +180,7 @@ export default class HomeScreen extends React.Component {
 
       const args = {
         number: qcContact.phoneNumber,
-        //number: '9058069257',// String value with the number to call
+        //number: '',// String value with the number to call
         prompt: false // Optional boolean property. Determines if the user should be prompt prior to the call 
       }
 
@@ -225,7 +225,7 @@ export default class HomeScreen extends React.Component {
       chart: {
         type: 'line',
         animation: true, // don't animate in old IE
-        marginRight: 0,
+        //marginRight: 0,
         events: {
           load: function () {
 
