@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Platform, View, Text } from 'react-native';
+import { PermissionsAndroid,Platform, View, Text } from 'react-native';
 import { BleManager } from 'react-native-ble-plx';
 
 export default class SensorsComponent extends Component {
@@ -7,7 +7,7 @@ export default class SensorsComponent extends Component {
   constructor() {
     super()
     this.manager = new BleManager()
-    this.state = {info: "", values: {}}
+    this.state = {info: "", values: {}, permissionStatus:'denied', bluetoothStatus:'disabled'}
     this.prefixUUID = "f000aa"
     this.suffixUUID = "-0451-4000-b000-000000000000"
     this.sensors = {
@@ -19,7 +19,23 @@ export default class SensorsComponent extends Component {
       5: "Gyroscope"
     }
   }
+  async requestPermission() {
+    try {
+      const granted = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION);
+
+      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+        this.setState({permissionStatus:'granted'});
+      }else if(granted === PermissionsAndroid.RESULTS.DENIED) {
+        this.setState({permissionStatus:'denied'});
+      }else{
+         //console.log('never-ask-again');
+      }
+    } catch (err) {
+      console.error(err)
+    }
+  }
   componentDidMount() {
+    this.requestPermission();
     if (Platform.OS === 'ios') {
       this.manager.onStateChange((state) => {
         if (state === 'PoweredOn') this.scanAndConnect()
@@ -64,11 +80,10 @@ export default class SensorsComponent extends Component {
   }
 
   scanAndConnect() {
-    
+
     this.manager.startDeviceScan(null,
                                  null, (error, device) => {
       this.info("Scanning...")
-      console.log(error)
       console.log(device)
 
       if (error) {
