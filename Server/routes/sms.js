@@ -14,7 +14,7 @@ const router = Router();
 
 router.post("/", (req, res) => {
   res.send(req.body);
-  const toNumber = 16477791430;
+  const toNumber = process.env.HARDCODED_PHONE_NUMBER;
   const text = "test";
   nexmo.message.sendSms(
     process.env.NEXMO_API_NUMBER,
