@@ -26,7 +26,7 @@ Prerequisites:
 
 1. Clone the repo
 2. Enter the client directory
-3. Set up Client/env.js **Refer to this comment: https://github.com/CarlaSS1/SeizeAlert/pull/42#issuecomment-479645604
+3. Set up Client/env.js **Refer to this comment: https://github.com/CarlaSS1/SeizeAlert/pull/42#issuecomment-479645604**
 4. Run 'npm install'
 5. Start the mobile device emulation. You can do this through Android Studio's AVD manager.    
 6. Run 'npm start' This will start the app. Notice the 'Run on Android device' button. 
@@ -41,5 +41,5 @@ The server uses a MYSQL database, and is a node, express and sequelize deploymen
 
 1. Enter the server directory
 2. Run 'npm install'
-3. Set up Server/Env **Refer to this comment: https://github.com/5PK/SeizeAlert/pull/33
+3. Set up Server/Env **Refer to this comment: https://github.com/5PK/SeizeAlert/pull/33**
 4. Run 'npm start'
