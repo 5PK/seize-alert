@@ -11,6 +11,7 @@ npm-debug.*
 *.key
 *.mobileprovision
 .vs/*
+.vscode/*
 Server/.env
 Client/env.js
 Client/android/app/build/*
