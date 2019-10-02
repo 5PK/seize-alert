@@ -1,43 +1,43 @@
-import 'dotenv/config';
-//import cors from 'cors';
-import express from 'express';
+import 'dotenv/config'
+//import cors from 'cors'
+import express from 'express'
 
-import bodyParser from 'body-parser';
+import bodyParser from 'body-parser'
 
+import models, { sequelize } from './models'
 
-import models, { sequelize } from './models';
+import routes from './routes'
 
-import routes from './routes';
+const app = express()
 
-const app = express();
-
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
 
 app.use(async (req, res, next) => {
     req.context = {
-        models,
+        models
         //me: await models.User.findByLogin('rwieruch'),
-    };
-    next();
-});
+    }
+    next()
+})
 
-app.use('/session', routes.session);
-app.use('/users', routes.user);
-app.use('/contacts', routes.contact);
-app.use('/alerts', routes.alert);
+app.use('/session', routes.session)
+app.use('/users', routes.user)
+app.use('/contacts', routes.contact)
+app.use('/alerts', routes.alert)
+app.use('/sms', routes.sms)
 
-const eraseDatabaseOnSync = true;
+const eraseDatabaseOnSync = true
 
 sequelize.sync({ force: eraseDatabaseOnSync }).then(async () => {
     if (eraseDatabaseOnSync) {
-        createUsersWithContacts();
+        createUsersWithContacts()
     }
 
     app.listen(process.env.PORT, () =>
         console.log(`Example app listening on port ${process.env.PORT}!`),
-    );
-});
+    )
+})
 
 
 
@@ -92,7 +92,7 @@ const createUsersWithContacts = async () => {
         {
             include: [models.Contact],
         },
-    );
+    )
 
     await models.User.create(
         {
@@ -150,5 +150,5 @@ const createUsersWithContacts = async () => {
         {
             include: [models.Contact],
         },
-    );
-};
+    )
+}
