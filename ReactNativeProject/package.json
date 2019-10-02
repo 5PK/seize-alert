@@ -1,6 +1,6 @@
 {
-  "name": "ReactNativeProject",
-  "version": "0.0.1",
+  "name": "seize-alert-alpha",
+  "version": "0.0.1a",
   "private": true,
   "scripts": {
     "start": "react-native start",
