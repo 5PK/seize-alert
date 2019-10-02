@@ -29,7 +29,6 @@
     "react-navigation": "^3.4.0",
     "victory-native": "^32.0.1"
   },
-  "devDependencies": {
-  },
+  "devDependencies": {},
   "private": true
 }

@@ -3,7 +3,7 @@ node_modules/**/*
 Client/.expo/*
 ./expo/*
 .expo/*
-*.expo
+*.expo`
 ./Client/.expo/*
 npm-debug.*
 *.jks
@@ -13,7 +13,9 @@ npm-debug.*
 .vs/*
 Server/.env
 Client/env.js
-
+Client/android/app/build/*
+Client/android/app/src/main/java/com/seizealert/generated/
+Client/android/app/build/outputs/apk/debug/app-debug.apk
 # Xcode
 !**/*.xcodeproj
 !**/*.pbxproj
