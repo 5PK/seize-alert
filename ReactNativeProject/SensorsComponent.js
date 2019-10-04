@@ -11,12 +11,12 @@ export default class SensorsComponent extends Component {
     this.prefixUUID = "f000aa"
     this.suffixUUID = "-0451-4000-b000-000000000000"
     this.sensors = {
-      0: "Temperature",
-      1: "Accelerometer",
-      2: "Humidity",
-      3: "Magnetometer",
-      4: "Barometer",
-      5: "Gyroscope"
+      //0: "Temperature",
+      8: "Accelerometer",
+      //2: "Humidity",
+      //7: "Magnetometer",
+      //4: "Barometer",
+      //5: "Gyroscope"
     }
   }
   async requestPermission() {
@@ -91,7 +91,7 @@ export default class SensorsComponent extends Component {
         return
       }
 
-      if (device.name === 'TI BLE Sensor Tag' || device.name === 'SensorTag') {
+      if (device.name === 'CC2650 SensorTag' || device.name === 'SensorTag') {
         this.info("Connecting to TI Sensor")
         this.manager.stopDeviceScan()
         device.connect()
@@ -116,11 +116,16 @@ export default class SensorsComponent extends Component {
       const service = this.serviceUUID(id)
       const characteristicW = this.writeUUID(id)
       const characteristicN = this.notifyUUID(id)
-
+      const hexCode = "";
+      if(id != 8 && id != 5){
+        hexCode = "AQ=="
+      }
+      else{
+        hexCode = "MDE="
+      }
       const characteristic = await device.writeCharacteristicWithResponseForService(
-        service, characteristicW, "AQ==" /* 0x01 in hex */
+        service, characteristicW, hexCode/* 0x01 in hex */
       )
-
       device.monitorCharacteristicForService(service, characteristicN, (error, characteristic) => {
         if (error) {
           this.error(error.message)
