@@ -10,8 +10,5 @@ https://github.com/Polidea/react-native-ble-plx
 Setting up React-Native Bluetooth through Polidea
 https://www.polidea.com/blog/ReactNative_and_Bluetooth_to_An_Other_level/
 
-Guide to TI SimpleLink Sensor
-http://processors.wiki.ti.com/index.php/CC2650_SensorTag_User's_Guide#Movement_Sensor
-
-Converting Accelerometer Byte Array into Uint16
-https://stackoverflow.com/questions/8482309/converting-javascript-integer-to-byte-array-and-back
+Fixing Sensor Errors
+https://github.com/Polidea/react-native-ble-plx/issues/465
