@@ -49,28 +49,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: 'white',
   },
-});
-
-const App = () => {
-  return (
-    <View>
-      <SensorsComponent></SensorsComponent>
-      <View style={styles.view}>
-        <Image source={heart} style={{ width: imageSize, height: imageSize }} resizeMode="contain" />
-      </View>
-      <View style={styles.view}>
-        <TouchableOpacity style={styles.button} onPress={() => Heartbeat.startService()}>
-          <Text style={styles.instructions}>Start</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={() => Heartbeat.stopService()}>
-          <Text style={styles.instructions}>Stop</Text>
-        </TouchableOpacity>
-      </View>
-    </View>
-  );
-};
-
-const styles = StyleSheet.create({
   scrollView: {
     backgroundColor: Colors.lighter,
   },
@@ -109,4 +87,29 @@ const styles = StyleSheet.create({
   },
 });
 
-export default App;
+const App = ({ heartBeat })  => {
+  const imageSize = heartBeat ? 150 : 100;
+  return (
+    <View>
+      <SensorsComponent></SensorsComponent>
+      <View style={styles.view}>
+        <Image source={heart} style={{ width: imageSize, height: imageSize }} resizeMode="contain" />
+      </View>
+      <View style={styles.view}>
+        <TouchableOpacity style={styles.button} onPress={() => Heartbeat.startService()}>
+          <Text style={styles.instructions}>Start</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={() => Heartbeat.stopService()}>
+          <Text style={styles.instructions}>Stop</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
+};
+
+const mapStateToProps = store => ({
+  heartBeat: store.App.heartBeat,
+});
+
+export default connect(mapStateToProps)(App);
+
