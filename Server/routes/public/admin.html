@@ -1,0 +1,80 @@
+<html>
+    <head>
+
+        <!--Import Google Icon Font-->
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+        <!--Load Materialize-->
+        <!-- Compiled and minified CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+        <style>
+            .menuBtn{
+                width:200px;
+                height:200px;
+                margin: 2%;
+            }
+
+            
+        
+        
+        </style>
+
+    </head>
+
+    <body>
+        <nav>
+            <div class="nav-wrapper">
+                <a href="#!" class="brand-logo" style="margin-left: 2%">Seize Alert Administrator</a>
+                <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+                <ul class="right hide-on-med-and-down">
+                    <li><a href="http://localhost:6969/admin/patients">Patients</a></li>
+                    <li><a href="http://localhost:6969/admin/seizure">Data</a></li>
+                    <li><a href="http://localhost:6969/admin/aboutus">About</a></li>
+                    <li><a>Logout</a></li>
+                </ul>
+            </div>
+        </nav>
+        <ul class="sidenav" id="mobile-demo">
+            <li><a href="http://localhost:6969/admin/patients">Patients</a></li>
+            <li><a href="http://localhost:6969/admin/seizure">Data</a></li>
+            <li><a href="http://localhost:6969/admin/aboutus">About</a></li>
+            <li><a >Logout</a></li>
+        </ul>
+
+        <div class="container" style="margin-top:5%">
+            <div class="row">
+                <div class="col s4" >
+                    <a href="http://localhost:6969/admin/patients" class="btn waves-effect waves-light card menuBtn" style="margin: 0 auto;">
+                        Patient List
+                        <i class="material-icons large">list</i>
+                    </a>
+                </div>
+                <div class="col s4">
+                    <a href="http://localhost:6969/admin/seizure" class="btn waves-effect waves-light card menuBtn" style="margin:0 auto;">
+                        Seizure Data
+                        <i class="material-icons large">poll</i>
+                    </a>
+                </div>
+                <div class="col s4">
+                    <a href="http://localhost:6969/admin/aboutus" class="btn waves-effect waves-light card menuBtn" style="margin:0 auto;">
+                        About
+                        <i class="material-icons large">person</i>
+                    </a> 
+                </div>   
+            </div>       
+        </div>
+
+
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+        <script>
+            $(document).ready(function(){
+                $('.sidenav').sidenav();
+            });
+        </script>
+    </body>
+</html>
