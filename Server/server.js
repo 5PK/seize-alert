@@ -26,6 +26,7 @@ app.use('/users', routes.user)
 app.use('/contacts', routes.contact)
 app.use('/alerts', routes.alert)
 app.use('/sms', routes.sms)
+app.use('/graph', express.static('public'), routes.graph)
 
 const eraseDatabaseOnSync = true
 
@@ -38,10 +39,6 @@ sequelize.sync({ force: eraseDatabaseOnSync }).then(async () => {
         console.log(`Example app listening on port ${process.env.PORT}!`),
     )
 })
-
-
-
-
 
 const createUsersWithContacts = async () => {
     await models.User.create(
