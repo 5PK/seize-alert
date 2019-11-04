@@ -4,13 +4,17 @@ const router = Router();
 
 router.get('/', async (req, res) => {
   const users = await req.context.models.User.findAll();
+
+  console.log("hello");
   return res.send(users);
 });
 
 router.get('/:userId', async (req, res) => {
-  const user = await req.context.models.User.findById(
-    req.params.userId,
-  );
+  const user = await req.context.models.User.findAll({
+    where: {
+      id: req.params.userId 
+    }
+  });
   return res.send(user);
 });
 

@@ -1,49 +1,21 @@
-import { Router } from 'express';
-
-
+import { Router } from "express";
+var path = require('path');
 const router = Router();
 
-router.get('/', async (req, res) => {
-
-
-  Console.log("login request");
-
-    const user = await req.context.models.User.findAll({
-      where: {
-        email: req.body.email,
-        password: req.body.password
-      }
-    });
-
-    Console.log(user);
-
-    if (user === null || user.length ==! 1){
-      return res.status(404).send(user);
-    }else{
-      return res.status(200).send(user);
-    }
-  });
-
-
-  router.post('/', async (req, res) => {
-
-
-    console.log("login request");
+router.get("/", async (req, res) => {
   
-      const user = await req.context.models.User.findAll({
-        where: {
-          email: req.body.email,
-          password: req.body.password
-        }
-      });
-  
-      console.log(user);
-  
-      if (user === null || user.length ==! 1){
-        return res.status(404).send(user);
-      }else{
-        return res.status(200).send(user);
-      }
-    });
+  res.sendFile(path.join(__dirname, "/public", "login.html"));
+});
+
+router.post("/login", (req, res) => {
+  console.log("login request");
+  return res.send({msg:'success'});
+});
+
+router.post("/register", async (req, res) => {
+  console.log("register request");
+  return res.status(200);
+});
+
 
 export default router;

@@ -3,7 +3,7 @@ import user from './user';
 import contact from './contact';
 import alert from './alert';
 import sms from './sms'
-import graph from './graph';
+import admin from './admin';
 
 export default {
   session,
@@ -11,5 +11,5 @@ export default {
   contact,
   alert,
   sms,
-  graph
+  admin
 };
