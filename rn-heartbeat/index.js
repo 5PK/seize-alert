@@ -4,13 +4,14 @@ import { Provider } from 'react-redux';
 import App from './App';
 import { name as appName } from './app.json';
 import { setHeartBeat, store } from './store';
-
+import Bluetooth from './Bluetooth';
 const MyHeadlessTask = async () => {
-  console.log('Receiving HeartBeat!');
-  store.dispatch(setHeartBeat(true));
-  setTimeout(() => {
-    store.dispatch(setHeartBeat(false));
-  }, 1000);
+    console.log('Start');
+    var bl = new Bluetooth()
+    bl.requestPermission()
+    bl.scanAndConnect()
+
+
 };
 
 const RNRedux = () => (
