@@ -9,7 +9,8 @@ import SeizureDetection from './SeizureDetection';
 
 export default class Bluetooth {
 
-  constructor() {
+  constructor(id) {
+      console.log(id)
       this.manager = new BleManager()
       this.state = {
           info: "",
@@ -18,6 +19,7 @@ export default class Bluetooth {
           bluetoothStatus: 'disabled',
           seizureDetected: false
       }
+      this.id = id
       this.prefixUUID = "f000aa"
       this.suffixUUID = "-0451-4000-b000-000000000000"
       this.sensors = {
@@ -40,6 +42,7 @@ export default class Bluetooth {
           console.error(err)
       }
   }
+
   serviceUUID(num) {
       return this.prefixUUID + num + "0" + this.suffixUUID
   }
@@ -93,8 +96,8 @@ export default class Bluetooth {
               this.error(error.message)
               return
           }
-
-          if (device.id == "98:07:2D:26:6D:02") {
+          console.log(this.id + " TEST")
+          if (device.id == this.id) {
               console.log(device.localName)
               console.log(device.id)
               this.info("Connecting to TI Sensor")
