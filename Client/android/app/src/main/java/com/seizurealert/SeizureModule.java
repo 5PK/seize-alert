@@ -10,7 +10,7 @@ import javax.annotation.Nonnull;
 
 public class SeizureModule extends ReactContextBaseJavaModule {
 
-    public static final String REACT_CLASS = "Seizure";
+    public static final String REACT_CLASS = "SeizureAlert";
     private static ReactApplicationContext reactContext;
 
     public SeizureModule(@Nonnull ReactApplicationContext reactContext) {
