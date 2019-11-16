@@ -83,7 +83,21 @@ export default class Bluetooth {
       var accelerationZ = this.byteArrayToInteger(byteArray, 9)
 
       var accelerationData = [accelerationX, accelerationY, accelerationZ]
-
+      
+      fetch(`http://localhost:6969/data`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          x: accelerationX,
+          y: accelerationY,
+          z: accelerationZ,
+          mac: this.id
+        })
+      });
+      
       this.detectSeizure(accelerationData)
   }
   scanAndConnect() {
