@@ -1,4 +1,4 @@
-package com.rnheartbeat;
+package com.seizurealert;
 
 import android.app.Notification;
 import android.app.PendingIntent;

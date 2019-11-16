@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-  package="com.rnheartbeat">
+  package="com.seizurealert">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
@@ -14,14 +14,14 @@
          https://developer.android.com/guide/topics/connectivity/bluetooth-le.html#permissions -->
          
     <application
-      android:name="com.rnheartbeat.MainApplication"
+      android:name="com.seizurealert.MainApplication"
       android:label="@string/app_name"
       android:icon="@mipmap/ic_launcher"
       android:roundIcon="@mipmap/ic_launcher_round"
       android:allowBackup="false"
       android:theme="@style/AppTheme">
       <activity
-        android:name="com.rnheartbeat.MainActivity"
+        android:name="com.seizurealert.MainActivity"
         android:label="@string/app_name"
         android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
         android:windowSoftInputMode="adjustResize">
@@ -32,15 +32,15 @@
       </activity>
       <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
         <service
-            android:name="com.rnheartbeat.HeartbeartService"
+            android:name="com.seizurealert.HeartbeartService"
             android:enabled="true"
             android:exported="false" >
         </service>
         <service
-            android:name="com.rnheartbeat.HeartbeatEventService">
+            android:name="com.seizurealert.HeartbeatEventService">
         </service>
         <receiver
-            android:name="com.rnheartbeat.BootUpReceiver"
+            android:name="com.seizurealert.BootUpReceiver"
             android:enabled="true"
             android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
             <intent-filter>
