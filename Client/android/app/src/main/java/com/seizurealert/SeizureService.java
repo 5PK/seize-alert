@@ -14,17 +14,17 @@ import android.os.Build;
 
 import com.facebook.react.HeadlessJsTaskService;
 
-public class HeartbeartService extends Service {
+public class SeizureService extends Service {
 
     private static final int SERVICE_NOTIFICATION_ID = 12345;
-    private static final String CHANNEL_ID = "HEARTBEAT";
+    private static final String CHANNEL_ID = "SEIZURE";
 
     private Handler handler = new Handler();
     private Runnable runnableCode = new Runnable() {
         @Override
         public void run() {
             Context context = getApplicationContext();
-            Intent myIntent = new Intent(context, HeartbeatEventService.class);
+            Intent myIntent = new Intent(context, SeizureEventService.class);
             context.startService(myIntent);
             HeadlessJsTaskService.acquireWakeLockNow(context);
         }
@@ -34,7 +34,7 @@ public class HeartbeartService extends Service {
         // the NotificationChannel class is new and not in the support library
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             int importance = NotificationManager.IMPORTANCE_DEFAULT;
-            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, "HEARTBEAT", importance);
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, "SEIZURE", importance);
             channel.setDescription("CHANEL DESCRIPTION");
             NotificationManager notificationManager = getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
@@ -65,7 +65,7 @@ public class HeartbeartService extends Service {
         Intent notificationIntent = new Intent(this, MainActivity.class);
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent, PendingIntent.FLAG_CANCEL_CURRENT);
         Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
-                .setContentTitle("Heartbeat service")
+                .setContentTitle("Seizure service")
                 .setContentText("Running...")
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentIntent(contentIntent)
@@ -74,5 +74,4 @@ public class HeartbeartService extends Service {
         startForeground(SERVICE_NOTIFICATION_ID, notification);
         return START_STICKY;
     }
-
 }

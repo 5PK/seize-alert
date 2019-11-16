@@ -24,7 +24,7 @@ public class MainApplication extends Application implements ReactApplication {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
           new BlePackage(),
-          new HeartbeatPackage()
+          new SeizurePackage()
       );
     }
 

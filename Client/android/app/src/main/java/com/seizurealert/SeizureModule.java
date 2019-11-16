@@ -8,12 +8,12 @@ import com.facebook.react.bridge.ReactMethod;
 
 import javax.annotation.Nonnull;
 
-public class HeartbeatModule extends ReactContextBaseJavaModule {
+public class SeizureModule extends ReactContextBaseJavaModule {
 
-    public static final String REACT_CLASS = "Heartbeat";
+    public static final String REACT_CLASS = "Seizure";
     private static ReactApplicationContext reactContext;
 
-    public HeartbeatModule(@Nonnull ReactApplicationContext reactContext) {
+    public SeizureModule(@Nonnull ReactApplicationContext reactContext) {
         super(reactContext);
         this.reactContext = reactContext;
     }
@@ -26,11 +26,11 @@ public class HeartbeatModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void startService() {
-        this.reactContext.startService(new Intent(this.reactContext, HeartbeartService.class));
+        this.reactContext.startService(new Intent(this.reactContext, SeizureService.class));
     }
 
     @ReactMethod
     public void stopService() {
-        this.reactContext.stopService(new Intent(this.reactContext, HeartbeartService.class));
+        this.reactContext.stopService(new Intent(this.reactContext, SeizureService.class));
     }
 }

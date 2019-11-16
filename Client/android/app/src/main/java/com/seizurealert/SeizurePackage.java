@@ -10,12 +10,12 @@ import java.util.Collections;
 import java.util.List;
 
 
-public class HeartbeatPackage implements ReactPackage {
+public class SeizurePackage implements ReactPackage {
 
     @Override
     public List<NativeModule> createNativeModules(ReactApplicationContext reactContext) {
         return Arrays.<NativeModule>asList(
-                new HeartbeatModule(reactContext)
+                new SeizureModule(reactContext)
         );
     }
 
