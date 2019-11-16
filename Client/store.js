@@ -10,7 +10,7 @@ export const setHeartBeat = createAction(SET_HEART_BEAT);
 
 const App = handleActions(
   {
-    [SET_HEART_BEAT]: (state, { payload }) => ({
+    [SEIZURE]: (state, { payload }) => ({
       ...state,
       heartBeat: payload,
     }),
