@@ -26,6 +26,7 @@ app.use('/users', routes.user)
 app.use('/contacts', routes.contact)
 app.use('/alerts', routes.alert)
 app.use('/sms', routes.sms)
+app.use('/data', routes.sms)
 app.use('/admin', express.static('public'), routes.admin)
 
 const eraseDatabaseOnSync = true
