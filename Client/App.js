@@ -3,7 +3,7 @@ import {
   StyleSheet, Text, View, TouchableOpacity, Image,
 } from 'react-native';
 import { connect } from 'react-redux';
-import Heartbeat from './Heartbeat';
+import SeizureAlert from './SeizureAlert';
 import heart from './heart.png';
 
 const styles = StyleSheet.create({
@@ -38,10 +38,10 @@ const App = ({ heartBeat }) => {
         <Image source={heart} style={{ width: imageSize, height: imageSize }} resizeMode="contain" />
       </View>
       <View style={styles.view}>
-        <TouchableOpacity style={styles.button} onPress={() => Heartbeat.startService()}>
+        <TouchableOpacity style={styles.button} onPress={() => SeizureAlert.startService()}>
           <Text style={styles.instructions}>Start</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={() => Heartbeat.stopService()}>
+        <TouchableOpacity style={styles.button} onPress={() => SeizureAlert.stopService()}>
           <Text style={styles.instructions}>Stop</Text>
         </TouchableOpacity>
       </View>

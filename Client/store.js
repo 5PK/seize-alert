@@ -5,12 +5,12 @@ const appInitialState = {
   heartBeat: false,
 };
 
-const SET_HEART_BEAT = 'SET_HEART_BEAT';
-export const setHeartBeat = createAction(SET_HEART_BEAT);
+const SEIZURE_DETECTION = 'SEIZURE_DETECTION';
+export const setSeizureDetection = createAction(SEIZURE_DETECTION);
 
 const App = handleActions(
   {
-    [SEIZURE]: (state, { payload }) => ({
+    [SEIZURE_DETECTION]: (state, { payload }) => ({
       ...state,
       heartBeat: payload,
     }),
