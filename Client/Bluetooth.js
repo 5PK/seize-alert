@@ -84,7 +84,7 @@ export default class Bluetooth {
 
       var accelerationData = [accelerationX, accelerationY, accelerationZ]
       
-      fetch(`http://localhost:6969/data`, {
+      fetch(`http://192.168.0.24:6969/data`, {
         method: "POST",
         headers: {
           Accept: "application/json",

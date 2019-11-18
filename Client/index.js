@@ -7,11 +7,12 @@ import { setSeizureDetection, store } from './store';
 import Bluetooth from './Bluetooth';
 
 console.log('Start');
-const bl = new Bluetooth("98:07:2D:26:6D:02")
 
-const MyHeadlessTask = async blu => {
-    blu.requestPermission()
-    blu.scanAndConnect()
+
+const MyHeadlessTask = async () => {
+    bl = new Bluetooth("98:07:2D:26:6D:02") 
+    bl.requestPermission()
+    bl.scanAndConnect()
 };
 
 const RNRedux = () => (
@@ -21,5 +22,5 @@ const RNRedux = () => (
 );
 
 
-AppRegistry.registerHeadlessTask('SeizureAlert', bl => MyHeadlessTask);
+AppRegistry.registerHeadlessTask('SeizureAlert', () => MyHeadlessTask);
 AppRegistry.registerComponent(appName, () => RNRedux);

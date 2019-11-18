@@ -1,8 +1,8 @@
 const data = (sequelize, DataTypes) => {
     const Data = sequelize.define('data', {
-      x: DataTypes.INT,
-      y: DataTypes.INT,
-      z: DataTypes.INT,
+      x: DataTypes.INTEGER,
+      y: DataTypes.INTEGER,
+      z: DataTypes.INTEGER,
       mac: DataTypes.STRING
     });
   
