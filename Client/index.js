@@ -10,9 +10,14 @@ console.log('Start');
 
 
 const MyHeadlessTask = async () => {
-    bl = new Bluetooth("98:07:2D:26:6D:02") 
-    bl.requestPermission()
-    bl.scanAndConnect()
+  bluetoothOne = new Bluetooth("98:07:2D:26:6D:02")
+  bluetoothTwo = new Bluetooth("54:6C:0E:52:CF:DC")
+  
+  bluetoothOne.requestPermission()
+  bluetoothOne.scanAndConnect()
+
+  bluetoothTwo.requestPermission()
+  bluetoothTwo.scanAndConnect()
 };
 
 const RNRedux = () => (
