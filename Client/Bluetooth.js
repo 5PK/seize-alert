@@ -92,9 +92,9 @@ export default class Bluetooth {
       cx = (rv/65536.0) * 2 -2/20
       */
      
-      var convertedX = ((accelerationX/65536.0) * 2) - (2/20)
-      var convertedY = ((accelerationY/65536.0) * 2) - (2/20)
-      var convertedZ = ((accelerationZ/65536.0) * 2) - (2/20)
+      var convertedX = ((accelerationX/32768.0) * 2) - (2/20)
+      var convertedY = ((accelerationY/32768.0) * 2) - (2/20)
+      var convertedZ = ((accelerationZ/32768.0) * 2) - (2/20)
       var convertedAccelerationData = [convertedX, convertedY, convertedZ]
       fetch(`http://192.168.0.19:6969/data`, {
         method: "POST",
