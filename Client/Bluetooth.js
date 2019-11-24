@@ -76,29 +76,43 @@ export default class Bluetooth {
           this.state.seizureDetected = true
       }
   }
+
   updateValue(key, value) {
+      console.log("Reading Values: " + this.id)
       var byteArray = base64js.toByteArray(value)
       var accelerationX = this.byteArrayToInteger(byteArray, 5)
       var accelerationY = this.byteArrayToInteger(byteArray, 7)
       var accelerationZ = this.byteArrayToInteger(byteArray, 9)
 
       var accelerationData = [accelerationX, accelerationY, accelerationZ]
+      /*
+      Raw values 0-65535
+      Convert to 0-2 range
       
-      fetch(`http://192.168.0.24:6969/data`, {
+      cx = (rv/65536.0) * 2 -2/20
+      */
+     
+      var convertedX = ((accelerationX/65536.0) * 2) - (2/20)
+      var convertedY = ((accelerationY/65536.0) * 2) - (2/20)
+      var convertedZ = ((accelerationZ/65536.0) * 2) - (2/20)
+      var convertedAccelerationData = [convertedX, convertedY, convertedZ]
+      fetch(`http://192.168.0.19:6969/data`, {
         method: "POST",
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
-          x: accelerationX,
-          y: accelerationY,
-          z: accelerationZ,
+          x: convertedX,
+          y: convertedY,
+          z: convertedZ,
           mac: this.id
         })
       });
-      
-      this.detectSeizure(accelerationData)
+      console.log(this.id + convertedAccelerationData)
+      return;
+      console.log(this.id + convertedAccelerationData)
+      //this.detectSeizure(accelerationData)
   }
   scanAndConnect() {
 
@@ -110,7 +124,7 @@ export default class Bluetooth {
               this.error(error.message)
               return
           }
-          console.log(this.id + " TEST")
+          
           if (device.id == this.id) {
               console.log(device.localName)
               console.log(device.id)
