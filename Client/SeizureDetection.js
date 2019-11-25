@@ -34,11 +34,9 @@ export default class SeizureDetection {
         return round(variance(arrayValue), 3);
     }
     
-    determine(data){
+    determine(rightArm,rightAnkle){
 
-        var sensorData = data;
-        console.log(data);
-        var WINDOW_SIZE = data.length;
+        var WINDOW_SIZE = rightArm.length;
 
         /* if (this.NUM_OF_DATA < this.WINDOW_SIZE){
             this.NUM_OF_DATA += 1;
@@ -49,12 +47,12 @@ export default class SeizureDetection {
 
         var mergedArrayRightArm = [];
         for (i = 0; i < WINDOW_SIZE; i++){
-            mergedArrayRightArm.push([sensorData[i][0], sensorData[i][1], sensorData[i][2]]);
+            mergedArrayRightArm.push([rightArm[i], rightArm[i], rightArm[i]]);
         }
 
         var mergedArrayRightAnkle = [];
         for (i = 0; i < WINDOW_SIZE; i++){
-            mergedArrayRightAnkle.push([sensorData[i][0], sensorData[i][1], sensorData[i][2]]);        
+            mergedArrayRightAnkle.push([rightAnkle[i], rightAnkle[i], rightAnkle[i]]);        
         }
 
         var vectorArrayRightArm = this.calculateVector(mergedArrayRightArm);   
@@ -72,6 +70,7 @@ export default class SeizureDetection {
         console.log("analyzing data ...");
         
         console.log(varianceRightArm);
+        
         console.log(varianceRightAnkle);
         console.log(vectorRightArm);
         //console.log("HR:{0:3d},  varianceRightArm:{1:5.3f},  varianceRightAnkle:{2:5.3f}, vector:{3:5.3f}, vector:{4:5.3f}".format(sensorData[CHEST][HR][-1], varianceRightArm, varianceRightAnkle, vectorRightArm, vectorRightAnkle))
