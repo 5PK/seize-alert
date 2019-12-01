@@ -13,7 +13,7 @@ import {
 export default class Bluetooth {
 
     constructor(id) {
-        console.log(id)
+
         this.manager = new BleManager()
         this.state = {
             info: "",
@@ -33,7 +33,8 @@ export default class Bluetooth {
         this.zeroWindow = []
         this.oneWindow = []
         this.singleBuffer = []
-        this.windowBufferCount = 0
+        this.zeroIsProcessing = false
+        this.oneIsProcessing = false
     }
 
     async requestPermission() {
@@ -86,27 +87,17 @@ export default class Bluetooth {
         }
     }
     addToWindow(id, convertedAccelerationData) {
-        console.log('cunt id', id)
-
+        console.log('id', id)
 
         if (id == "98:07:2D:26:6D:02"){
-            this.zeroWindow.push(convertedAccelerationData)
+            this.zeroIsProcessing = true
+            this.zeroWindow = convertedAccelerationData
         }
         else if(id == "54:6C:0E:52:CF:DC"){
-            this.oneWindow.push(convertedAccelerationData)
+            this.oneIsProcessing = true
+            this.oneWindow = convertedAccelerationData
         }
 
-        console.log('oneWindow',this.oneWindow.length )
-        console.log('zeroWindow',this.zeroWindow.length )
-
-        console.log(this.zeroWindow.length == 2 && this.oneWindow.length == 2 )
-        if ( this.zeroWindow.length == 2 && this.oneWindow.length == 2 ) {
-            console.log('idss', id)
-            this.seizureDetector.determine(this.zeroWindow,this.oneWindow)
-            this.zeroWindow = []
-            this.oneWindow = []
-            
-        }
     }
     updateValue(key,value, id) {
         console.log("Reading Values: " + id)
@@ -115,34 +106,13 @@ export default class Bluetooth {
         var accelerationY = this.byteArrayToInteger(byteArray, 7)
         var accelerationZ = this.byteArrayToInteger(byteArray, 9)
 
-        var accelerationData = [accelerationX, accelerationY, accelerationZ]
-        /*
-        Raw values 0-65535
-        Convert to 0-2 range
-        
-        cx = (rv/65536.0) * 2 -2/20
-        */
-
-        var convertedX = ((accelerationX / 65536.0) * 2) - (2 / 20)
-        var convertedY = ((accelerationY / 65536.0) * 2) - (2 / 20)
-        var convertedZ = ((accelerationZ / 65536.0) * 2) - (2 / 20)
+        var convertedX = ((accelerationX * 1.0 ) / (32768 / 2))
+        var convertedY = ((accelerationY * 1.0 ) / (32768 / 2))
+        var convertedZ = ((accelerationZ * 1.0 ) / (32768 / 2))
         var convertedAccelerationData = [convertedX, convertedY, convertedZ]
         
         this.addToWindow(id,convertedAccelerationData)
 
-        // fetch(`http://192.168.0.19:6969/data`, {
-        //     method: "POST",
-        //     headers: {
-        //         Accept: "application/json",
-        //         "Content-Type": "application/json"
-        //     },
-        //     body: JSON.stringify({
-        //         x: convertedX,
-        //         y: convertedY,
-        //         z: convertedZ,
-        //         mac: id
-        //     })
-        // });
 
     }
     RunConnection(device) {
@@ -150,15 +120,14 @@ export default class Bluetooth {
 
         device.connect()
             .then((device) => {
-                //this.info("Discovering services and characteristics")
                 return device.discoverAllServicesAndCharacteristics()
             })
             .then((device) => {
-                //this.info("Setting notifications")
                 return this.setupNotifications(device)
             })
             .then(() => {
                 //this.info("Listening...")
+                
             }, (error) => {
                 this.error(error.message)
             })
@@ -183,10 +152,8 @@ export default class Bluetooth {
                         resolve(this.devices)
                     }
                 }
-
             })
         })
-
     }
 
     async setupNotifications(device) {
