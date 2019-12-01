@@ -2,7 +2,7 @@ import { createStore, combineReducers } from 'redux';
 import { createAction, handleActions } from 'redux-actions';
 
 const appInitialState = {
-  heartBeat: false,
+ 
 };
 
 const SEIZURE_DETECTION = 'SEIZURE_DETECTION';
@@ -12,7 +12,6 @@ const App = handleActions(
   {
     [SEIZURE_DETECTION]: (state, { payload }) => ({
       ...state,
-      heartBeat: payload,
     }),
   },
   appInitialState,
