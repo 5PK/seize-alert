@@ -30,8 +30,8 @@ export default class Bluetooth {
         }
         this.seizureDetector = new SeizureDetection();
         this.devices = []
-        this.zeroWindow = []
-        this.oneWindow = []
+        this.zeroData = []
+        this.oneData = []
         this.singleBuffer = []
         this.zeroIsProcessing = false
         this.oneIsProcessing = false
@@ -90,11 +90,11 @@ export default class Bluetooth {
 
         if (id == "98:07:2D:26:6D:02"){
             this.zeroIsProcessing = true
-            this.zeroWindow = convertedAccelerationData
+            this.zeroData = convertedAccelerationData
         }
         else if(id == "54:6C:0E:52:CF:DC"){
             this.oneIsProcessing = true
-            this.oneWindow = convertedAccelerationData
+            this.oneData = convertedAccelerationData
         }
 
     }
