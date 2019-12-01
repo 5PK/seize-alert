@@ -87,7 +87,6 @@ export default class Bluetooth {
         }
     }
     addToWindow(id, convertedAccelerationData) {
-        console.log('id', id)
 
         if (id == "98:07:2D:26:6D:02"){
             this.zeroIsProcessing = true
