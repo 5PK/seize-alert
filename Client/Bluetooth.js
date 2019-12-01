@@ -86,8 +86,6 @@ export default class Bluetooth {
         }
     }
     addToWindow(id, convertedAccelerationData) {
-        console.log('cunt id', id)
-
 
         if (id == "98:07:2D:26:6D:02"){
             this.zeroWindow.push(convertedAccelerationData)
