@@ -111,8 +111,6 @@ export default class Bluetooth {
         var convertedAccelerationData = [convertedX, convertedY, convertedZ]
         
         this.addToWindow(id,convertedAccelerationData)
-
-
     }
     RunConnection(device) {
         console.log('device', device.id)
