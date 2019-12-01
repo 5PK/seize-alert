@@ -36,18 +36,15 @@ const MyHeadlessTask = async () => {
 
   setInterval(function () {
 
-    console.log('test1', )
     var datetime = new Date();
     var timestamp = datetime.toISOString();
     zeroData = bl.zeroData
-    console.log('zeroData', zeroData)
     oneData = bl.oneData
-    console.log('oneData', oneData)
 
-    fetch(`http://localhost:3000/api/data/`, {
+    fetch('http://192.168.0.1:3000/api/data', {
       method: "POST",
       headers: {
-        Accept: "application/json",
+        "Accept": "application/json",
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
@@ -57,7 +54,7 @@ const MyHeadlessTask = async () => {
         OneData: oneData,
         Timestamp: timestamp
       })
-    });
+    });    
   }, 1000)
 
 };
