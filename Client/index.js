@@ -9,9 +9,6 @@ import { Device } from 'react-native-ble-plx';
 
 console.log('Start');
 
-function isArray(value) {
-  return Array.isArray(value);
-}
 const MyHeadlessTask = async () => {
 
     stopProcessing = false
@@ -26,25 +23,27 @@ const MyHeadlessTask = async () => {
     zeroData = []
     oneData = []
 
-    while(!stopProcessing){      
-      if(bl.devices[0].isDeviceConnected() && bl.devices[1].isDeviceConnected() ){
+    while(!stopProcessing){
+      if(devices[0].isDeviceConnected && devices[1].isDeviceConnected ){
         if(bl.oneIsProcessing && bl.zeroIsProcessing){
           setTimeout(function(){
-
+            var datetime = new Date();
+            var timestamp = datetime.toISOString();
             zeroData = bl.zeroData
             oneData = bl.oneData
             
-            fetch(`http://192.168.0.19:6969/data`, {
+            fetch(`http://localhost:3000/api/data`, {
                 method: "POST",
                 headers: {
                     Accept: "application/json",
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    zeroId: "98:07:2D:26:6D:02",
-                    zeroData: zeroData,
-                    oneId: "54:6C:0E:52:CF:DC",
-                    oneData: oneData
+                    ZeroId: "98:07:2D:26:6D:02",
+                    ZeroData: zeroData,
+                    OneId: "54:6C:0E:52:CF:DC",
+                    OneData: oneData,
+                    Timestamp: timestamp
                 })
             });
           },1000)
