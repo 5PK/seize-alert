@@ -9,35 +9,47 @@ import { Device } from 'react-native-ble-plx';
 
 console.log('Start');
 
-function isArray(value) {
-  return Array.isArray(value);
-}
 const MyHeadlessTask = async () => {
+
+    stopProcessing = false
 
     var bl = new Bluetooth(["98:07:2D:26:6D:02","54:6C:0E:52:CF:DC"])
 
-
-    console.log('test1', )
+    await bl.requestPermission()
     var devices = await bl.startDeviceScan()
-    console.log('devices', devices)
     
     bl.connectDevices()
-    
-    // device.connect()
-    // .then((device) => {
-    //   bl.info("Discovering services and characteristics")
-    //     return device.discoverAllServicesAndCharacteristics()
-    // })
-    // .then((device) => {
-    //   bl.info("Setting notifications")
-    //     return bl.setupNotifications(device)
-    // })
-    // .then(() => {
-    //   bl.info("Listening...")
-    // }, (error) => {
-    //   bl.error(error.message)
-    // })
-    
+
+    zeroData = []
+    oneData = []
+
+    while(!stopProcessing){
+      if(devices[0].isDeviceConnected && devices[1].isDeviceConnected ){
+        if(bl.oneIsProcessing && bl.zeroIsProcessing){
+          setTimeout(function(){
+            var datetime = new Date();
+            var timestamp = datetime.toISOString();
+            zeroData = bl.zeroData
+            oneData = bl.oneData
+            
+            fetch(`http://localhost:3000/api/data`, {
+                method: "POST",
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    ZeroId: "98:07:2D:26:6D:02",
+                    ZeroData: zeroData,
+                    OneId: "54:6C:0E:52:CF:DC",
+                    OneData: oneData,
+                    Timestamp: timestamp
+                })
+            });
+          },1000)
+        }
+      }
+    }
       
 };
 
