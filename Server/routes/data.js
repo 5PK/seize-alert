@@ -7,12 +7,12 @@ const router = Router();
 
 router.post('/', async (req, res) => {
   console.log('_________________________');
-  console.log(req.body.name);
   const data = await req.context.models.Data.create({
-    x: req.body.x,
-    y: req.body.y,
-    z: req.body.z,
-    mac: req.body.mac,
+    ZeroId: req.body.ZeroId,
+    ZeroData: req.body.ZeroData,
+    OneId: req.body.OneId,
+    OneData: req.body.OneData,
+    Timestamp: req.body.Timestamp
   });
 
   return res.send(alert);
