@@ -45,58 +45,54 @@ const MyHeadlessTask = async () => {
 
   zeroData = []
   oneData = []
+  setInterval(function () {
+
+    console.log("Interval")
+    var datetime = new Date();
+    var timestamp = datetime.toISOString();
+
+    zeroData = bl.zeroData
+    oneData = bl.oneData
+
+    console.log(zeroData.toString())
+    console.log(oneData.toString())
+
+    var dataZero = timestamp + "," + "98:07:2D:26:6D:02" + "," + zeroData.toString();
+    var dataOne = timestamp + "," + "54:6C:0E:52:CF:DC" + "," + oneData.toString();
+
+    RNFS.write(path, '\n' + dataZero + '\n' + dataOne, -1, 'utf8')
+      .then((success) => {
+        console.log('FILE WRITTEN!');
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
 
 
-  if (devices[0].isDeviceConnected && devices[1].isDeviceConnected) {
-    if (bl.oneIsProcessing && bl.zeroIsProcessing) {
-      setInterval(function () {
 
-        var datetime = new Date();
-        var timestamp = datetime.toISOString();
+    // fetch(`http://localhost:3000/api/data`, {
+    //     method: "POST",
+    //     headers: {
+    //         Accept: "application/json",
+    //         "Content-Type": "application/json"
+    //     },
+    //     body: JSON.stringify({
+    //         ZeroId: "98:07:2D:26:6D:02",
+    //         ZeroData: zeroData,
+    //         OneId: "54:6C:0E:52:CF:DC",
+    //         OneData: oneData,
+    //         Timestamp: timestamp
+    //     })
+    // });
 
-        zeroData = bl.zeroData
-        oneData = bl.oneData
+  }, 1000)
+}
 
-        var dataZero = timestamp + "," + devices[0] + "," + zeroData.toString();
-        var dataOne = timestamp + "," + devices[1] + "," + oneData.toString();
+const RNRedux = () => (
+  <Provider store={store}>
+    <App />
+  </Provider>
+);
 
-        RNFS.write(path, '\n' + dataZero + '\n' + dataOne, -1, 'utf8')
-          .then((success) => {
-            console.log('FILE WRITTEN!');
-          })
-          .catch((err) => {
-            console.log(err.message);
-          });
-
-
-
-        // fetch(`http://localhost:3000/api/data`, {
-        //     method: "POST",
-        //     headers: {
-        //         Accept: "application/json",
-        //         "Content-Type": "application/json"
-        //     },
-        //     body: JSON.stringify({
-        //         ZeroId: "98:07:2D:26:6D:02",
-        //         ZeroData: zeroData,
-        //         OneId: "54:6C:0E:52:CF:DC",
-        //         OneData: oneData,
-        //         Timestamp: timestamp
-        //     })
-        // });
-
-      }, 1000)
-
-      //}
-      //}
-
-    };
-
-    const RNRedux = () => (
-      <Provider store={store}>
-        <App />
-      </Provider>
-    );
-
-    AppRegistry.registerHeadlessTask('SeizureAlert', () => MyHeadlessTask);
-    AppRegistry.registerComponent(appName, () => RNRedux);
+AppRegistry.registerHeadlessTask('SeizureAlert', () => MyHeadlessTask);
+AppRegistry.registerComponent(appName, () => RNRedux);
