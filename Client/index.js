@@ -14,12 +14,24 @@ import {
   store
 } from './store';
 import Bluetooth from './Bluetooth';
-import {
-  Device
-} from 'react-native-ble-plx';
-
+import { Device } from 'react-native-ble-plx';
+import RNFS from 'react-native-fs';
 console.log('Start');
 
+var path = RNFS.ExternalDirectoryPath + '/data.txt';
+
+var header = "Sensor Data Collection +\n"
+
+
+RNFS.writeFile(path, 'Data Collection SeizeAlert', 'utf8')
+  .then((success) => {
+    console.log('FILE WRITTEN!');
+  })
+  .catch((err) => {
+    console.log(err.message);
+  });
+
+console.log(path);
 const MyHeadlessTask = async () => {
 
   stopProcessing = false
@@ -28,36 +40,53 @@ const MyHeadlessTask = async () => {
 
   await bl.requestPermission()
   var devices = await bl.startDeviceScan()
-  bl.connectDevices()
 
+  bl.connectDevices()
 
   zeroData = []
   oneData = []
-
   setInterval(function () {
 
+    console.log("Interval")
     var datetime = new Date();
     var timestamp = datetime.toISOString();
+
     zeroData = bl.zeroData
     oneData = bl.oneData
 
-    fetch('http://192.168.0.1:3000/api/data', {
-      method: "POST",
-      headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        ZeroId: "98:07:2D:26:6D:02",
-        ZeroData: zeroData,
-        OneId: "54:6C:0E:52:CF:DC",
-        OneData: oneData,
-        Timestamp: timestamp
-      })
-    });    
-  }, 1000)
+    console.log(zeroData.toString())
+    console.log(oneData.toString())
 
-};
+    var dataZero = timestamp + "," + "98:07:2D:26:6D:02" + "," + zeroData.toString();
+    var dataOne = timestamp + "," + "54:6C:0E:52:CF:DC" + "," + oneData.toString();
+
+    RNFS.write(path, '\n' + dataZero + '\n' + dataOne, -1, 'utf8')
+      .then((success) => {
+        console.log('FILE WRITTEN!');
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+
+
+
+    // fetch(`http://localhost:3000/api/data`, {
+    //     method: "POST",
+    //     headers: {
+    //         Accept: "application/json",
+    //         "Content-Type": "application/json"
+    //     },
+    //     body: JSON.stringify({
+    //         ZeroId: "98:07:2D:26:6D:02",
+    //         ZeroData: zeroData,
+    //         OneId: "54:6C:0E:52:CF:DC",
+    //         OneData: oneData,
+    //         Timestamp: timestamp
+    //     })
+    // });
+
+  }, 1000)
+}
 
 const RNRedux = () => (
   <Provider store={store}>
