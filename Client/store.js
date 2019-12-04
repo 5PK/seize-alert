@@ -12,7 +12,6 @@ const App = handleActions(
   {
     [SEIZURE_DETECTION]: (state, { payload }) => ({
       ...state,
-      heartBeat: payload,
     }),
   },
   appInitialState,

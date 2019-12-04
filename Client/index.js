@@ -17,12 +17,10 @@ import Bluetooth from './Bluetooth';
 import { Device } from 'react-native-ble-plx';
 import RNFS from 'react-native-fs';
 import SeizureDetection from './SeizureDetection';
-console.log('Start');
+import getEnvVars from './env.js' 
+
 
 var path = RNFS.ExternalDirectoryPath + '/data.csv';
-
-var header = "Sensor Data Collection +\n"
-
 
 RNFS.writeFile(path, 'Data Collection SeizeAlert', 'utf8')
   .then((success) => {
@@ -42,7 +40,8 @@ const MyHeadlessTask = async () => {
   var seizureDetection = new SeizureDetection()
 
   await bl.requestPermission()
-  var devices = await bl.startDeviceScan()
+
+  await bl.startDeviceScan()
 
   bl.connectDevices()
   var dataJson = []
@@ -75,7 +74,7 @@ const MyHeadlessTask = async () => {
 
       if (counter === 60) {
         console.log("FETCH")
-        fetch(`http://192.168.0.19:6969/data`, {
+        fetch(getEnvVars.apiUrl + `/data`, {
           method: "POST",
           headers: {
             Accept: "application/json",
