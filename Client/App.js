@@ -4,7 +4,7 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import SeizureAlert from './SeizureAlert';
-import heart from './heart.png';
+import logo from './logo.png';
 
 const styles = StyleSheet.create({
   container: {
@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: 'gray',
-    padding: 10,
+    padding: 25,
     margin: 10,
   },
   text: {
@@ -31,11 +31,10 @@ const styles = StyleSheet.create({
 
 
 const App = ({ heartBeat }) => {
-  const imageSize = heartBeat ? 150 : 100;
   return (
     <View style={styles.container}>
       <View style={styles.view}>
-        <Image source={heart} style={{ width: imageSize, height: imageSize }} resizeMode="contain" />
+        <Image source={logo} style={{ width: 250, height: 250 }} resizeMode="contain" />
       </View>
       <View style={styles.view}>
         <TouchableOpacity style={styles.button} onPress={() => SeizureAlert.startService()}>
@@ -50,7 +49,6 @@ const App = ({ heartBeat }) => {
 };
 
 const mapStateToProps = store => ({
-  heartBeat: store.App.heartBeat,
 });
 
 export default connect(mapStateToProps)(App);
