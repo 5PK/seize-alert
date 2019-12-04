@@ -67,12 +67,12 @@ export default class SeizureDetection {
         var varianceRightAnkle = this.calculateVariance(vectorArrayRightAnkle);
 
 
-        console.log("analyzing data ...");
+        // console.log("analyzing data ...");
         
-        console.log(varianceRightArm);
+        // console.log(varianceRightArm);
         
-        console.log(varianceRightAnkle);
-        console.log(vectorRightArm);
+        // console.log(varianceRightAnkle);
+        // console.log(vectorRightArm);
         //console.log("HR:{0:3d},  varianceRightArm:{1:5.3f},  varianceRightAnkle:{2:5.3f}, vector:{3:5.3f}, vector:{4:5.3f}".format(sensorData[CHEST][HR][-1], varianceRightArm, varianceRightAnkle, vectorRightArm, vectorRightAnkle))
         
         if(varianceRightArm >= .001 && varianceRightAnkle >= .001 && vectorRightArm >= .8 && vectorRightAnkle >=.8 ){

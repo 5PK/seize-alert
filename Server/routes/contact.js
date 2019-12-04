@@ -41,7 +41,6 @@ router.get('/:contactId', async (req, res) => {
 });
 */
 
-
 router.post('/', async (req, res) => {
   console.log('_______POST_______');
   console.log(req.body.name);

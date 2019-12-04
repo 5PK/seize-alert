@@ -4,19 +4,13 @@ import { Router } from 'express';
 
 const router = Router();
 
-
 router.post('/', async (req, res) => {
   console.log('_________________________');
-  const data = await req.context.models.Data.create({
-    ZeroId: req.body.ZeroId,
-    ZeroData: req.body.ZeroData,
-    OneId: req.body.OneId,
-    OneData: req.body.OneData,
-    Timestamp: req.body.Timestamp
-  });
+ 
+  console.log(req.body)
+  req.context.models.Data.bulkCreate(req.body.array)
 
-  return res.send(alert);
+  return res.send();
 });
-
 
 export default router;
