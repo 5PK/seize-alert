@@ -1,16 +1,17 @@
 const data = (sequelize, DataTypes) => {
-    const Data = sequelize.define('data', {
-      x: DataTypes.INTEGER,
-      y: DataTypes.INTEGER,
-      z: DataTypes.INTEGER,
-      mac: DataTypes.STRING
-    });
-  
-    Data.associate = models => {
-        Data.belongsTo(models.User, { foreignKey: 'userId' });
-    };
-  
-    return Data;
+  const Data = sequelize.define('data', {
+    limb: DataTypes.STRING,
+    data: DataTypes.STRING,
+    timestamp: DataTypes.STRING
+  }, {
+    timestamps: false
+  });
+
+  Data.associate = models => {
+    Data.belongsTo(models.User, { foreignKey: 'userId' });
   };
-  
-  export default data;
+
+  return Data;
+};
+
+export default data;
