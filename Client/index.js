@@ -17,7 +17,7 @@ import Bluetooth from './Bluetooth';
 import { Device } from 'react-native-ble-plx';
 import RNFS from 'react-native-fs';
 import SeizureDetection from './SeizureDetection';
-import getEnvVars from './env.js' 
+import getEnvVars from './env.js'
 
 
 var path = RNFS.ExternalDirectoryPath + '/data.csv';
@@ -32,7 +32,7 @@ RNFS.writeFile(path, 'Data Collection SeizeAlert', 'utf8')
 
 var counter = 0;
 const MyHeadlessTask = async () => {
-
+  console.log("Headless Task Entry")
   stopProcessing = false
 
   var bl = new Bluetooth(["98:07:2D:26:6D:02", "54:6C:0E:52:CF:DC"])
@@ -46,24 +46,37 @@ const MyHeadlessTask = async () => {
   bl.connectDevices()
   var dataJson = []
 
-  setInterval(function () {
+  var rightArmWindow = [];
+  var rightAnkleWindow = [];
 
+  setInterval(function () {
+    //console.log('Interval')
     var datetime = new Date();
     var timestamp = datetime.toISOString();
 
     rightArmData = bl.zeroData
     rightAnkleData = bl.oneData
 
+    // console.log(rightArmData)
+    // console.log(rightAnkleData)
+
     if (typeof rightArmData !== 'undefined' && rightArmData.length > 0
       && typeof rightAnkleData !== 'undefined' && rightAnkleData.length > 0) {
 
-      var rightArmString = timestamp + "," + "98:07:2D:26:6D:02" + "," + rightArmData.toString();
-      var rightAnkleString = timestamp + "," + "54:6C:0E:52:CF:DC" + "," + rightAnkleData.toString();
+      var rightArmString = timestamp + "," + "Right Arm" + "," + rightArmData.toString();
+      var rightAnkleString = timestamp + "," + "Right Ankle" + "," + rightAnkleData.toString();
+
+      console.log(rightArmString)
+      console.log(rightAnkleString)
 
       dataJson.push({ limb: 'RA', data: rightArmData.toString(), timestamp: timestamp })
       dataJson.push({ limb: 'RL', data: rightAnkleData.toString(), timestamp: timestamp })
 
+      rightArmWindow.push(rightArmData)
+      rightAnkleWindow.push(rightAnkleData)
+
       counter++;
+
       RNFS.write(path, '\n' + rightArmString + '\n' + rightAnkleString, -1, 'utf8')
         .then((success) => {
           //console.log('FILE WRITTEN!');
@@ -73,7 +86,11 @@ const MyHeadlessTask = async () => {
         });
 
       if (counter === 60) {
-        console.log("FETCH")
+        counter = 0;
+        console.log("FETCH and Detection")
+        var isSeizure = seizureDetection.determine(rightArmWindow, rightAnkleWindow)
+        console.log('Seizure Detection Result: ' + isSeizure)
+
         fetch(getEnvVars.apiUrl + `/data`, {
           method: "POST",
           headers: {
@@ -86,14 +103,10 @@ const MyHeadlessTask = async () => {
           })
         });
 
-        console.log("Suprise")
-        counter = 0;
         dataJson = []
+        rightArmWindow = [];
+        rightAnkleWindow = [];
       }
-
-      var isSeizure = seizureDetection.determine(rightArmData, rightAnkleData)
-      console.log(isSeizure)
-
     }
   }, 1000)
 }

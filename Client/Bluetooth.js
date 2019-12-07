@@ -69,17 +69,18 @@ export default class Bluetooth {
         this.state.info = "ERROR: " + message
     }
     byteArrayToInteger(byteArray, startPosition) {
-        var Uint16_Num = new Uint16Array(1)
-        Uint16_Num[0] = 0
+        var int16_Num = new Int16Array(1)
+        int16_Num[0] = 0
         var Multiplier = 1
 
         for (i = 0; i < 2; i++) {
-            var valueToCalculate = (Uint16_Num[0] + byteArray[startPosition + i]) * Multiplier
-            Uint16_Num[0] = valueToCalculate
+            var valueToCalculate = (int16_Num[0] + byteArray[startPosition + i]) * Multiplier
+            int16_Num[0] = valueToCalculate
             Multiplier = Multiplier * 256
         }
         return Uint16_Num[0]
     }
+
     detectSeizure(data) {
         var seizureDetected = this.seizureDetector.determine(data)
         if (seizureDetected) {
