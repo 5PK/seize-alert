@@ -55,10 +55,7 @@ const MyHeadlessTask = async () => {
 
     rightArmData = bl.zeroData
     rightAnkleData = bl.oneData
-
-    // console.log(rightArmData)
-    // console.log(rightAnkleData)
-
+    
     if (typeof rightArmData !== 'undefined' && rightArmData.length > 0
       && typeof rightAnkleData !== 'undefined' && rightAnkleData.length > 0) {
 
@@ -87,17 +84,17 @@ const MyHeadlessTask = async () => {
         var isSeizure = seizureDetection.determine(rightArmWindow, rightAnkleWindow)
         console.log('Seizure Detection Result: ' + isSeizure)
 
-        fetch(getEnvVars.apiUrl + `/data`, {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json"
-          },
+        // fetch(getEnvVars.apiUrl + `/data`, {
+        //   method: "POST",
+        //   headers: {
+        //     Accept: "application/json",
+        //     "Content-Type": "application/json"
+        //   },
 
-          body: JSON.stringify({
-            array: dataJson
-          })
-        });
+        //   body: JSON.stringify({
+        //     array: dataJson
+        //   })
+        // });
 
         dataJson = []
         rightArmWindow = [];
