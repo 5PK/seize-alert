@@ -8,7 +8,7 @@ const data = (sequelize, DataTypes) => {
   });
 
   Data.associate = models => {
-    Data.belongsTo(models.User, { foreignKey: 'userId' });
+    Data.belongsTo(models.Seizure, { foreignKey: 'seizureId' });
   };
 
   return Data;

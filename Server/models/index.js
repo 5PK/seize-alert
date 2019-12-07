@@ -12,7 +12,7 @@ const sequelize = new Sequelize(
 const models = {
   User: sequelize.import('./user'),
   Contact: sequelize.import('./contact'),
-  Alert: sequelize.import('./alert'),
+  Seizure: sequelize.import('./seizure'),
   Data: sequelize.import('./data')
 };
 

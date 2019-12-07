@@ -1,15 +1,13 @@
-import session from './session';
 import user from './user';
 import contact from './contact';
-import alert from './alert';
+import seizure from './seizure';
 import sms from './sms'
 import admin from './admin';
 import data from './data';
 export default {
-  session,
   user,
   contact,
-  alert,
+  seizure,
   sms,
   admin,
   data

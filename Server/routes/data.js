@@ -13,4 +13,12 @@ router.post('/', async (req, res) => {
   return res.send();
 });
 
+router.get('/', async (req, res) => {
+  console.log('_________________________');
+ 
+  console.log(req.body)
+  const datas = await req.context.models.Data.findAll();
+  return res.send(datas);
+});
+
 export default router;

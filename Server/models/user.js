@@ -13,8 +13,7 @@ const user = (sequelize, DataTypes) => {
 
   User.associate = models => {
     User.hasMany(models.Contact, { onDelete: 'CASCADE' }, { foreignKey: 'userId' });
-    User.hasMany(models.Alert, { onDelete: 'CASCADE' }, { foreignKey: 'userId' });
-    User.hasMany(models.Data, { onDelete: 'CASCADE' }, { foreignKey: 'userId' });
+    User.hasMany(models.Seizure, { onDelete: 'CASCADE' }, { foreignKey: 'userId' });
   };
 
  

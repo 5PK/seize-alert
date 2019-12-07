@@ -1,153 +1,106 @@
+import "dotenv/config";
 
-import 'dotenv/config'
+import express from "express";
 
-import express from 'express'
+import bodyParser from "body-parser";
 
-import bodyParser from 'body-parser'
+import models, { sequelize } from "./models";
 
-import models, { sequelize } from './models'
+import routes from "./routes";
 
-import routes from './routes'
+const app = express();
 
-const app = express()
-
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(async (req, res, next) => {
-    req.context = {
-        models
-        //me: await models.User.findByLogin('rwieruch'),
-    }
-    next()
-})
+  req.context = {
+    models
+    //me: await models.User.findByLogin('rwieruch'),
+  };
+  next();
+});
 
-app.use('/', routes.session)
-app.use('/users', routes.user)
-app.use('/contacts', routes.contact)
-app.use('/alerts', routes.alert)
-app.use('/sms', routes.sms)
-app.use('/data', routes.data)
-app.use('/admin', express.static('public'), routes.admin)
+app.use("/user", routes.user);
+app.use("/contact", routes.contact);
+app.use("/seizure", routes.seizure);
+app.use("/sms", routes.sms);
+app.use("/data", routes.data);
+app.use("/admin", express.static("public"), routes.admin);
 
-const eraseDatabaseOnSync = true
+const eraseDatabaseOnSync = true;
 
 sequelize.sync({ force: eraseDatabaseOnSync }).then(async () => {
-    if (eraseDatabaseOnSync) {
-        createUsersWithContacts()
-    }
+  if (eraseDatabaseOnSync) {
+    createUsersWithContacts();
+  }
 
-    app.listen(process.env.PORT, () =>
-        console.log(`Example app listening on port ${process.env.PORT}!`),
-    )
-})
+  app.listen(process.env.PORT, () =>
+    console.log(`Example app listening on port ${process.env.PORT}!`)
+  );
+});
 
 const createUsersWithContacts = async () => {
-    await models.User.create(
+  await models.User.create(
+    {
+      email: "ktran@bashx3.ca",
+      password: "test",
+      contacts: [
         {
-            email: 'ktran@bashx3.ca',
-            password: 'test',
-            contacts: [
-                {
-                    name: 'Luke',
-                    avatarUrl: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
-                    nickName: 'The T-SQL lover',
-                    phoneNumber: 9054059920,
-                    isQuickContact: true,
-                    email: 'luke@thompson.ca'
-                },
-            ],
-            alerts:[
-                {
-            
-                    dateOccured: new Date(),
-                    armVariance: 100,
-                    ankleVariance: 100
-        
-                },
-                {
-            
-                    dateOccured: new Date(),
-                    armVariance: 100,
-                    ankleVariance: 100
-        
-                },
-                {
-            
-                    dateOccured: new Date(),
-                    armVariance: 100,
-                    ankleVariance: 100
-        
-                },        {
-            
-                    dateOccured: new Date(),
-                    armVariance: 100,
-                    ankleVariance: 100
-        
-                }
-            ]
+          name: "Luke",
+          avatarUrl:
+            "https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg",
+          nickName: "The T-SQL lover",
+          phoneNumber: 9054059920,
+          isQuickContact: true,
+          email: "luke@thompson.ca"
+        }
+      ]
+    },
+    {
+      include: [models.Contact]
+    }
+  );
 
+  await models.User.create(
+    {
+      email: "1trankev@gmail.com",
+      password: "test",
+      contacts: [
+        {
+          name: "Carla",
+          avatarUrl:
+            "https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg",
+          nickName: "The anime character",
+          phoneNumber: 9054059920,
+          isQuickContact: false,
+          email: "Carla@sison.ca"
         },
         {
-            include: [models.Contact],
-        },
-    )
+          name: "Riley",
+          avatarUrl:
+            "https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg",
+          nickName: "The rogue class",
+          phoneNumber: 9054059920,
+          isQuickContact: false,
+          email: "Riley@hancox.ca"
+        }
+      ]
+    },
+    {
+      include: [models.Contact]
+    }
+  );
 
-    await models.User.create(
+  var i;
+  for (i = 0; i < 5; i++) {
+    await models.Seizure.create(
         {
-            email: '1trankev@gmail.com',
-            password:'test',
-            contacts: [
-                {
-                    name: 'Carla',
-                    avatarUrl: 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
-                    nickName: 'The anime character',
-                    phoneNumber: 9054059920,
-                    isQuickContact: false,
-                    email: 'Carla@sison.ca'
-                },
-                {
-                    name: 'Riley',
-                    avatarUrl: 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
-                    nickName: 'The rogue class',
-                    phoneNumber: 9054059920,
-                    isQuickContact: false,
-                    email: 'Riley@hancox.ca'
-                },
-            ],
-            alerts:[
-                {
-            
-                    dateOccured: new Date(),
-                    armVariance: 100,
-                    ankleVariance: 100
-        
-                },
-                {
-            
-                    dateOccured: new Date(),
-                    armVariance: 100,
-                    ankleVariance: 100
-        
-                },
-                {
-            
-                    dateOccured: new Date(),
-                    armVariance: 100,
-                    ankleVariance: 100
-        
-                },        
-                {
-            
-                    dateOccured: new Date(),
-                    armVariance: 100,
-                    ankleVariance: 100
-        
-                }
-            ]
-        },
-        {
-            include: [models.Contact],
-        },
-    )
-}
+          dateOccured: new Date(),
+          isSeizure: 1
+        }
+      );
+  }
+
+
+};

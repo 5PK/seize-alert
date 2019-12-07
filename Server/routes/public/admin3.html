@@ -2,6 +2,7 @@
   <head>
     <title>Administrator</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <!-- Compiled and minified CSS -->
     <link
       rel="stylesheet"
@@ -21,58 +22,6 @@
         margin: 2%;
       }
     </style>
-    <script>
-      window.onload = async function() {
-        
-        const data = await fetch("http://localhost:6969/seizure/g/1")
-        const dataJson = data.json()
-
-        // dataPoints
-        var dps = []
-
-        var chart = new CanvasJS.Chart("chartContainer", {
-          backgroundColor: "#fafafa",
-          axisY: {
-            includeZero: false
-          },
-          data: [
-            {
-              type: "line",
-              dataPoints: dps
-            }
-          ]
-        });
-
-        var xVal = 0;
-        var yVal = 100;
-        var updateInterval = 1000;
-        var dataLength = 20; // number of dataPoints visible at any point
-
-        var updateChart = function(count) {
-          count = count || 1;
-
-          for (var j = 0; j < count; j++) {
-            yVal = yVal + Math.round(5 + Math.random() * (-5 - 5));
-            dps.push({
-              x: xVal,
-              y: yVal
-            });
-            xVal++;
-          }
-
-          if (dps.length > dataLength) {
-            dps.shift();
-          }
-
-          chart.render();
-        };
-
-        updateChart(dataLength);
-        setInterval(function() {
-          updateChart();
-        }, updateInterval);
-      };
-    </script>
   </head>
 
   <body class="grey lighten-2">
@@ -97,12 +46,9 @@
               the data displayed in a line graph.
             </span>
             <div class="input-field" style="margin-top: 15%;">
-              <select>
-                <option>
-                  Non-Seizure Event
-                </option>
+              <select v-model="selected">
                 <option v-for="s in seizureList" v-bind:value="s.id">
-                  Seizure Event
+                  {{ s.dateOccurred }}
                 </option>
               </select>
               <label>Seizure List</label>
@@ -112,13 +58,49 @@
         </div>
         <div class="col s12 m8" style="height: 100%;">
           <div class="card-panel  grey lighten-5" style="height: 70%;">
-            <h4>Live Seizure Data:</h4>
-            <div id="chartContainer"></div>
+            <span class="black-text"
+              >I am a very simple card. I am good at containing small bits of
+              information. I am convenient because I require little markup to
+              use effectively. I am similar to what is called a panel in other
+              frameworks.
+            </span>
+            list:{{seizureList}} data:{{seizureData}}
           </div>
         </div>
       </div>
     </div>
-    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+
+    <script>
+      // init vue app
+      var app = new Vue({
+        el: "#app",
+        data: {
+          seizureData: [1],
+          seizureList: [],
+          selected: null
+        },
+        methods: {
+          async fetchSeizureList() {
+            const data = await fetch("http://localhost:6969/seizure");
+            const datajson = await data.json();
+            this.seizureList = datajson;
+          },
+          async fetchSeizureData() {
+            const data = await fetch("http://localhost:6969/seizure/g/1");
+            const datajson = await data.json();
+            this.seizureData = datajson
+          },
+          myfunc: function() {
+            this.seizureData.push(1);
+          }
+        },
+        created() {
+          this.fetchSeizureList();
+        },
+        computed: {}
+      });
+    </script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script>
       $(document).ready(function() {
