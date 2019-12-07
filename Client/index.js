@@ -50,7 +50,6 @@ const MyHeadlessTask = async () => {
   var rightAnkleWindow = [];
 
   setInterval(function () {
-    //console.log('Interval')
     var datetime = new Date();
     var timestamp = datetime.toISOString();
 
@@ -65,9 +64,6 @@ const MyHeadlessTask = async () => {
 
       var rightArmString = timestamp + "," + "Right Arm" + "," + rightArmData.toString();
       var rightAnkleString = timestamp + "," + "Right Ankle" + "," + rightAnkleData.toString();
-
-      console.log(rightArmString)
-      console.log(rightAnkleString)
 
       dataJson.push({ limb: 'RA', data: rightArmData.toString(), timestamp: timestamp })
       dataJson.push({ limb: 'RL', data: rightAnkleData.toString(), timestamp: timestamp })
@@ -86,8 +82,8 @@ const MyHeadlessTask = async () => {
         });
 
       if (counter === 60) {
+        
         counter = 0;
-        console.log("FETCH and Detection")
         var isSeizure = seizureDetection.determine(rightArmWindow, rightAnkleWindow)
         console.log('Seizure Detection Result: ' + isSeizure)
 
