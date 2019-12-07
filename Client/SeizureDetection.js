@@ -1,8 +1,8 @@
-import {round, variance, norm } from 'mathjs';
+import { round, variance, norm } from 'mathjs';
 
-export default class SeizureDetection {    
-    
-    constructor() { 
+export default class SeizureDetection {
+
+    constructor() {
     }
 
     calculateVector(arrayValue) {
@@ -13,28 +13,28 @@ export default class SeizureDetection {
         });
 
         return vectorArray;
-    } 
+    }
 
-    calculateAverage(arrayValue){
+    calculateAverage(arrayValue) {
         total = 0.0;
 
-        arrayValue.forEach(element =>{
+        arrayValue.forEach(element => {
             total += element;
         });
 
-        avg = total / arrayValue.length;    
+        avg = total / arrayValue.length;
 
         return round(avg, 3);
     }
 
-    calculateVariance(arrayValue){
+    calculateVariance(arrayValue) {
 
         //console.log("variance: {0}".format(round(np.var(arrayValue),3)))
-        console.log(arrayValue)
+       // console.log(arrayValue)
         return round(variance(arrayValue), 3);
     }
-    
-    determine(rightArm,rightAnkle){
+
+    determine(rightArm, rightAnkle) {
 
         var WINDOW_SIZE = rightArm.length;
 
@@ -45,45 +45,48 @@ export default class SeizureDetection {
 
         } */
 
-        var mergedArrayRightArm = [];
-        for (i = 0; i < WINDOW_SIZE; i++){
-            mergedArrayRightArm.push([rightArm[i], rightArm[i], rightArm[i]]);
-        }
+        // console.log(rightArm[0])
+        // var mergedArrayRightArm = [];
 
-        var mergedArrayRightAnkle = [];
-        for (i = 0; i < WINDOW_SIZE; i++){
-            mergedArrayRightAnkle.push([rightAnkle[i], rightAnkle[i], rightAnkle[i]]);        
-        }
+        // for (i = 0; i < WINDOW_SIZE; i++){
+        //     mergedArrayRightArm.push([rightArm[i], rightArm[i], rightArm[i]]);
+        // }
 
-        var vectorArrayRightArm = this.calculateVector(mergedArrayRightArm);   
-            
+        //   console.log(mergedArrayRightArm)
 
-        var vectorArrayRightAnkle = this.calculateVector(mergedArrayRightAnkle);
+        // var mergedArrayRightAnkle = [];
+        // for (i = 0; i < WINDOW_SIZE; i++){
+        //     mergedArrayRightAnkle.push([rightAnkle[i], rightAnkle[i], rightAnkle[i]]);        
+        // }
+
+        var vectorArrayRightArm = this.calculateVector(rightArm);
+
+        var vectorArrayRightAnkle = this.calculateVector(rightAnkle);
 
         var vectorRightArm = this.calculateAverage(vectorArrayRightArm);
-        var vectorRightAnkle = this.calculateAverage(vectorArrayRightAnkle);      
+        var vectorRightAnkle = this.calculateAverage(vectorArrayRightAnkle);
 
         var varianceRightArm = this.calculateVariance(vectorArrayRightArm);
         var varianceRightAnkle = this.calculateVariance(vectorArrayRightAnkle);
 
 
         // console.log("analyzing data ...");
-        
+
         // console.log(varianceRightArm);
-        
+
         // console.log(varianceRightAnkle);
         // console.log(vectorRightArm);
         //console.log("HR:{0:3d},  varianceRightArm:{1:5.3f},  varianceRightAnkle:{2:5.3f}, vector:{3:5.3f}, vector:{4:5.3f}".format(sensorData[CHEST][HR][-1], varianceRightArm, varianceRightAnkle, vectorRightArm, vectorRightAnkle))
-        
-        if(varianceRightArm >= .001 && varianceRightAnkle >= .001 && vectorRightArm >= .8 && vectorRightAnkle >=.8 ){
-            
+
+        if (varianceRightArm >= .001 && varianceRightAnkle >= .001 && vectorRightArm >= .8 && vectorRightAnkle >= .8) {
+
             return true;
-        }else{
-            
+        } else {
+
             return false;
 
         }
-            
+
     }
 
 }
