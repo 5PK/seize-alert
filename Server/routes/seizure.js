@@ -3,14 +3,7 @@ import { Router } from "express";
 
 const router = Router();
 
-router.get("/", async (req, res) => {
-  console.log("Get Seisure Request made");
 
-  const seizures = await req.context.models.Seizure.findAll();
-  console.log(seizures);
-
-  return res.send(seizures);
-});
 
 router.post("/", async (req, res) => {
   console.log("_________Post Seizure_____________");
@@ -38,16 +31,31 @@ router.post("/", async (req, res) => {
   return res.send(seizure.dataValues);
 });
 
-router.get("/g/:seizureid", async (req, res) => {
+router.get("/g/:isSeizure", async (req, res) => {
   console.log("_________Post Seizure_____________");
+
+
+  console.log(req.query)
 
   const seizures = await req.context.models.Data.findAll({
     where: {
-      userId: req.query.seizureid
+      isSeizure: req.params.isSeizure
     }
   });
 
   console.log(seizures);
+  return res.send(seizures);
 });
+
+/*
+router.get("/", async (req, res) => {
+  console.log("Get Seisure Request made");
+
+  const seizures = await req.context.models.Seizure.findAll();
+  console.log(seizures);
+
+  return res.send(seizures);
+});
+*/
 
 export default router;

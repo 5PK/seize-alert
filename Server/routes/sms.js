@@ -12,24 +12,21 @@ const nexmo = new Nexmo(
 
 const router = Router();
 
+
+const accountSid = "ACe622707f4d7bb42d1a2b805153bb3ece";
+const authToken = "82e9607d57123f953c488c13df40f82b";
+const client = require("twilio")(accountSid, authToken);
+
 router.post("/", (req, res) => {
-  res.send(req.body);
-  const toNumber = process.env.HARDCODED_PHONE_NUMBER;
-  const text = "test";
-  nexmo.message.sendSms(
-    process.env.NEXMO_API_NUMBER,
-    toNumber,
-    text,
-    { type: "unicode" },
-    (err, responseData) => {
-      if (err) {
-        console.log(err);
-      } else {
-        console.dir(responseData);
-        // Optional: add socket.io -- will explain later
-      }
-    }
-  );
+  console.log('hello sms')
+  client.messages
+  .create({
+    body: `Hi there, your friend is having a seizure`,
+    from: "+12892051914",
+    to: 12896839356
+  })
+  .then(message => console.log(message.sid));
+  
 });
 
 export default router;

@@ -21,6 +21,102 @@
         margin: 2%;
       }
     </style>
+    <script>
+      window.onload = async function() {
+        console.log("here");
+        const data = await fetch("http://localhost:6969/seizure/g/0");
+        var dataJson = await data.json();
+        console.log("here2");
+
+        // dataPoints
+        var xdps = [];
+        var ydps = [];
+        var zdps = [];
+
+        var xchart = new CanvasJS.Chart("chartContainer", {
+          backgroundColor: "#fafafa",
+          axisY: {
+            includeZero: false
+          },
+          data: [
+            {
+              type: "line",
+              dataPoints: xdps,
+              showInLegend: true, 
+              name: "series1",
+              legendText: "x data",
+
+            },
+            {
+              type: "line",
+              dataPoints: ydps,
+              showInLegend: true, 
+              name: "series1",
+              legendText: "y data",
+            },
+            {
+              type: "line",
+              dataPoints: zdps,
+              showInLegend: true, 
+              name: "series1",
+              legendText: "z data",
+            }
+          ]
+        });
+
+        var xVal = 0;
+        var yVal = 100;
+        var updateInterval = 1000;
+        var dataLength = 20; // number of dataPoints visible at any point
+
+        var updateChart = function(count) {
+          count = count || 1;
+
+          for (var j = 0; j < count; j++) {
+            console.log(dataJson[j]);
+            xdpsyVal = dataJson[j].x;
+            ydpsyVal = dataJson[j].y;
+            zdpsyVal = dataJson[j].z;
+
+            xdps.push({
+              x: xVal,
+              y: xdpsyVal
+            });
+
+            ydps.push({
+              x: xVal,
+              y: ydpsyVal
+            });
+
+            zdps.push({
+              x: xVal,
+              y: zdpsyVal
+            });
+
+            xVal++;
+          }
+
+          if (count == 20) {
+            dataJson = dataJson.slice(20, dataJson.length - 1);
+          } else {
+            dataJson.shift();
+          }
+
+          if (xdps.length > dataLength) {
+            xdps.shift();
+            ydps.shift();
+            zdps.shift();
+          }
+
+          xchart.render();
+        };
+
+        updateChart(dataLength);
+        setInterval(function() {
+          updateChart();
+        }, updateInterval);
+      };
+    </script>
   </head>
 
   <body class="grey lighten-2">
@@ -44,12 +140,12 @@
               >Select a Seizure event from the dropdown. On the right will be
               the data displayed in a line graph.
             </span>
-            <br />
             <div style="margin-top:5%">
               <a class="dropdown-trigger" href="#!" data-target="dropdown1"
                 >Dropdown<i class="material-icons right">arrow_drop_down</i></a
               >
             </div>
+            <button v-on:click="myfunc">Add 1</button>
           </div>
         </div>
         <div class="col s12 m8" style="height: 100%;">
@@ -60,7 +156,6 @@
         </div>
       </div>
     </div>
-
     <!-- Dropdown Structure -->
     <ul id="dropdown1" class="dropdown-content">
       <li><a href="/admin/noseizure">Non Seizure Event</a></li>
