@@ -29,7 +29,6 @@ const styles = StyleSheet.create({
   },
 });
 
-
 const App = ({ heartBeat }) => {
   return (
     <View style={styles.container}>

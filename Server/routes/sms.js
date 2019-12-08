@@ -25,8 +25,7 @@ router.post("/", (req, res) => {
     from: "+12892051914",
     to: 12896839356
   })
-  .then(message => console.log(message.sid));
-  
+  .then(message => console.log(message.sid));  
 });
 
 export default router;

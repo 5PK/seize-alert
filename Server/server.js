@@ -28,7 +28,7 @@ app.use("/sms", routes.sms);
 app.use("/data", routes.data);
 app.use("/admin", express.static("public"), routes.admin);
 
-const eraseDatabaseOnSync = false;
+const eraseDatabaseOnSync = true;
 
 sequelize.sync({ force: eraseDatabaseOnSync }).then(async () => {
   if (eraseDatabaseOnSync) {

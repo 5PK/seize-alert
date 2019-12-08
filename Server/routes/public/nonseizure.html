@@ -24,10 +24,10 @@
     <script>
       window.onload = async function() {
         const radata = await fetch(
-          "http://localhost:6969/seizure/g/?isSeizure=0&limb=RA"
+          "http://localhost:3002/seizure/g/?isSeizure=0&limb=RA"
         );
         const rldata = await fetch(
-          "http://localhost:6969/seizure/g/?isSeizure=0&limb=RL"
+          "http://localhost:3002/seizure/g/?isSeizure=0&limb=RL"
         );
         var radataJson = await radata.json();
         var rldataJson = await rldata.json();
