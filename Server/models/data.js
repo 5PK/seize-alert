@@ -10,10 +10,6 @@ const data = (sequelize, DataTypes) => {
     timestamps: false
   });
 
-  Data.associate = models => {
-    Data.belongsTo(models.Seizure, { foreignKey: 'seizureId' });
-  };
-
   return Data;
 };
 
