@@ -23,17 +23,25 @@
     </style>
     <script>
       window.onload = async function() {
-        console.log("here");
-        const data = await fetch("http://localhost:6969/seizure/g/0");
-        var dataJson = await data.json();
-        console.log("here2");
+        const radata = await fetch(
+          "http://localhost:6969/seizure/g/?isSeizure=0&limb=RA"
+        );
+        const rldata = await fetch(
+          "http://localhost:6969/seizure/g/?isSeizure=0&limb=RL"
+        );
+        var radataJson = await radata.json();
+        var rldataJson = await rldata.json();
 
         // dataPoints
-        var xdps = [];
-        var ydps = [];
-        var zdps = [];
+        var raxdps = [];
+        var raydps = [];
+        var razdps = [];
 
-        var xchart = new CanvasJS.Chart("chartContainer", {
+        var rlxdps = [];
+        var rlydps = [];
+        var rlzdps = [];
+
+        var rlchart = new CanvasJS.Chart("RLchart", {
           backgroundColor: "#fafafa",
           axisY: {
             includeZero: false
@@ -41,25 +49,54 @@
           data: [
             {
               type: "line",
-              dataPoints: xdps,
-              showInLegend: true, 
+              dataPoints: rlxdps,
+              showInLegend: true,
               name: "series1",
-              legendText: "x data",
+              legendText: "x data"
+            },
+            {
+              type: "line",
+              dataPoints: rlydps,
+              showInLegend: true,
+              name: "series1",
+              legendText: "y data"
+            },
+            {
+              type: "line",
+              dataPoints: rlzdps,
+              showInLegend: true,
+              name: "series1",
+              legendText: "z data"
+            }
+          ]
+        });
 
+        var rachart = new CanvasJS.Chart("RAchart", {
+          backgroundColor: "#fafafa",
+          axisY: {
+            includeZero: false
+          },
+          data: [
+            {
+              type: "line",
+              dataPoints: raxdps,
+              showInLegend: true,
+              name: "series1",
+              legendText: "x data"
             },
             {
               type: "line",
-              dataPoints: ydps,
-              showInLegend: true, 
+              dataPoints: raydps,
+              showInLegend: true,
               name: "series1",
-              legendText: "y data",
+              legendText: "y data"
             },
             {
               type: "line",
-              dataPoints: zdps,
-              showInLegend: true, 
+              dataPoints: razdps,
+              showInLegend: true,
               name: "series1",
-              legendText: "z data",
+              legendText: "z data"
             }
           ]
         });
@@ -73,42 +110,67 @@
           count = count || 1;
 
           for (var j = 0; j < count; j++) {
-            console.log(dataJson[j]);
-            xdpsyVal = dataJson[j].x;
-            ydpsyVal = dataJson[j].y;
-            zdpsyVal = dataJson[j].z;
+            console.log(radataJson[j]);
+            var raxdpsyVal = radataJson[j].x;
+            var raydpsyVal = radataJson[j].y;
+            var razdpsyVal = radataJson[j].z;
 
-            xdps.push({
+            var rlxdpsyVal = rldataJson[j].x;
+            var rlydpsyVal = rldataJson[j].y;
+            var rlzdpsyVal = rldataJson[j].z;
+
+            raxdps.push({
               x: xVal,
-              y: xdpsyVal
+              y: raxdpsyVal
             });
 
-            ydps.push({
+            raydps.push({
               x: xVal,
-              y: ydpsyVal
+              y: raydpsyVal
             });
 
-            zdps.push({
+            razdps.push({
               x: xVal,
-              y: zdpsyVal
+              y: razdpsyVal
+            });
+
+            rlxdps.push({
+              x: xVal,
+              y: rlxdpsyVal
+            });
+
+            rlydps.push({
+              x: xVal,
+              y: rlydpsyVal
+            });
+
+            rlzdps.push({
+              x: xVal,
+              y: rlzdpsyVal
             });
 
             xVal++;
           }
 
           if (count == 20) {
-            dataJson = dataJson.slice(20, dataJson.length - 1);
+            radataJson = radataJson.slice(20, radataJson.length - 1);
+            rldataJson = rldataJson.slice(20, rldataJson.length - 1);
           } else {
-            dataJson.shift();
+            radataJson.shift();
+            rldataJson.shift();
           }
 
-          if (xdps.length > dataLength) {
-            xdps.shift();
-            ydps.shift();
-            zdps.shift();
+          if (raxdps.length > dataLength) {
+            raxdps.shift();
+            raydps.shift();
+            razdps.shift();
+            rlxdps.shift();
+            rlydps.shift();
+            rlzdps.shift();
           }
 
-          xchart.render();
+          rlchart.render();
+          rachart.render();
         };
 
         updateChart(dataLength);
@@ -125,6 +187,16 @@
         <a href="/admin" class="brand-logo" style="margin-left: 2%"
           >Seize Alert Administrator</a
         >
+        <ul class="right hide-on-med-and-down">
+          <!-- Dropdown Trigger -->
+          <li>
+            <a class="dropdown-trigger" href="#!" data-target="dropdown1"
+              >Seizure Events<i class="material-icons right"
+                >arrow_drop_down</i
+              ></a
+            >
+          </li>
+        </ul>
         <a href="#" data-target="mobile-demo" class="sidenav-trigger"
           ><i class="material-icons">menu</i></a
         >
@@ -133,33 +205,24 @@
 
     <div class="container" style="margin-top:5%; width:85%;" id="app">
       <div class="row">
-        <div class="col s12 m4" style="height: 100%;">
-          <div class="card-panel te grey lighten-5" style="height: 70%;">
-            <h4>Select Data:</h4>
-            <span class="black-text"
-              >Select a Seizure event from the dropdown. On the right will be
-              the data displayed in a line graph.
-            </span>
-            <div style="margin-top:5%">
-              <a class="dropdown-trigger" href="#!" data-target="dropdown1"
-                >Dropdown<i class="material-icons right">arrow_drop_down</i></a
-              >
-            </div>
-            <button v-on:click="myfunc">Add 1</button>
+        <div class="col s12 m6" style="height: 100%;">
+          <div class="card-panel grey lighten-5" style="height: 70%;">
+            <h4>Right Arm Data:</h4>
+            <div id="RAchart"></div>
           </div>
         </div>
-        <div class="col s12 m8" style="height: 100%;">
+        <div class="col s12 m6" style="height: 100%;">
           <div class="card-panel  grey lighten-5" style="height: 70%;">
-            <h4>Live Seizure Data:</h4>
-            <div id="chartContainer"></div>
+            <h4>Right Leg Data:</h4>
+            <div id="RLchart"></div>
           </div>
         </div>
       </div>
     </div>
     <!-- Dropdown Structure -->
     <ul id="dropdown1" class="dropdown-content">
-      <li><a href="/admin/noseizure">Non Seizure Event</a></li>
-      <li><a href="/admin/seizure">Seizure Event</a></li>
+      <li><a href="/admin/noseizure">Event 1 - Non Seizure</a></li>
+      <li><a href="/admin/seizure">Event 2 - Seizure Event</a></li>
     </ul>
     <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
