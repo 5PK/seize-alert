@@ -28,19 +28,16 @@ router.get("/last", async (req, res) => {
   return res.send(seizure.dataValues);
 });
 
-router.get("/g/:isSeizure", async (req, res) => {
-  console.log("_________Post Seizure_____________");
-
-
-  console.log(req.query)
+router.get("/g/", async (req, res) => {
+  console.log("get seizures Seizure_____________");
 
   const seizures = await req.context.models.Data.findAll({
     where: {
-      isSeizure: req.params.isSeizure
+      isSeizure: req.query.isSeizure,
+      limb: req.query.limb
     }
   });
 
-  console.log(seizures);
   return res.send(seizures);
 });
 
