@@ -14,12 +14,29 @@ import android.os.Build;
 
 import com.facebook.react.HeadlessJsTaskService;
 
+/**
+ * Seizure service that extends to the service class.
+ */
 public class SeizureService extends Service {
 
+    /**
+     * Stores service notification for the app
+     */
     private static final int SERVICE_NOTIFICATION_ID = 12345;
+
+    /**
+     * Stores th channel id of the app service.
+     */
     private static final String CHANNEL_ID = "SEIZURE";
 
+    /**
+     * Stores handler for the seizure service.
+     */
     private Handler handler = new Handler();
+
+    /**
+     * Stores the
+     */
     private Runnable runnableCode = new Runnable() {
         @Override
         public void run() {

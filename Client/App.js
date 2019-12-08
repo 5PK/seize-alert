@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import SeizureAlert from './SeizureAlert';
 import logo from './logo.png';
 
+// Style sheets.
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -29,7 +30,7 @@ const styles = StyleSheet.create({
   },
 });
 
-
+// Rendering for Seizure alert.
 const App = ({ heartBeat }) => {
   return (
     <View style={styles.container}>

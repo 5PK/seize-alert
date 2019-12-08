@@ -65,8 +65,8 @@ const MyHeadlessTask = async () => {
       var rightArmString = timestamp + "," + "Right Arm" + "," + rightArmData.toString();
       var rightAnkleString = timestamp + "," + "Right Ankle" + "," + rightAnkleData.toString();
 
-      dataJson.push({ limb: 'RA', x: rightArmData[0],y: rightArmData[0],z:rightArmData[0],timestamp: timestamp })
-      dataJson.push({ limb: 'RL', x: rightAnkleData[0],y: rightAnkleData[0],z:rightAnkleData[0], timestamp: timestamp })
+      dataJson.push({ limb: 'RA', x: rightArmData[0], y: rightArmData[0], z: rightArmData[0], timestamp: timestamp })
+      dataJson.push({ limb: 'RL', x: rightAnkleData[0], y: rightAnkleData[0], z: rightAnkleData[0], timestamp: timestamp })
 
       rightArmWindow.push(rightArmData)
       rightAnkleWindow.push(rightAnkleData)
@@ -82,7 +82,7 @@ const MyHeadlessTask = async () => {
         });
 
       if (counter === 60) {
-        
+
         counter = 0;
         var isSeizure = seizureDetection.determine(rightArmWindow, rightAnkleWindow)
         console.log('Seizure Detection Result: ' + isSeizure)
@@ -109,6 +109,7 @@ const MyHeadlessTask = async () => {
   }, 1000)
 }
 
+// Revisit, be sure to ask what this is.
 const RNRedux = () => (
   <Provider store={store}>
     <App />

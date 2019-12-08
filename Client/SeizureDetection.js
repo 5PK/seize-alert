@@ -5,6 +5,11 @@ export default class SeizureDetection {
     constructor() {
     }
 
+    /**
+     * Computes vectors of seizure detected data from the right arm or ankle of a user.
+     * @param {array} arrayValue an array of seizure detected data from the right arm or the ankle of a user.
+     * @returns a vector array that has calculated vector values from the seizure detected data.
+     */
     calculateVector(arrayValue) {
         vectorArray = [];
         arrayValue.forEach(element => {
@@ -63,9 +68,11 @@ export default class SeizureDetection {
 
         var vectorArrayRightAnkle = this.calculateVector(rightAnkle);
 
+        // Average
         var vectorRightArm = this.calculateAverage(vectorArrayRightArm);
         var vectorRightAnkle = this.calculateAverage(vectorArrayRightAnkle);
 
+        // Variance
         var varianceRightArm = this.calculateVariance(vectorArrayRightArm);
         var varianceRightAnkle = this.calculateVariance(vectorArrayRightAnkle);
 

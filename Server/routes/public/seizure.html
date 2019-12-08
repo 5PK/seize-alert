@@ -1,172 +1,187 @@
 <html>
-  <head>
-    <title>Administrator</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <!-- Compiled and minified CSS -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
-    />
-    <link
-      href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet"
-    />
-    <!-- Compiled and minified JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
-    <style>
-      .menuBtn {
-        width: 200px;
-        height: 200px;
-        margin: 2%;
-      }
-    </style>
-    <script>
-      window.onload = async function() {
-        const data = await fetch("http://localhost:6969/seizure/g/1");
-        var dataJson = await data.json();
+<head>
+  <title>Seizure</title>
 
-        // dataPoints
-        var xdps = [];
-        var ydps = [];
-        var zdps = [];
+  <!-- Scripts -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
-        var xchart = new CanvasJS.Chart("chartContainer", {
-          backgroundColor: "#fafafa",
-          axisY: {
-            includeZero: false
+  <!-- Style sheets -->
+  <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+
+  <!-- Compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+  <!-- Internal Style sheet. -->
+  <style>
+    .menuBtn {
+      width: 200px;
+      height: 200px;
+      margin: 2%;
+    }
+  </style>
+
+  <!-- Internal Javascript -->
+  <script>
+    window.onload = async function () {
+      const data = await fetch("http://localhost:6969/seizure/g/1");
+      var dataJson = await data.json();
+
+      // dataPoints
+      var xdps = [];
+      var ydps = [];
+      var zdps = [];
+      
+      // Create Chart
+      // Currently have dummy data to display the chart properly.
+      var xchart = new CanvasJS.Chart("chartContainer", {
+        backgroundColor: "#fafafa",
+        axisY: {
+          includeZero: false
+        },
+        data: [
+          {
+            type: "line",
+            dataPoints: xdps,
+            showInLegend: true,
+            name: "series1",
+            legendText: "x data",
+
           },
-          data: [
-            {
-              type: "line",
-              dataPoints: xdps,
-              showInLegend: true, 
-              name: "series1",
-              legendText: "x data",
-
-            },
-            {
-              type: "line",
-              dataPoints: ydps,
-              showInLegend: true, 
-              name: "series1",
-              legendText: "y data",
-            },
-            {
-              type: "line",
-              dataPoints: zdps,
-              showInLegend: true, 
-              name: "series1",
-              legendText: "z data",
-            }
-          ]
-        });
-
-        var xVal = 0;
-        var yVal = 100;
-        var updateInterval = 1000;
-        var dataLength = 20; // number of dataPoints visible at any point
-
-        var updateChart = function(count) {
-          count = count || 1;
-
-          for (var j = 0; j < count; j++) {
-            console.log(dataJson[j]);
-            xdpsyVal = dataJson[j].x;
-            ydpsyVal = dataJson[j].y;
-            zdpsyVal = dataJson[j].z;
-
-            xdps.push({
-              x: xVal,
-              y: xdpsyVal
-            });
-
-            ydps.push({
-              x: xVal,
-              y: ydpsyVal
-            });
-
-            zdps.push({
-              x: xVal,
-              y: zdpsyVal
-            });
-
-            xVal++;
+          {
+            type: "line",
+            dataPoints: ydps,
+            showInLegend: true,
+            name: "series1",
+            legendText: "y data",
+          },
+          {
+            type: "line",
+            dataPoints: zdps,
+            showInLegend: true,
+            name: "series1",
+            legendText: "z data",
           }
-
-          if (count == 20) {
-            dataJson = dataJson.slice(20, dataJson.length - 1);
-          } else {
-            dataJson.shift();
-          }
-
-          if (xdps.length > dataLength) {
-            xdps.shift();
-            ydps.shift();
-            zdps.shift();
-          }
-
-          xchart.render();
-        };
-
-        updateChart(dataLength);
-        setInterval(function() {
-          updateChart();
-        }, updateInterval);
-      };
-    </script>
-  </head>
-
-  <body class="grey lighten-2">
-    <nav>
-      <div class="nav-wrapper blue-grey">
-        <a href="/admin" class="brand-logo" style="margin-left: 2%"
-          >Seize Alert Administrator</a
-        >
-        <a href="#" data-target="mobile-demo" class="sidenav-trigger"
-          ><i class="material-icons">menu</i></a
-        >
-      </div>
-    </nav>
-
-    <div class="container" style="margin-top:5%; width:85%;" id="app">
-      <div class="row">
-        <div class="col s12 m4" style="height: 100%;">
-          <div class="card-panel te grey lighten-5" style="height: 70%;">
-            <h4>Select Data:</h4>
-            <span class="black-text"
-              >Select a Seizure event from the dropdown. On the right will be
-              the data displayed in a line graph.
-            </span>
-            <div style="margin-top:5%">
-              <a class="dropdown-trigger" href="#!" data-target="dropdown1"
-                >Dropdown<i class="material-icons right">arrow_drop_down</i></a
-              >
-            </div>
-            <button v-on:click="myfunc">Add 1</button>
-          </div>
-        </div>
-        <div class="col s12 m8" style="height: 100%;">
-          <div class="card-panel  grey lighten-5" style="height: 70%;">
-            <h4>Live Seizure Data:</h4>
-            <div id="chartContainer"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- Dropdown Structure -->
-    <ul id="dropdown1" class="dropdown-content">
-      <li><a href="/admin/noseizure">Non Seizure Event</a></li>
-      <li><a href="/admin/seizure">Seizure Event</a></li>
-    </ul>
-    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <script>
-      $(document).ready(function() {
-        $(".sidenav").sidenav();
-        $("select").formSelect();
-        $(".dropdown-trigger").dropdown();
+        ]
       });
-    </script>
-  </body>
+
+      // Initializing coordinate values.
+      var xVal = 0;
+      var yVal = 100;
+      var updateInterval = 1000;
+      var dataLength = 20; // number of dataPoints visible at any point
+
+      // Update
+      var updateChart = function (count) {
+        count = count || 1;
+
+        for (var j = 0; j < count; j++) {
+          console.log(dataJson[j]);
+          xdpsyVal = dataJson[j].x;
+          ydpsyVal = dataJson[j].y;
+          zdpsyVal = dataJson[j].z;
+
+          xdps.push({
+            x: xVal,
+            y: xdpsyVal
+          });
+
+          ydps.push({
+            x: xVal,
+            y: ydpsyVal
+          });
+
+          zdps.push({
+            x: xVal,
+            y: zdpsyVal
+          });
+
+          xVal++;
+        }
+        
+        if (count == 20) {
+          dataJson = dataJson.slice(20, dataJson.length - 1);
+        } else {
+          dataJson.shift();
+        }
+
+        // Do you need to shift the graph coordinates.
+        if (xdps.length > dataLength) {
+          xdps.shift();
+          ydps.shift();
+          zdps.shift();
+        }
+
+        xchart.render();
+      };
+
+      // Update Chart.
+      updateChart(dataLength);
+      setInterval(function () {
+        updateChart();
+      }, updateInterval);
+    };
+  </script>
+</head>
+
+<body class="grey lighten-2">
+
+  <!-- Start Nav -->
+  <nav>
+    <div class="nav-wrapper blue-grey">
+      <a href="/admin" class="brand-logo" style="margin-left: 2%">Seize Alert Administrator</a>
+      <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+    </div>
+  </nav>    <!-- End of Nav  -->
+
+  <!-- Start of Container. -->
+  <div class="container" style="margin-top:5%; width:85%;" id="app">
+    <!-- Start of row. -->
+    <div class="row">
+      <div class="col s12 m4" style="height: 100%;">
+        <div class="card-panel te grey lighten-5" style="height: 70%;">
+          <h4>Select Data:</h4>
+          <span class="black-text">Select a Seizure event from the dropdown. On the right will be
+            the data displayed in a line graph.
+          </span>
+          <div style="margin-top:5%">
+            <a class="dropdown-trigger" href="#!" data-target="dropdown1">Dropdown<i
+                class="material-icons right">arrow_drop_down</i></a>
+          </div>
+          <button v-on:click="myfunc">Add 1</button>
+        </div>
+      </div>
+
+      <!-- Live seizure Data graph. -->
+      <div class="col s12 m8" style="height: 100%;">
+        <div class="card-panel  grey lighten-5" style="height: 70%;">
+          <h4>Live Seizure Data:</h4>
+          <div id="chartContainer"></div>
+        </div>
+      </div>      <!-- End of seizure data graph -->
+
+    </div>     <!-- End of Row. -->
+  </div>   <!-- End of Container -->
+
+  <!-- Dropdown Structure -->
+  <ul id="dropdown1" class="dropdown-content">
+    <li><a href="/admin/noseizure">Non Seizure Event</a></li>
+    <li><a href="/admin/seizure">Seizure Event</a></li>
+  </ul>
+
+  <!-- Scripts -->
+  <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script>
+    // Sidebar navigations.
+    $(document).ready(function () {
+      $(".sidenav").sidenav();
+      $("select").formSelect();
+      $(".dropdown-trigger").dropdown();
+    });
+  </script>
+</body>
+
 </html>
