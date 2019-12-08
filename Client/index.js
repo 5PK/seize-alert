@@ -65,8 +65,8 @@ const MyHeadlessTask = async () => {
       var rightArmString = timestamp + "," + "Right Arm" + "," + rightArmData.toString();
       var rightAnkleString = timestamp + "," + "Right Ankle" + "," + rightAnkleData.toString();
 
-      dataJson.push({ limb: 'RA', x: rightArmData[0],y: rightArmData[0],z:rightArmData[0],timestamp: timestamp })
-      dataJson.push({ limb: 'RL', x: rightAnkleData[0],y: rightAnkleData[0],z:rightAnkleData[0], timestamp: timestamp })
+      dataJson.push({ limb: 'RA', x: rightArmData[0],y: rightArmData[1],z:rightArmData[2],timestamp: timestamp })
+      dataJson.push({ limb: 'RL', x: rightAnkleData[0],y: rightAnkleData[1],z:rightAnkleData[2], timestamp: timestamp })
 
       rightArmWindow.push(rightArmData)
       rightAnkleWindow.push(rightAnkleData)
