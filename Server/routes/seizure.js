@@ -7,26 +7,23 @@ const router = Router();
 
 router.post("/", async (req, res) => {
   console.log("_________Post Seizure_____________");
-  console.log(req.body.name);
 
   const seizure = await req.context.models.Seizure.create({
-    dateOccured: req.body.dateOccured,
-    isSeizure: req.body.isSeizure,
-    userId: 1
+    dateOccured: req.body.dateOccured
   });
 
-  console.log(seizure);
 
-  req.body.array.forEach(element => {
-    element['seizureId'] = seizure.dataValues.id
-  });
+  console.log(seizure)
 
-  console.log(req.body.array)
+  return res.send(seizure.dataValues);
+});
 
-  const data = await req.context.models.Data.bulkCreate(req.body.array);
+router.get("/last", async (req, res) => {
+  console.log("_________Get Last Seizure_____________");
 
-  
-  console.log(data);
+  const seizure = await req.context.models.Seizure.findOne({order: [ [ 'createdAt', 'DESC' ]],});
+
+  console.log(seizure)
 
   return res.send(seizure.dataValues);
 });
