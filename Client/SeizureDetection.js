@@ -35,7 +35,7 @@ export default class SeizureDetection {
     calculateVariance(arrayValue) {
 
         //console.log("variance: {0}".format(round(np.var(arrayValue),3)))
-       // console.log(arrayValue)
+        // console.log(arrayValue)
         return round(variance(arrayValue), 3);
     }
 
@@ -79,13 +79,13 @@ export default class SeizureDetection {
 
         // console.log("analyzing data ...");
 
-        // console.log(varianceRightArm);
-
-        // console.log(varianceRightAnkle);
-        // console.log(vectorRightArm);
+        console.log(varianceRightArm + "VA RAR");
+        console.log(varianceRightAnkle + "VA RA");
+        console.log(vectorRightArm + "VE RAR");
+        console.log(vectorRightAnkle + "VE RA")
         //console.log("HR:{0:3d},  varianceRightArm:{1:5.3f},  varianceRightAnkle:{2:5.3f}, vector:{3:5.3f}, vector:{4:5.3f}".format(sensorData[CHEST][HR][-1], varianceRightArm, varianceRightAnkle, vectorRightArm, vectorRightAnkle))
 
-        if (varianceRightArm >= .001 && varianceRightAnkle >= .001 && vectorRightArm >= .8 && vectorRightAnkle >= .8) {
+        if (varianceRightArm >= .2 && varianceRightAnkle >= .2 && vectorRightArm >= 1.5 && vectorRightAnkle >= 1.5) {
 
             return true;
         } else {

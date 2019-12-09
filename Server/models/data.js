@@ -16,12 +16,6 @@ const data = (sequelize, DataTypes) => {
   }, {
     timestamps: false
   });
-
-  // Associate seizure data to the user.
-  Data.associate = models => {
-    Data.belongsTo(models.Seizure, { foreignKey: 'seizureId' });
-  };
-
   return Data;
 };
 

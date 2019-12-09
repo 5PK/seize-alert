@@ -22,7 +22,6 @@ const user = (sequelize, DataTypes) => {
   // Assoicate user from the database.
   User.associate = models => {
     User.hasMany(models.Contact, { onDelete: 'CASCADE' }, { foreignKey: 'userId' });
-    User.hasMany(models.Seizure, { onDelete: 'CASCADE' }, { foreignKey: 'userId' });
   };
 
   // Find the user login credentials.

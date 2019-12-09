@@ -126,7 +126,7 @@ export default class Bluetooth {
             int16_Num[0] = valueToCalculate
             Multiplier = Multiplier * 256
         }
-        return Uint16_Num[0]
+        return int16_Num[0]
     }
 
     /**

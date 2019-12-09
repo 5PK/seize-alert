@@ -6,15 +6,10 @@
  */
 const seizure = (sequelize, DataTypes) => {
   // Define sequelized seizure data.
-  const Seizure = sequelize.define('seizure', {
-    dateOccured: DataTypes.DATE,
-    isSeizure: DataTypes.BOOLEAN
-  });
-
-  // Associate seizure to a user of a userid.
-  Seizure.associate = models => {
-    Seizure.belongsTo(models.User, { foreignKey: 'userId' });
-    Seizure.hasMany(models.Data, { foreignKey: 'seizureId' });
+    const Seizure = sequelize.define('seizure', {
+      dateOccured: DataTypes.DATE,
+    });
+    return Seizure;
   };
   return Seizure;
 };
