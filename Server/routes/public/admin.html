@@ -1,19 +1,20 @@
 <html>
+
   <head>
     <title>Administrator</title>
+
+    <!-- Jquery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <!-- Style sheets -->
     <!-- Compiled and minified CSS -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
-    />
-    <link
-      href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet"
-    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
+    <!-- Internal Style sheet. -->
     <style>
       .menuBtn {
         width: 200px;
@@ -26,22 +27,15 @@
   <body class="grey lighten-2">
     <nav>
       <div class="nav-wrapper blue-grey">
-        <a href="/admin" class="brand-logo" style="margin-left: 2%"
-          >Seize Alert Administrator</a
-        >
+        <a href="/admin" class="brand-logo" style="margin-left: 2%">Seize Alert Administrator</a>
         <ul class="right hide-on-med-and-down">
           <!-- Dropdown Trigger -->
           <li>
-            <a class="dropdown-trigger" href="#!" data-target="dropdown1"
-              >Seizure Events<i class="material-icons right"
-                >arrow_drop_down</i
-              ></a
-            >
+            <a class="dropdown-trigger" href="#!" data-target="dropdown1">Seizure Events<i
+                class="material-icons right">arrow_drop_down</i></a>
           </li>
         </ul>
-        <a href="#" data-target="mobile-demo" class="sidenav-trigger"
-          ><i class="material-icons">menu</i></a
-        >
+        <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
       </div>
     </nav>
 
@@ -52,8 +46,7 @@
             Seizure Admin Portal
           </h4>
           <div style="margin-top:5%">
-            <span class="black-text"
-              >Welcome to the SeizeAlert Administrator portal! Here you can
+            <span class="black-text">Welcome to the SeizeAlert Administrator portal! Here you can
               access your subject's seizure event history. Select a seizure
               event from the list below, or the dropdown in the top right
               corner.
@@ -63,32 +56,28 @@
             <h6>
               Event List
             </h6>
-            <div class="collection" >
-              <a href="/admin/noseizure" class="collection-item"
-                >Event 1 - Non Seizure</a
-              >
-              <a href="/admin/seizure" class="collection-item"
-                >Event 2 - Seizure Event</a
-              >
+            <div class="collection">
+              <a href="/admin/noseizure" class="collection-item">Event 1 - Non Seizure</a>
+              <a href="/admin/seizure" class="collection-item">Event 2 - Seizure Event</a>
             </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <!-- Dropdown Structure -->
-    <ul id="dropdown1" class="dropdown-content">
-      <li><a href="/admin/noseizure">Event 1 - Non Seizure</a></li>
-      <li><a href="/admin/seizure">Event 2 - Seizure Event</a></li>
-    </ul>
-    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <script>
-      $(document).ready(function() {
-        $(".sidenav").sidenav();
-        $("select").formSelect();
-        $(".dropdown-trigger").dropdown();
-      });
-    </script>
+      <!-- Dropdown Structure -->
+      <ul id="dropdown1" class="dropdown-content">
+        <li><a href="/admin/noseizure">Event 1 - Non Seizure</a></li>
+        <li><a href="/admin/seizure">Event 2 - Seizure Event</a></li>
+      </ul>
+      <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+      <script>
+        $(document).ready(function () {
+          $(".sidenav").sidenav();
+          $("select").formSelect();
+          $(".dropdown-trigger").dropdown();
+        });
+      </script>
   </body>
+
 </html>

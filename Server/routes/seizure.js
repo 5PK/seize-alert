@@ -3,11 +3,13 @@ import { Router } from "express";
 
 const router = Router();
 
+// Requests
 
-
+// Post
 router.post("/", async (req, res) => {
   console.log("_________Post Seizure_____________");
 
+  // Create Seizure data.
   const seizure = await req.context.models.Seizure.create({
     dateOccured: req.body.dateOccured
   });
@@ -31,6 +33,18 @@ router.get("/last", async (req, res) => {
 router.get("/g/", async (req, res) => {
   console.log("get seizures Seizure_____________");
 
+  console.log(req.body.array);
+  const data = await req.context.models.Data.bulkCreate(req.body.array);
+  console.log(data);
+  return res.send(seizure.dataValues);
+});
+
+// Get Seizure data.
+router.get("/g/:isSeizure", async (req, res) => {
+  console.log("_________Post Seizure_____________");
+  console.log(req.query);
+
+  // Find data that is determined to be a seizure.
   const seizures = await req.context.models.Data.findAll({
     where: {
       isSeizure: req.query.isSeizure,
