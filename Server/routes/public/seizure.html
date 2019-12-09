@@ -24,10 +24,10 @@
     <script>
       window.onload = async function() {
         const radata = await fetch(
-          "http://localhost:6969/seizure/g/?isSeizure=1&limb=RA"
+          "http://localhost:3002/seizure/g/?isSeizure=1&limb=RA"
         );
         const rldata = await fetch(
-          "http://localhost:6969/seizure/g/?isSeizure=1&limb=RL"
+          "http://localhost:3002/seizure/g/?isSeizure=1&limb=RL"
         );
         var radataJson = await radata.json();
         var rldataJson = await rldata.json();
@@ -208,13 +208,13 @@
         <div class="col s12 m6" style="height: 100%;">
           <div class="card-panel grey lighten-5" style="height: 70%;">
             <h4>Right Arm Data:</h4>
-            <div id="RAchart"></div>
+            <div id="RAchart" style="height: 80%;"></div>
           </div>
         </div>
         <div class="col s12 m6" style="height: 100%;">
           <div class="card-panel  grey lighten-5" style="height: 70%;">
             <h4>Right Leg Data:</h4>
-            <div id="RLchart"></div>
+            <div id="RLchart" style="height: 80%;"></div>
           </div>
         </div>
       </div>

@@ -21,12 +21,11 @@ router.post("/", (req, res) => {
   console.log('hello sms')
   client.messages
   .create({
-    body: `Hi there, your friend is having a seizure`,
+    body: `SEIZURE WARNING! A seizure event has been detected for patient Riley Hancox`,
     from: "+12892051914",
     to: 12896839356
   })
-  .then(message => console.log(message.sid));
-  
+  .then(message => console.log(message.sid));  
 });
 
 export default router;

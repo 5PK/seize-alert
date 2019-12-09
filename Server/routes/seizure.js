@@ -12,7 +12,6 @@ router.post("/", async (req, res) => {
     dateOccured: req.body.dateOccured
   });
 
-
   console.log(seizure)
 
   return res.send(seizure.dataValues);
@@ -23,8 +22,8 @@ router.get("/last", async (req, res) => {
 
   const seizure = await req.context.models.Seizure.findOne({order: [ [ 'createdAt', 'DESC' ]],});
 
-  console.log(seizure)
-
+  console.log(JSON.stringify(seizure.dataValues))
+  
   return res.send(seizure.dataValues);
 });
 

@@ -65,8 +65,8 @@ const MyHeadlessTask = async () => {
       var rightArmString = timestamp + "," + "Right Arm" + "," + rightArmData.toString();
       var rightAnkleString = timestamp + "," + "Right Ankle" + "," + rightAnkleData.toString();
 
-      dataJson.push({ limb: 'RA', x: rightArmData[0],y: rightArmData[1],z:rightArmData[2],timestamp: timestamp })
-      dataJson.push({ limb: 'RL', x: rightAnkleData[0],y: rightAnkleData[1],z:rightAnkleData[2], timestamp: timestamp })
+      dataJson.push({ limb: 'RA', x: rightArmData[0], y: rightArmData[1], z: rightArmData[2], timestamp: timestamp })
+      dataJson.push({ limb: 'RL', x: rightAnkleData[0], y: rightAnkleData[1], z: rightAnkleData[2], timestamp: timestamp })
 
       rightArmWindow.push(rightArmData)
       rightAnkleWindow.push(rightAnkleData)
@@ -81,11 +81,33 @@ const MyHeadlessTask = async () => {
           console.log(err.message);
         });
 
-      if (counter === 60) {
-        
+      if (counter === 15) {
+
         counter = 0;
         var isSeizure = seizureDetection.determine(rightArmWindow, rightAnkleWindow)
         console.log('Seizure Detection Result: ' + isSeizure)
+
+        if (isSeizure) {
+          fetch(getEnvVars.apiUrl + `/sms`, {
+            method: "POST",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json"
+            }
+          })
+
+          fetch(getEnvVars.apiUrl + `/seizure`, {
+            method: "POST",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+              dateOccured: timestamp,
+            })
+          });
+  
+        }
 
         fetch(getEnvVars.apiUrl + `/data`, {
           method: "POST",
