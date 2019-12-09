@@ -10,8 +10,6 @@ const seizure = (sequelize, DataTypes) => {
       dateOccured: DataTypes.DATE,
     });
     return Seizure;
-  };
-  return Seizure;
 };
 
 export default seizure;
