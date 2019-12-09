@@ -16,7 +16,6 @@ const data = (sequelize, DataTypes) => {
   }, {
     timestamps: false
   });
-
   return Data;
 };
 

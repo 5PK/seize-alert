@@ -1,14 +1,18 @@
 <html>
-
 <head>
-  <title>Non-Seizure</title>
+  <title>Live seizure data graph.</title>
+
+  <!-- Scripts -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
   <!-- Compiled and minified CSS -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+  
   <!-- Compiled and minified JavaScript -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
+  <!-- Internal style sheet -->
   <style>
     .menuBtn {
       width: 200px;
@@ -16,26 +20,27 @@
       margin: 2%;
     }
   </style>
+
+  <!-- Internal JS script -->
   <script>
     window.onload = async function () {
       const radata = await fetch(
-        "http://localhost:6969/seizure/g/?isSeizure=0&limb=RA"
+        "http://localhost:3002/seizure/g/?isSeizure=0&limb=RA"
       );
       const rldata = await fetch(
-        "http://localhost:6969/seizure/g/?isSeizure=0&limb=RL"
+        "http://localhost:3002/seizure/g/?isSeizure=0&limb=RL"
       );
       var radataJson = await radata.json();
       var rldataJson = await rldata.json();
-
       // dataPoints
       var raxdps = [];
       var raydps = [];
       var razdps = [];
-
       var rlxdps = [];
       var rlydps = [];
       var rlzdps = [];
 
+      // Create a chart using canvas js chart.
       var rlchart = new CanvasJS.Chart("RLchart", {
         backgroundColor: "#fafafa",
         axisY: {
@@ -96,54 +101,46 @@
         ]
       });
 
+      // Initializes graph coordinates.
       var xVal = 0;
       var yVal = 100;
       var updateInterval = 1000;
       var dataLength = 20; // number of dataPoints visible at any point
-      
+
       var updateChart = function (count) {
         count = count || 1;
-
         for (var j = 0; j < count; j++) {
           console.log(radataJson[j]);
           var raxdpsyVal = radataJson[j].x;
           var raydpsyVal = radataJson[j].y;
           var razdpsyVal = radataJson[j].z;
-
           var rlxdpsyVal = rldataJson[j].x;
           var rlydpsyVal = rldataJson[j].y;
           var rlzdpsyVal = rldataJson[j].z;
-
           raxdps.push({
             x: xVal,
             y: raxdpsyVal
           });
-
           raydps.push({
             x: xVal,
             y: raydpsyVal
           });
-
           razdps.push({
             x: xVal,
             y: razdpsyVal
           });
-
           rlxdps.push({
             x: xVal,
             y: rlxdpsyVal
           });
-
           rlydps.push({
             x: xVal,
             y: rlydpsyVal
           });
-
           rlzdps.push({
             x: xVal,
             y: rlzdpsyVal
           });
-
           xVal++;
         }
 
@@ -154,7 +151,6 @@
           radataJson.shift();
           rldataJson.shift();
         }
-
         if (raxdps.length > dataLength) {
           raxdps.shift();
           raydps.shift();
@@ -162,14 +158,15 @@
           rlxdps.shift();
           rlydps.shift();
           rlzdps.shift();
-
         }
-
         rlchart.render();
         rachart.render();
       };
 
+      // Update chart
       updateChart(dataLength);
+
+      // Set the interval.
       setInterval(function () {
         updateChart();
       }, updateInterval);
@@ -179,7 +176,7 @@
 
 <body class="grey lighten-2">
 
-  <!-- Start of nav. -->
+  <!-- Nav bar. -->
   <nav>
     <div class="nav-wrapper blue-grey">
       <a href="/admin" class="brand-logo" style="margin-left: 2%">Seize Alert Administrator</a>
@@ -192,30 +189,25 @@
       </ul>
       <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
     </div>
-  </nav>  <!-- End of Nav. -->
+  </nav> <!-- End of Nav bar. -->
 
-  <!-- Start of container. -->
+  <!-- Container Starts here. -->
   <div class="container" style="margin-top:5%; width:85%;" id="app">
-
-    <!-- Start of row. -->
     <div class="row">
       <div class="col s12 m6" style="height: 100%;">
         <div class="card-panel grey lighten-5" style="height: 70%;">
           <h4>Right Arm Data:</h4>
-          <div id="RAchart"></div>
+          <div id="RAchart" style="height: 80%;"></div>
         </div>
       </div>
-
       <div class="col s12 m6" style="height: 100%;">
         <div class="card-panel  grey lighten-5" style="height: 70%;">
           <h4>Right Leg Data:</h4>
-          <div id="RLchart"></div>
+          <div id="RLchart" style="height: 80%;"></div>
         </div>
-        <button v-on:click="myfunc">Add 1</button>
       </div>
-
-    </div>     <!-- End of row -->
-  </div>  <!-- End of Container -->
+    </div> <!-- End of Row -->
+  </div> <!-- End of Container -->
 
   <!-- Dropdown Structure -->
   <ul id="dropdown1" class="dropdown-content">
@@ -227,7 +219,7 @@
   <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   <script>
-    // Side bar navigation.
+    // Side navigations
     $(document).ready(function () {
       $(".sidenav").sidenav();
       $("select").formSelect();

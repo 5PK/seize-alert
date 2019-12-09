@@ -5,9 +5,12 @@
  * @returns sequelized seizure data of a userid.
  */
 const seizure = (sequelize, DataTypes) => {
+  // Define sequelized seizure data.
     const Seizure = sequelize.define('seizure', {
       dateOccured: DataTypes.DATE,
     });
+    return Seizure;
+  };
   return Seizure;
 };
 
