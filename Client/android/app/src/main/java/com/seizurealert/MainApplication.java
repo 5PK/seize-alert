@@ -14,12 +14,24 @@ import java.util.List;
 
 public class MainApplication extends Application implements ReactApplication {
 
+  /**
+   * Initializes a react native host.
+   */
   private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
+    
+    /**
+     * Get the current state of debug mode for the build.
+     * @return state of the build config in debug mode.
+     */
     @Override
     public boolean getUseDeveloperSupport() {
       return BuildConfig.DEBUG;
     }
 
+    /**
+     * Get the list of react packages.
+     * @return an array of all react packages by the application.
+     */
     @Override
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
@@ -30,17 +42,28 @@ public class MainApplication extends Application implements ReactApplication {
       );
     }
 
+    /**
+     * Get Js main module name.
+     * @return index.
+     */
     @Override
     protected String getJSMainModuleName() {
       return "index";
     }
   };
 
+  /**
+   * Get React Native host.
+   * @return main react native host.
+   */
   @Override
   public ReactNativeHost getReactNativeHost() {
     return mReactNativeHost;
   }
 
+  /**
+   * Creates the main application.
+   */
   @Override
   public void onCreate() {
     super.onCreate();

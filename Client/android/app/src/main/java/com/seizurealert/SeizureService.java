@@ -14,13 +14,34 @@ import android.os.Build;
 
 import com.facebook.react.HeadlessJsTaskService;
 
+/**
+ * Seizure service that extends to the service class.
+ */
 public class SeizureService extends Service {
 
+    /**
+     * Stores service notification for the app
+     */
     private static final int SERVICE_NOTIFICATION_ID = 12345;
+
+    /**
+     * Stores th channel id of the app service.
+     */
     private static final String CHANNEL_ID = "SEIZURE";
 
+    /**
+     * Stores handler for the seizure service.
+     */
     private Handler handler = new Handler();
+
+    /**
+     * Stores the runnable code for the headless js task.
+     */
     private Runnable runnableCode = new Runnable() {
+
+        /**
+         * Run the headless js task.
+         */
         @Override
         public void run() {
             Context context = getApplicationContext();
@@ -29,6 +50,10 @@ public class SeizureService extends Service {
             HeadlessJsTaskService.acquireWakeLockNow(context);
         }
     };
+
+    /**
+     * Create a notification channel.
+     */
     private void createNotificationChannel() {
         // Create the NotificationChannel, but only on API 26+ because
         // the NotificationChannel class is new and not in the support library
@@ -41,23 +66,36 @@ public class SeizureService extends Service {
         }
     }
 
+    /**
+     * On bind intent, return null.
+     * @return null.
+     */
     @Override
     public IBinder onBind(Intent intent) {
         return null;
     }
 
+    /**
+     * Create seizure service 
+     */
     @Override
     public void onCreate() {
         super.onCreate();
-
     }
 
+    /**
+     * Destroy callbacks for the seizure services
+     */
     @Override
     public void onDestroy() {
         super.onDestroy();
         this.handler.removeCallbacks(this.runnableCode);
     }
 
+    /**
+     * On start command, create the notificiation for the seizure service app
+     * @return start seizure service for the app.
+     */
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         this.handler.post(this.runnableCode);

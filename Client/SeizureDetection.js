@@ -1,10 +1,19 @@
 import { round, variance, norm } from 'mathjs';
 
+/**
+ * Seizure detection calculations from the sensor tag.
+ */
 export default class SeizureDetection {
 
+    // Empty constructor
     constructor() {
     }
 
+    /**
+     * Computes vectors of seizure detected data from the right arm or ankle of a user.
+     * @param {array} arrayValue an array of seizure detected data from the right arm or the ankle of a user.
+     * @returns a vector array that has calculated vector values from the seizure detected data.
+     */
     calculateVector(arrayValue) {
         vectorArray = [];
         arrayValue.forEach(element => {
@@ -15,6 +24,11 @@ export default class SeizureDetection {
         return vectorArray;
     }
 
+    /**
+     * Calculate average of the detected seizure data. 
+     * @param {any} arrayValue detected Seizure data
+     * @returns average of the seizure data.
+     */
     calculateAverage(arrayValue) {
         total = 0.0;
 
@@ -27,6 +41,11 @@ export default class SeizureDetection {
         return round(avg, 3);
     }
 
+    /**
+     * Calculates variance from the seizure data and returns the calculations in variance.
+     * @param {any} arrayValue detected seizure data.
+     * @returns variance of the detected seizure data.
+     */
     calculateVariance(arrayValue) {
 
         //console.log("variance: {0}".format(round(np.var(arrayValue),3)))
@@ -34,6 +53,14 @@ export default class SeizureDetection {
         return round(variance(arrayValue), 3);
     }
 
+    /**
+     * Determine whether if seizure was detected or not based of the arm and ankle data.
+     * @param {any} rightArm Data from the right arm.
+     * @param {any} rightAnkle Data from the ankle arm.
+     * @returns 
+     * True: seizure was detected.
+     * False: Seizure was not detected.
+     */
     determine(rightArm, rightAnkle) {
 
         var WINDOW_SIZE = rightArm.length;
@@ -59,17 +86,19 @@ export default class SeizureDetection {
         //     mergedArrayRightAnkle.push([rightAnkle[i], rightAnkle[i], rightAnkle[i]]);        
         // }
 
+        // Calculations
         var vectorArrayRightArm = this.calculateVector(rightArm);
-
         var vectorArrayRightAnkle = this.calculateVector(rightAnkle);
 
+        // Average
         var vectorRightArm = this.calculateAverage(vectorArrayRightArm);
         var vectorRightAnkle = this.calculateAverage(vectorArrayRightAnkle);
 
+        // Variance
         var varianceRightArm = this.calculateVariance(vectorArrayRightArm);
         var varianceRightAnkle = this.calculateVariance(vectorArrayRightAnkle);
 
-
+        // Debugging purposes for displaying calculated data.
         // console.log("analyzing data ...");
 
         console.log(varianceRightArm + "VA RAR");
@@ -78,6 +107,7 @@ export default class SeizureDetection {
         console.log(vectorRightAnkle + "VE RA")
         //console.log("HR:{0:3d},  varianceRightArm:{1:5.3f},  varianceRightAnkle:{2:5.3f}, vector:{3:5.3f}, vector:{4:5.3f}".format(sensorData[CHEST][HR][-1], varianceRightArm, varianceRightAnkle, vectorRightArm, vectorRightAnkle))
 
+        // Check the variance and vector data detect seizures.
         if (varianceRightArm >= .2 && varianceRightAnkle >= .2 && vectorRightArm >= 1.5 && vectorRightAnkle >= 1.5) {
 
             return true;

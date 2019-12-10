@@ -1,18 +1,26 @@
+/**
+ * Defines a contact for a user from sequelized user data and initalizes them of data types.
+ * returns a contact.
+ * @param {any} sequelize Sequelized user data.
+ * @param {any} DataTypes User data types.
+ * @returns a contact assoicated to the user.
+ */
 const contact = (sequelize, DataTypes) => {
-    const Contact = sequelize.define('contact', {
-      name: DataTypes.STRING,
-      phoneNumber: DataTypes.STRING,
-      isQuickContact: DataTypes.BOOLEAN,
-      email: DataTypes.STRING,
-      avatarUrl: DataTypes.STRING,
-      nickName: DataTypes.STRING,
-    });
-  
-    Contact.associate = models => {
-        Contact.belongsTo(models.User, { foreignKey: 'userId' });
-    };
-  
-    return Contact;
+  // Define contact.
+  const Contact = sequelize.define('contact', {
+    name: DataTypes.STRING,
+    phoneNumber: DataTypes.STRING,
+    isQuickContact: DataTypes.BOOLEAN,
+    email: DataTypes.STRING,
+    avatarUrl: DataTypes.STRING,
+    nickName: DataTypes.STRING,
+  });
+
+  // Associate contact to a user based on a user id.
+  Contact.associate = models => {
+    Contact.belongsTo(models.User, { foreignKey: 'userId' });
   };
-  
-  export default contact;
+  return Contact;
+};
+
+export default contact;

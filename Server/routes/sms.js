@@ -2,6 +2,7 @@ import { Router } from "express";
 
 import Nexmo from "nexmo";
 
+// Initializing Nexmo
 const nexmo = new Nexmo(
   {
     apiKey: process.env.NEXMO_API_KEY,
@@ -12,11 +13,12 @@ const nexmo = new Nexmo(
 
 const router = Router();
 
-
+// API keys for Nemo and twilio.
 const accountSid = "ACe622707f4d7bb42d1a2b805153bb3ece";
 const authToken = "82e9607d57123f953c488c13df40f82b";
 const client = require("twilio")(accountSid, authToken);
 
+// Requests for SMS
 router.post("/", (req, res) => {
   console.log('hello sms')
   client.messages

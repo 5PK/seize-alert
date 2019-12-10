@@ -8,6 +8,7 @@ import logo from './logo.png';
 import getEnvVars from './env.js'
 import { round } from 'mathjs'
 
+// Style sheets.
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -35,6 +36,7 @@ const styles = StyleSheet.create({
   },
 });
 
+// Rendering for Seizure alert.
 const App = ({ }) => {
 
   const [data, setData] = useState(0);
