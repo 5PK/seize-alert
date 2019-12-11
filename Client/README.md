@@ -2,14 +2,14 @@
 
 The Client is written in Javascript using React Native.
 
-### Intallation
-
-Prerequisites:
+### Prerequisites
 
 - Have Git installed.
 - Access to a UNIX terminal. Git Bash on Windows.
 - NPM installed https://www.npmjs.com/get-npm
 - Have a mobile emulator installed. This comes default with the Android SDK when installing Android Studio if you're debugging on an Android Device.
+
+### Installation
 
 1. Clone the repo
 2. Enter the Client directory
