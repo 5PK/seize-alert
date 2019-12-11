@@ -20,3 +20,8 @@ application is a Full Stack solution which provides the possibility of extending
 1. Sensor tag polling rate
 2. IOS not supported
 3. Better detection algorithm required
+
+# Instructions
+
+- Fork/Clone the repository
+- Follow the instructions in the Client/ and Server/ READMEs
